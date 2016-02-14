@@ -23,9 +23,9 @@ import math
 import tf
 
 # Euler stuff
-float64 roll
-float64 pitch
-float64 yaw
+roll = 0
+pitch = 0
+yaw = 0
 
 #using namespace std;
 
@@ -58,6 +58,10 @@ def callback(imu):
 	vel.angular.z = roll
 
 	# debug messages
+	rospy.loginfo(rospy.get_caller_id() + ' r=%s', roll)
+	rospy.loginfo(rospy.get_caller_id() + ' p=%s', pitch)
+	rospy.loginfo(rospy.get_caller_id() + ' y=%s', yaw)
+
 	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
 	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 

@@ -3,7 +3,7 @@
 <!-- Listening to a teleop_twist_keyboard -->
 <launch>
   <!-- This node reads out the Bosch IMU BNO055 (via Adartuit Python library) -->
-  <node name="bno055_node" pkg="bno055_driver" type="bno055_node.py.py" output="screen"/>
+  <node name="bno055_node" pkg="bno055_driver" type="bno055_node.py" output="screen"/>
 
   <!-- This node listens to the bno055_node and publishes Twist vel messages for a turtle -->
   <node name="imu_to_turtle_publisher" pkg="minibot" type="imu_to_turtle_publisher.py" output="screen"/>

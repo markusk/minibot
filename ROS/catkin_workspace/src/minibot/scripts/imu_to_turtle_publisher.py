@@ -51,11 +51,11 @@ def callback(imu):
 	vel.angular.z = roll
 
 	# debug messages
-	rospy.loginfo(rospy.get_caller_id() + ' IMU x=%s', imu.orientation.x)
+"""	rospy.loginfo(rospy.get_caller_id() + ' IMU x=%s', imu.orientation.x)
 	rospy.loginfo(rospy.get_caller_id() + ' IMU y=%s', imu.orientation.y)
 	rospy.loginfo(rospy.get_caller_id() + ' IMU z=%s', imu.orientation.z)
 	rospy.loginfo(rospy.get_caller_id() + ' IMU w=%s', imu.orientation.w)
-
+"""
 	#rospy.loginfo(rospy.get_caller_id() + ' r=%s', roll)
 	#rospy.loginfo(rospy.get_caller_id() + ' p=%s', pitch)
 	#rospy.loginfo(rospy.get_caller_id() + ' y=%s', yaw)

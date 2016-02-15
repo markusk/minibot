@@ -78,7 +78,7 @@ def listener():
 	#	rospy.wait_for_service('bno055_driver')
 
 	# subscribe (listen) to IMU data
-	rospy.Subscriber('imu/data', Imu, callback)
+	rospy.Subscriber('/imu/data', Imu, callback)
 
 	# Ready
 	rospy.loginfo("Ready. Start Turtlesim and move sensor around to move the turtle.")

@@ -14,7 +14,7 @@ secs = 2
 # init
 GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 
-# pins		BCM	  BOARD
+# pins	    BCM   BOARD
 ledPin     = 18 # pin 12
 switchPin  = 23 # pin 16
 batteryPin = 24 # pin 18
@@ -30,13 +30,13 @@ GPIO.setup(batteryPin, GPIO.IN)
 #
 
 # turn LED on
-GPIO.output(ledPin, GPIO.HIGH)
+GPIO.output(ledPin, GPIO.LOW)
 
 # delay x seconds
 time.sleep(secs)
 
 # turn LED off
-GPIO.output(ledPin, GPIO.LOW)
+GPIO.output(ledPin, GPIO.HIGH)
 
 # cleanup
 GPIO.cleanup()

@@ -53,4 +53,5 @@ GPIO.output(ledPin, GPIO.HIGH)
 
 
 # cleanup
+GPIO.remove_event_detect(switchPin)
 GPIO.cleanup()

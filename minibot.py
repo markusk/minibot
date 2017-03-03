@@ -1,91 +1,68 @@
 #!/usr/bin/python
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
-try:
-    import RPi.GPIO as GPIO
-except RuntimeError:
-    print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
+import time
+import atexit
 
-import time # for sleep
+# create a default object, no changes to I2C address or frequency
+mh = Adafruit_MotorHAT(addr=0x60)
 
-# print some infos
-# print GPIO.RPI_INFO
+# recommended for auto-disabling motors on shutdown!
+def turnOffMotors():
+    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
-# timings
-secs = 2
+atexit.register(turnOffMotors)
 
-# init
-# GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
-GPIO.setmode(GPIO.BOARD) # use the GPIO names, _not_ the pin numbers on the board
 
-# pins				BOARD	 BCM
-motor1A   = 11 # Motor 1 A	pin 11 = GPIO 17
-motor1B   = 13 # Motor 1 B	pin 13 = GPIO 27
-motor1PWM = 15 # Motor 1 PWM	pin 15 = GPIO 22
-motor2A   = 22 # Motor 2 A	pin 22 = GPIO 25
-motor2B   = 24 # Motor 2 B	pin 24 = GPIO  8
-motor2PWM = 26 # Motor 2 PWM	pin 26 = GPIO  7
+################################# DC motor test!
+myMotor1 = mh.getMotor(1)
+myMotor2 = mh.getMotor(2)
 
-# speed in percent
-motor1speed = 128 # 128
-motor2speed = 128 # 128
-# PWM duty cycle
-motor1dc = 1.0
-motor2dc = 1.0
+# set the speed to start, from 0 (off) to 255 (max speed)
+myMotor1.setSpeed(170)
+myMotor2.run(Adafruit_MotorHAT.FORWARD);
+# turn on motor
+myMotor1.run(Adafruit_MotorHAT.RELEASE);
+myMotor1.run(Adafruit_MotorHAT.RELEASE);
 
-# PWM frequency in Hz
-motor1freq = 100
-motor2freq = 100
 
-# setup GPIO outputs
-print('starting setup...')
-GPIO.setup(motor1A,   GPIO.OUT)
-GPIO.setup(motor1B,   GPIO.OUT)
-GPIO.setup(motor1PWM, GPIO.OUT)
-GPIO.setup(motor2A,   GPIO.OUT)
-GPIO.setup(motor2B,   GPIO.OUT)
-GPIO.setup(motor2PWM, GPIO.OUT)
+while (True):
+    print("Forward! ")
+    myMotor1.run(Adafruit_MotorHAT.FORWARD)
+    myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
-# setup PWM Hz
-# pwm1 = GPIO.PWM(motor1PWM, motor1freq)
-# pwm2 = GPIO.PWM(motor2PWM, motor2freq)
-# neu neu neu
-GPIO.output(motor1PWM, GPIO.HIGH)
-GPIO.output(motor2PWM, GPIO.HIGH)
+    print("\tSpeed up...")
+    for i in range(255):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        time.sleep(0.01)
 
-# start pwm
-print('starting PWM...')
-#pwm1.start(motor1dc)
-#pwm2.start(motor2dc)
+    print("\tSlow down...")
+    for i in reversed(range(255)):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        time.sleep(0.01)
 
-# --- drive ---
-print('!!driving forward for ' + str(secs) + ' seconds !!')
-# motor 1 (left) forward
-GPIO.output(motor1A, GPIO.HIGH)
-GPIO.output(motor1B, GPIO.LOW)
+    print("Backward! ")
+    myMotor1.run(Adafruit_MotorHAT.BACKWARD)
+    myMotor2.run(Adafruit_MotorHAT.BACKWARD)
 
-# motor 2 (right) forward
-GPIO.output(motor2A, GPIO.HIGH)
-GPIO.output(motor2B, GPIO.LOW)
+    print("\tSpeed up...")
+    for i in range(255):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        time.sleep(0.01)
 
-# delay x seconds
-time.sleep(secs)
-	
-# --- stop ---
-print('motor off...')
-# motor 1
-GPIO.output(motor1A, GPIO.LOW)
-GPIO.output(motor1B, GPIO.LOW)
-# motor 2
-GPIO.output(motor2A, GPIO.LOW)
-GPIO.output(motor2B, GPIO.LOW)
-	
-# stop pwm
-print('stopping PWM...')
-# pwm1.stop()
-# pwm2.stop()
-# neu neu neu
-GPIO.output(motor1PWM, GPIO.LOW)
-GPIO.output(motor2PWM, GPIO.LOW)
+    print("\tSlow down...")
+    for i in reversed(range(255)):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        time.sleep(0.01)
 
-# cleanup
-GPIO.cleanup()
+    print("Release")
+    myMotor1.run(Adafruit_MotorHAT.RELEASE)
+    myMotor2.run(Adafruit_MotorHAT.RELEASE)
+    time.sleep(1.0)

@@ -11,18 +11,19 @@ import time # for sleep
 # print GPIO.RPI_INFO
 
 # timings
-secs = 5
+secs = 2
 
 # init
-GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
+# GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
+GPIO.setmode(GPIO.BOARD) # use the GPIO names, _not_ the pin numbers on the board
 
 # pins				BOARD	 BCM
-motor1A   = 17 # Motor 1 A	pin 11 = GPIO 17
-motor1B   = 27 # Motor 1 B	pin 13 = GPIO 27
-motor1PWM = 22 # Motor 1 PWM	pin 15 = GPIO 22
-motor2A   = 25 # Motor 2 A	pin 22 = GPIO 25
-motor2B   = 8  # Motor 2 B	pin 24 = GPIO  8
-motor2PWM = 7  # Motor 2 PWM	pin 26 = GPIO  7
+motor1A   = 11 # Motor 1 A	pin 11 = GPIO 17
+motor1B   = 13 # Motor 1 B	pin 13 = GPIO 27
+motor1PWM = 15 # Motor 1 PWM	pin 15 = GPIO 22
+motor2A   = 22 # Motor 2 A	pin 22 = GPIO 25
+motor2B   = 24 # Motor 2 B	pin 24 = GPIO  8
+motor2PWM = 26 # Motor 2 PWM	pin 26 = GPIO  7
 
 # speed in percent
 motor1speed = 128 # 128
@@ -58,10 +59,11 @@ print('starting PWM...')
 
 # --- drive ---
 print('!!driving forward for ' + str(secs) + ' seconds !!')
-# motor 1 forward
+# motor 1 (left) forward
 GPIO.output(motor1A, GPIO.HIGH)
 GPIO.output(motor1B, GPIO.LOW)
-# motor 2 forward
+
+# motor 2 (right) forward
 GPIO.output(motor2A, GPIO.HIGH)
 GPIO.output(motor2B, GPIO.LOW)
 

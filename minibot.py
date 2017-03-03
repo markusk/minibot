@@ -59,13 +59,13 @@ print('starting PWM...')
 
 # --- drive ---
 print('!!driving forward for ' + str(secs) + ' seconds !!')
-# motor 1 (links) forward  GEHT
+# motor 1 (left) forward
 GPIO.output(motor1A, GPIO.HIGH)
 GPIO.output(motor1B, GPIO.LOW)
 
-# motor 2 (rechts) forward  GEHT
-GPIO.output(motor2A, GPIO.LOW)
-GPIO.output(motor2B, GPIO.HIGH)
+# motor 2 (right) forward
+GPIO.output(motor2A, GPIO.HIGH)
+GPIO.output(motor2B, GPIO.LOW)
 
 # delay x seconds
 time.sleep(secs)

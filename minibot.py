@@ -82,9 +82,11 @@ disp.display()
 # motors
 
 # set the speed to start, from 0 (off) to 255 (max speed)
-myMotor1.setSpeed(170)
+startSpeed = 100
+
+myMotor1.setSpeed(startSpeed)
 myMotor1.run(Adafruit_MotorHAT.FORWARD);
-myMotor1.setSpeed(170)
+myMotor1.setSpeed(startSpeed)
 myMotor2.run(Adafruit_MotorHAT.FORWARD);
 
 while (True):
@@ -93,13 +95,13 @@ while (True):
     myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
     print("\tSpeed up...")
-    for i in range(255):
+    for i in range(startSpeed, 255):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
     print("\tSlow down...")
-    for i in reversed(range(255)):
+    for i in range(255, startSpeed, -1):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
@@ -109,13 +111,13 @@ while (True):
     myMotor2.run(Adafruit_MotorHAT.BACKWARD)
 
     print("\tSpeed up...")
-    for i in range(255):
+    for i in range(startSpeed, 255):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
     print("\tSlow down...")
-    for i in reversed(range(255)):
+    for i in range(255, startSpeed, -1):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)

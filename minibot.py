@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+###### AD converter stuff
+from MCP3008 import MCP3008
+adc = MCP3008()
+voltage = 0
 
 ###### motor stuff
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
@@ -71,8 +75,7 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 # Load default font.
 # font = ImageFont.load_default()
 
-# Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
-# Some other nice fonts to try: http://www.dafont.com/bitmap.php
+# load my favorite TTF font
 font = ImageFont.truetype('Roboto-Regular.ttf', 12)
 
 # Write two lines of text.
@@ -84,7 +87,14 @@ disp.image(image)
 disp.display()
 
 
+###### forever - or until ctrl+c  :)
 while (True):
+    # read AD converter (battery voltage)
+    # use channel 0 on IC
+    voltage = adc.read(channel = 0)
+    print("Voltage: %.2f" % (value / 1023.0 * 3.3))
+
+    # drive
     print("Forward! ")
     myMotor1.run(Adafruit_MotorHAT.FORWARD)
     myMotor2.run(Adafruit_MotorHAT.FORWARD)

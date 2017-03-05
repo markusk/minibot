@@ -23,11 +23,9 @@ myMotor2 = mh.getMotor(2)
 
 # set the speed to start, from 0 (off) to 255 (max speed)
 myMotor1.setSpeed(170)
+myMotor1.run(Adafruit_MotorHAT.FORWARD);
+myMotor1.setSpeed(170)
 myMotor2.run(Adafruit_MotorHAT.FORWARD);
-# turn on motor
-myMotor1.run(Adafruit_MotorHAT.RELEASE);
-myMotor1.run(Adafruit_MotorHAT.RELEASE);
-
 
 while (True):
     print("Forward! ")

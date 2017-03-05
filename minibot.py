@@ -28,9 +28,8 @@ mh = Adafruit_MotorHAT(addr=0x60)
 def turnOffMotors():
     mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
+# what to do at program exit
 atexit.register(turnOffMotors)
 
 # user motor 1 and 2 on RasPi hat
@@ -40,6 +39,11 @@ myMotor2 = mh.getMotor(2)
 # turn off motors
 myMotor1.run(Adafruit_MotorHAT.RELEASE);
 myMotor2.run(Adafruit_MotorHAT.RELEASE);
+
+# set the speed (from 0 (off) to 255 (max speed))
+startSpeed = 100
+myMotor1.setSpeed(startSpeed)
+myMotor2.setSpeed(startSpeed)
 
 
 ################## loop
@@ -79,15 +83,6 @@ draw.text((0, 20), 'Battery: 11.1V', font=font, fill=255)
 disp.image(image)
 disp.display()
 
-# motors
-
-# set the speed to start, from 0 (off) to 255 (max speed)
-startSpeed = 100
-
-myMotor1.setSpeed(startSpeed)
-myMotor1.run(Adafruit_MotorHAT.FORWARD);
-myMotor1.setSpeed(startSpeed)
-myMotor2.run(Adafruit_MotorHAT.FORWARD);
 
 while (True):
     print("Forward! ")

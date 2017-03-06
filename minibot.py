@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+# for getting the hostname of the underlying system
+import socket
+
+
 ###### AD converter stuff
 from MCP3008 import MCP3008
 adc = MCP3008()
@@ -24,6 +28,9 @@ RST = 24
 # create a 128x32 display with hardware I2C
 disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 
+# showing hostname
+hostname = socket.gethostname()
+print("Running on host " + hostname + ".")
 
 # create a default motor object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT(addr=0x60)

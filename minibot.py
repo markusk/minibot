@@ -101,42 +101,46 @@ while (True):
     # read AD converter (battery voltage)
     # use channel 0 on IC
     voltage = adc.read(channel = 0)
-    print("Voltage: %.2f" % (value / 1023.0 * 3.3))
+    print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
 
-    # drive
-    print("Forward! ")
-    myMotor1.run(Adafruit_MotorHAT.FORWARD)
-    myMotor2.run(Adafruit_MotorHAT.FORWARD)
+    # run some parts only on the real robot
+    if hostname == 'minibot':
+        # drive
+        print("Forward! ")
+        myMotor1.run(Adafruit_MotorHAT.FORWARD)
+        myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
-    print("\tSpeed up...")
-    for i in range(startSpeed, 255):
-        myMotor1.setSpeed(i)
-        myMotor2.setSpeed(i)
-        time.sleep(0.01)
+        print("\tSpeed up...")
+        for i in range(startSpeed, 255):
+            myMotor1.setSpeed(i)
+            myMotor2.setSpeed(i)
+            time.sleep(0.01)
 
-    print("\tSlow down...")
-    for i in range(255, startSpeed, -1):
-        myMotor1.setSpeed(i)
-        myMotor2.setSpeed(i)
-        time.sleep(0.01)
+        print("\tSlow down...")
+        for i in range(255, startSpeed, -1):
+            myMotor1.setSpeed(i)
+            myMotor2.setSpeed(i)
+            time.sleep(0.01)
 
-    print("Backward! ")
-    myMotor1.run(Adafruit_MotorHAT.BACKWARD)
-    myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+        print("Backward! ")
+        myMotor1.run(Adafruit_MotorHAT.BACKWARD)
+        myMotor2.run(Adafruit_MotorHAT.BACKWARD)
 
-    print("\tSpeed up...")
-    for i in range(startSpeed, 255):
-        myMotor1.setSpeed(i)
-        myMotor2.setSpeed(i)
-        time.sleep(0.01)
+        print("\tSpeed up...")
+        for i in range(startSpeed, 255):
+            myMotor1.setSpeed(i)
+            myMotor2.setSpeed(i)
+            time.sleep(0.01)
 
-    print("\tSlow down...")
-    for i in range(255, startSpeed, -1):
-        myMotor1.setSpeed(i)
-        myMotor2.setSpeed(i)
-        time.sleep(0.01)
+        print("\tSlow down...")
+        for i in range(255, startSpeed, -1):
+            myMotor1.setSpeed(i)
+            myMotor2.setSpeed(i)
+            time.sleep(0.01)
 
-    print("Release")
-    myMotor1.run(Adafruit_MotorHAT.RELEASE)
-    myMotor2.run(Adafruit_MotorHAT.RELEASE)
+        print("Release")
+        myMotor1.run(Adafruit_MotorHAT.RELEASE)
+        myMotor2.run(Adafruit_MotorHAT.RELEASE)
+    
+    # sleep
     time.sleep(1.0)

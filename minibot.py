@@ -32,29 +32,31 @@ disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 hostname = socket.gethostname()
 print("Running on host " + hostname + ".")
 
-# create a default motor object, no changes to I2C address or frequency
-mh = Adafruit_MotorHAT(addr=0x60)
+# run some parts only on the real robot
+if hostname == 'minibot':
+    # create a default motor object, no changes to I2C address or frequency
+    mh = Adafruit_MotorHAT(addr=0x60)
 
-# recommended for auto-disabling motors on shutdown!
-def turnOffMotors():
-    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    # recommended for auto-disabling motors on shutdown!
+    def turnOffMotors():
+        mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+        mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
 
-# what to do at program exit
-atexit.register(turnOffMotors)
+    # what to do at program exit
+    atexit.register(turnOffMotors)
 
-# user motor 1 and 2 on RasPi hat
-myMotor1 = mh.getMotor(1)
-myMotor2 = mh.getMotor(2)
+    # user motor 1 and 2 on RasPi hat
+    myMotor1 = mh.getMotor(1)
+    myMotor2 = mh.getMotor(2)
 
-# turn off motors
-myMotor1.run(Adafruit_MotorHAT.RELEASE);
-myMotor2.run(Adafruit_MotorHAT.RELEASE);
+    # turn off motors
+    myMotor1.run(Adafruit_MotorHAT.RELEASE);
+    myMotor2.run(Adafruit_MotorHAT.RELEASE);
 
-# set the speed (from 0 (off) to 255 (max speed))
-startSpeed = 100
-myMotor1.setSpeed(startSpeed)
-myMotor2.setSpeed(startSpeed)
+    # set the speed (from 0 (off) to 255 (max speed))
+    startSpeed = 100
+    myMotor1.setSpeed(startSpeed)
+    myMotor2.setSpeed(startSpeed)
 
 
 ################## loop

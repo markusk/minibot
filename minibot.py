@@ -109,7 +109,7 @@ while (True):
 
     # test test test "empty battery" (clear part of battery symbol)
     time.sleep(1)
-    rectw = 20
+    rectw = 18
     recth = 22
  
     draw.rectangle((8, 10, rectw, recth), outline=0, fill=0)
@@ -117,7 +117,12 @@ while (True):
     disp.image(image)
     disp.display()
 
-    draw.rectangle((8+rectw, 10, rectw, recth), outline=0, fill=0)
+    draw.rectangle((8+1*rectw, 10, rectw, recth), outline=0, fill=0)
+    time.sleep(1)
+    disp.image(image)
+    disp.display()
+
+    draw.rectangle((8+2*rectw, 10, rectw, recth), outline=0, fill=0)
     time.sleep(1)
     disp.image(image)
     disp.display()

@@ -100,8 +100,8 @@ while (True):
     draw.rectangle((0,0, width, height), outline=0, fill=0)
     # draw text
     draw.text(( 0, 0), "d", font=fontSymbol, fill=255)
-#    draw.text((40, 0), str("%.2f V" % (voltage / 1023.0 * 3.3)), font=fontText, fill=255)
-    draw.text((55, 4), "11.0 V", font=fontText, fill=255)
+    # draw.text((55, 4), "11.0 V", font=fontText, fill=255)
+    draw.text((55, 4), str("%.2f V" % (voltage / 1023.0 * 3.3)), font=fontText, fill=255)
     # go
     disp.image(image)
     disp.display()

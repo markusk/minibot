@@ -88,8 +88,8 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 font = ImageFont.truetype('Roboto-Regular.ttf', 12)
 
 # Write two lines of text.
-draw.text((0, 0),  'Domo Arigato Roboto!',  font=font, fill=255)
-draw.text((0, 20), 'Battery: 11.1V', font=font, fill=255)
+# draw.text((0, 0),  'Domo Arigato Roboto!',  font=font, fill=255)
+# draw.text((0, 20), 'Battery: 11.1V', font=font, fill=255)
 
 # Display image.
 disp.image(image)
@@ -102,6 +102,12 @@ while (True):
     # use channel 0 on IC
     voltage = adc.read(channel = 0)
     print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+
+    # show text on LCD
+    draw.rectangle((0,20, width, height-20), outline=0, fill=0)
+    draw.text((0, 20), str("Battery: %.2fV" % (voltage / 1023.0 * 3.3)), font=font, fill=255)
+    disp.image(image)
+    disp.display()
 
     # run some parts only on the real robot
     if hostname == 'minibot':

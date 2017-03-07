@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 
 # for getting the hostname of the underlying system
 import socket
@@ -101,10 +102,12 @@ while (True):
     # read AD converter (battery voltage)
     # use channel 0 on IC
     voltage = adc.read(channel = 0)
-    print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+    # print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
 
     # show text on LCD
-    draw.rectangle((0,20, width, height-20), outline=0, fill=0)
+    draw.rectangle((0,0, width, height), outline=0, fill=0)
+    draw.text((0,  0), "Status: Excellent", font=font, fill=255)
+    draw.text((0, 10), "Mood: Bored", font=font, fill=255)
     draw.text((0, 20), str("Battery: %.2fV" % (voltage / 1023.0 * 3.3)), font=font, fill=255)
     disp.image(image)
     disp.display()

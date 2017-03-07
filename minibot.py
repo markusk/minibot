@@ -70,7 +70,7 @@ disp.display()
 
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
-width = disp.width    # 128 
+width = disp.width    # 128
 height = disp.height  #  64
 image = Image.new('1', (width, height))
 
@@ -111,7 +111,7 @@ while (True):
     time.sleep(1)
     rectw = 18
     recth = 22
- 
+
     draw.rectangle((8, 10, rectw, recth), outline=0, fill=0)
     time.sleep(1)
     disp.image(image)
@@ -167,6 +167,6 @@ while (True):
         print("Release")
         myMotor1.run(Adafruit_MotorHAT.RELEASE)
         myMotor2.run(Adafruit_MotorHAT.RELEASE)
-    
+
     # sleep
     time.sleep(1.0)

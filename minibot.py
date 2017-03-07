@@ -3,7 +3,8 @@
 
 # for getting the hostname of the underlying system
 import socket
-
+# for using sensor checks in a thread
+import threading
 
 ###### AD converter stuff
 from MCP3008 import MCP3008
@@ -35,6 +36,7 @@ disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 hostname = socket.gethostname()
 print("Running on host " + hostname + ".")
 
+
 # run some parts only on the real robot
 if hostname == 'minibot':
     # create a default motor object, no changes to I2C address or frequency
@@ -44,9 +46,6 @@ if hostname == 'minibot':
     def turnOffMotors():
         mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
         mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-
-    # what to do at program exit
-    atexit.register(turnOffMotors)
 
     # user motor 1 and 2 on RasPi hat
     myMotor1 = mh.getMotor(1)
@@ -60,6 +59,23 @@ if hostname == 'minibot':
     startSpeed = 100
     myMotor1.setSpeed(startSpeed)
     myMotor2.setSpeed(startSpeed)
+
+
+##
+## what to do on exit pgm
+##
+def exitMinibot():
+  # run some parts only on the real robot
+  if hostname == 'minibot':
+    turnOffMotors();
+  # stop threads
+  voltageCheckThread.stop()
+
+
+##
+## what to do at program exit
+##
+atexit.register(exitMinibot)
 
 
 ################## LCD
@@ -95,16 +111,16 @@ disp.display()
 ###### Threads
 ######
 def voltageThread():
- # Thread zum Auslesen der Sensoren
- global voltageThreadRunning, voltage, dhtSensorTyp, dhtSensorTemperatur, dhtSensorLuftfeuchtigkeit
- print "Voltage sensor thread started."
- while voltageThreadRunning:
-    # read AD converter (battery voltage)
-    # use channel 0 on IC
-    voltage = adc.read(channel = 0)
-    print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
-    # displaySensorwertAusgabe()
-    time.sleep(1)
+    # Thread zum Auslesen der Sensoren
+    global voltageThreadRunning, voltage
+    print "Voltage sensor thread started."
+    while voltageThreadRunning:
+        # read AD converter (battery voltage)
+        # use channel 0 on IC
+        voltage = adc.read(channel = 0)
+        print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+        # displaySensorwertAusgabe()
+        time.sleep(1)
 
 # start thread
 voltageCheckThread = threading.Thread(target=voltageThread)

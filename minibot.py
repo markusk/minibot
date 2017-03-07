@@ -60,9 +60,7 @@ if hostname == 'minibot':
     myMotor2.setSpeed(startSpeed)
 
 
-################## loop
-
-# LCD
+################## LCD
 # Initialize library.
 disp.begin()
 
@@ -72,8 +70,8 @@ disp.display()
 
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
-width = disp.width
-height = disp.height
+width = disp.width    # 128 
+height = disp.height  #  64
 image = Image.new('1', (width, height))
 
 # Get drawing object to draw on image.
@@ -82,15 +80,9 @@ draw = ImageDraw.Draw(image)
 # Draw a black filled box to clear the image.
 draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-# Load default font.
-# font = ImageFont.load_default()
-
 # load my favorite TTF font
-font = ImageFont.truetype('Roboto-Regular.ttf', 12)
-
-# Write two lines of text.
-# draw.text((0, 0),  'Domo Arigato Roboto!',  font=font, fill=255)
-# draw.text((0, 20), 'Battery: 11.1V', font=font, fill=255)
+fontText   = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
+fontSymbol = ImageFont.truetype('Digital Camera Symbols.ttf', 36)
 
 # Display image.
 disp.image(image)
@@ -104,14 +96,18 @@ while (True):
     voltage = adc.read(channel = 0)
     # print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
 
-    # show text on LCD
+    # clear LCD
     draw.rectangle((0,0, width, height), outline=0, fill=0)
-    draw.text((0,  0), "Status: Excellent", font=font, fill=255)
-    draw.text((0, 10), "Mood: Bored", font=font, fill=255)
-    draw.text((0, 20), str("Battery: %.2fV" % (voltage / 1023.0 * 3.3)), font=font, fill=255)
+    # draw text
+    draw.text(( 0, 0), "d", font=fontSymbol, fill=255)
+#    draw.text((40, 0), str("%.2f V" % (voltage / 1023.0 * 3.3)), font=fontText, fill=255)
+    draw.text((55, 4), "11.0 V", font=fontText, fill=255)
+    # go
     disp.image(image)
     disp.display()
 
+
+    ### drive
     # run some parts only on the real robot
     if hostname == 'minibot':
         # drive

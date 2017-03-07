@@ -9,6 +9,8 @@ import socket
 from MCP3008 import MCP3008
 adc = MCP3008()
 voltage = 0
+voltageThreadRunning = True
+
 
 ###### motor stuff
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
@@ -89,13 +91,30 @@ disp.image(image)
 disp.display()
 
 
-###### forever - or until ctrl+c  :)
-while (True):
+######
+###### Threads
+######
+def voltageThread():
+ # Thread zum Auslesen der Sensoren
+ global voltageThreadRunning, voltage, dhtSensorTyp, dhtSensorTemperatur, dhtSensorLuftfeuchtigkeit
+ print "Voltage sensor thread started."
+ while voltageThreadRunning:
     # read AD converter (battery voltage)
     # use channel 0 on IC
     voltage = adc.read(channel = 0)
-    # print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+    print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+    # displaySensorwertAusgabe()
+    time.sleep(1)
 
+# start thread
+voltageCheckThread = threading.Thread(target=voltageThread)
+voltageCheckThread.start()
+
+
+######
+###### forever - or until ctrl+c  :)
+######
+while (True):
     # clear LCD
     draw.rectangle((0,0, width, height), outline=0, fill=0)
     # LCD battery symbol
@@ -169,4 +188,4 @@ while (True):
         myMotor2.run(Adafruit_MotorHAT.RELEASE)
 
     # sleep
-    time.sleep(1.0)
+    #time.sleep(1.0)

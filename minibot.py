@@ -98,11 +98,27 @@ while (True):
 
     # clear LCD
     draw.rectangle((0,0, width, height), outline=0, fill=0)
-    # draw text
+    # LCD battery symbol
     draw.text(( 0, 0), "d", font=fontSymbol, fill=255)
     # draw.text((55, 4), "11.0 V", font=fontText, fill=255)
+    # LCD voltage
     draw.text((55, 4), str("%.2f V" % (voltage / 1023.0 * 3.3)), font=fontText, fill=255)
     # go
+    disp.image(image)
+    disp.display()
+
+    # test test test "empty battery" (clear part of battery symbol)
+    time.sleep(1)
+    rectw = 20
+    recth = 22
+ 
+    draw.rectangle((8, 10, rectw, recth), outline=0, fill=0)
+    time.sleep(1)
+    disp.image(image)
+    disp.display()
+
+    draw.rectangle((8+rectw, 10, rectw, recth), outline=0, fill=0)
+    time.sleep(1)
     disp.image(image)
     disp.display()
 

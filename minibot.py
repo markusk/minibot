@@ -5,6 +5,8 @@
 import socket
 # for using sensor checks in a thread
 import threading
+# for catching signals like keyboard interrupt (to stop threads, started here)
+import signal
 
 ###### AD converter stuff
 from MCP3008 import MCP3008
@@ -76,6 +78,16 @@ def exitMinibot():
 ## what to do at program exit
 ##
 atexit.register(exitMinibot)
+
+# also catch keyboar interrupts
+def signal_handler(signal, frame):
+  print 'You pressed Ctrl+C!'
+  exitMinibot()
+  # sys.exit(0)
+
+# establish signal handler
+signal.signal(signal.SIGINT, signal_handler)
+
 
 
 ################## LCD

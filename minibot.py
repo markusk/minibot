@@ -66,6 +66,9 @@ def exitMinibot():
   # run some parts only on the real robot
   if hostname == 'minibot':
     turnOffMotors();
+  # Clear display.
+  disp.clear()
+  disp.display()
 
 
 ##

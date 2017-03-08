@@ -3,18 +3,12 @@
 
 # for getting the hostname of the underlying system
 import socket
-# for using sensor checks in a thread
-import threading
-# for catching signals like keyboard interrupt (to stop threads, started here)
-import signal
-# for sys.exit when hitting ctrl+c
-import sys
+
 
 ###### AD converter stuff
 from MCP3008 import MCP3008
 adc = MCP3008()
 voltage = 0
-voltageThreadRunning = True
 
 
 ###### motor stuff
@@ -72,22 +66,12 @@ def exitMinibot():
   # run some parts only on the real robot
   if hostname == 'minibot':
     turnOffMotors();
-  # clean exit!?
-  sys.exit(0)
 
 
 ##
 ## what to do at program exit
 ##
 atexit.register(exitMinibot)
-
-# also catch keyboard interrupts
-def signal_handler(signal, frame):
-  print 'You pressed Ctrl+C!'
-  exitMinibot()
-
-# establish signal handler
-signal.signal(signal.SIGINT, signal_handler)
 
 
 ################## LCD
@@ -122,27 +106,23 @@ disp.display()
 ######
 ###### Threads
 ######
-def voltageThread():
-    # Thread zum Auslesen der Sensoren
-    global voltageThreadRunning, voltage
-    print "Voltage sensor thread started."
-    while voltageThreadRunning:
-        # read AD converter (battery voltage)
-        # use channel 0 on IC
-        voltage = adc.read(channel = 0)
-        print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
-        # displaySensorwertAusgabe()
-        time.sleep(1)
-
-# start thread
-voltageCheckThread = threading.Thread(target=voltageThread)
-voltageCheckThread.start()
+def readVoltage():
+  # Thread zum Auslesen der Sensoren
+  # read AD converter (battery voltage)
+  # use channel 0 on IC
+  global voltage
+  voltage = adc.read(channel = 0)
+  print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+  # displaySensorwertAusgabe()
 
 
 ######
 ###### forever - or until ctrl+c  :)
 ######
 while (True):
+    # read voltage from AD converter
+    readVoltage()
+
     # clear LCD
     draw.rectangle((0,0, width, height), outline=0, fill=0)
     # LCD battery symbol

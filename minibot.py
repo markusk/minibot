@@ -4,7 +4,33 @@
 # for getting the hostname of the underlying system
 import socket
 
+# for GPIO pin usage
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    print("Error importing RPi.GPIO!")
+
+##
+## GPIO stuff
+##
+GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
+# Raspberry Pi pin configuration:
+# pins	    BCM   BOARD
 RST       = 24
+ledPin    = 18 # pin 12
+switchPin = 23 # pin 16
+
+# GPIO setup
+print('GPIO setup...')
+GPIO.setup(ledPin,   GPIO.OUT)
+GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
+
+# switch detection by interrupt, falling edge, with debouncing
+def my_callback(answer):
+    print 'Button on GPIO ' + str(answer) + ' pushed!'
+
+GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=200)
+
 
 ###### AD converter stuff
 from MCP3008 import MCP3008
@@ -69,6 +95,9 @@ def exitMinibot():
   # Clear display.
   disp.clear()
   disp.display()
+  # GPIO cleanup
+  GPIO.remove_event_detect(switchPin)
+  GPIO.cleanup()
 
 
 ##

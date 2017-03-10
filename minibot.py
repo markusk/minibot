@@ -40,6 +40,7 @@ GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=
 from MCP3008 import MCP3008
 adc = MCP3008()
 voltage = 0
+value = 0
 
 
 ###### motor stuff
@@ -143,12 +144,12 @@ disp.display()
 ###### Threads
 ######
 def readVoltage():
-  # Thread zum Auslesen der Sensoren
   # read AD converter (battery voltage)
   # use channel 0 on IC
-  global voltage
-  voltage = adc.read(channel = 0)
-  # print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+  value = adc.read(channel = 0)
+  print("Value: %d" % value)
+  # 3.19 V = 12.35 V (measured)
+  print("Voltage: %.2f" % (value * 12.35 / 1024))
   # displaySensorwertAusgabe()
 
 

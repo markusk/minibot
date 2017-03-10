@@ -22,13 +22,17 @@ switchPin = 23 # pin 16
 
 # GPIO setup
 print('GPIO setup...')
-GPIO.setup(ledPin,   GPIO.OUT)
+GPIO.setup(ledPin,    GPIO.OUT)
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
     print 'Button on GPIO ' + str(answer) + ' pushed!'
+    # LED ON (test)
+    GPIO.output(ledPin, GPIO.LOW)
 
+
+# add event for pressed button  detection
 GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=200)
 
 
@@ -144,7 +148,7 @@ def readVoltage():
   # use channel 0 on IC
   global voltage
   voltage = adc.read(channel = 0)
-  print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
+  # print("Voltage: %.2f" % (voltage / 1023.0 * 3.3))
   # displaySensorwertAusgabe()
 
 
@@ -166,7 +170,7 @@ while (True):
     disp.image(image)
     disp.display()
 
-    # test test test "empty battery" (clear part of battery symbol)
+    """ test test test "empty battery" (clear part of battery symbol)
     time.sleep(1)
     rectw = 18
     recth = 22
@@ -184,7 +188,7 @@ while (True):
     draw.rectangle((8+2*rectw, 10, rectw, recth), outline=0, fill=0)
     time.sleep(1)
     disp.image(image)
-    disp.display()
+    disp.display()"""
 
 
     ### drive

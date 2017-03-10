@@ -4,6 +4,7 @@
 # for getting the hostname of the underlying system
 import socket
 
+RST       = 24
 
 ###### AD converter stuff
 from MCP3008 import MCP3008
@@ -24,8 +25,7 @@ import Adafruit_SSD1306
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-# Raspberry Pi pin configuration:
-RST = 24
+
 
 # create a 128x32 display with hardware I2C
 disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)

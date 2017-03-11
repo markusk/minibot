@@ -144,6 +144,7 @@ disp.display()
 ###### Threads
 ######
 def readVoltage():
+  global voltage
   # read AD converter (battery voltage)
   # use channel 0 on IC
   value = adc.read(channel = 0)

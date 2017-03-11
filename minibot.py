@@ -148,9 +148,10 @@ def readVoltage():
   # read AD converter (battery voltage)
   # use channel 0 on IC
   value = adc.read(channel = 0)
-  print("Value: %d" % value)
-  # 3.19 V = 12.35 V (measured)
-  print("Voltage: %.2f" % (value * 12.35 / 1024))
+  # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
+  voltage = (value / 68.693182)
+  # print("Value: %d" % value)
+  # print("Voltage: %.1f" % voltage)
   # displaySensorwertAusgabe()
 
 
@@ -167,7 +168,7 @@ while (True):
     draw.text(( 0, 0), "d", font=fontSymbol, fill=255)
     # draw.text((55, 4), "11.0 V", font=fontText, fill=255)
     # LCD voltage
-    draw.text((55, 4), str("%.2f V" % (voltage / 1023.0 * 3.3)), font=fontText, fill=255)
+    draw.text((55, 4), str("%.1f V" % voltage), font=fontText, fill=255)
     # go
     disp.image(image)
     disp.display()

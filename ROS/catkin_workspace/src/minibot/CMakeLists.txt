@@ -8,6 +8,7 @@ project(minibot)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  roscpp
   rospy
   std_msgs
   message_generation
@@ -106,7 +107,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES minibot
-#  CATKIN_DEPENDS rospy std_msgs
+#  CATKIN_DEPENDS roscpp rospy std_msgs
   CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )

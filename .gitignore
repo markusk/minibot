@@ -88,5 +88,8 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# KiCad stuff
+*.bak
+
 # ROS stuff we not want to be tracked
 ROS/catkin_workspace/src/CMakeLists.txt

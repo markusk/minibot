@@ -28,6 +28,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:minibot-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -124,4 +125,6 @@ Wire Wire Line
 	3550 2650 3550 2300
 Wire Wire Line
 	3750 2650 3550 2650
+Connection ~ 3550 2650
+Connection ~ 2700 3350
 $EndSCHEMATC

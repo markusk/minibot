@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# ROS stuff we not want to be tracked
+ROS/catkin_workspace/src/CMakeLists.txt

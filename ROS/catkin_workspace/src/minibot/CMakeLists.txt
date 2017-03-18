@@ -10,6 +10,7 @@ project(minibot)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,6 +106,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES minibot
 #  CATKIN_DEPENDS rospy std_msgs
+  CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 

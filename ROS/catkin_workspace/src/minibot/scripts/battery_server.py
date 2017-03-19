@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from beginner_tutorials.srv import *
+from minibot.srv import *
 import rospy
 
 def handle_add_two_ints(req):

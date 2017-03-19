@@ -8,9 +8,9 @@ def handle_add_two_ints(req):
     return AddTwoIntsResponse(req.a + req.b)
 
 def add_two_ints_server():
-    rospy.init_node('add_two_ints_server')
-    s = rospy.Service('add_two_ints', AddTwoInts, handle_add_two_ints)
-    print "Ready to add two ints."
+    rospy.init_node('battery_server')
+    s = rospy.Service('battery', Battery, handle_add_two_ints)
+    print "Ready to provide battery details."
     rospy.spin()
 
 if __name__ == "__main__":

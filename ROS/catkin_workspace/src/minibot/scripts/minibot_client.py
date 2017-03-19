@@ -3,8 +3,8 @@
 import sys
 import rospy
 
-# from [package].srv import [Service]
-from minibot.srv import Minibot
+# from [packagename].srv import [Service(s)]
+from minibot.srv import *
 
 def minibot_client(x, y):
     rospy.wait_for_service('minibot')

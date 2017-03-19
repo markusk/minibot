@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-# from beginner_tutorials.srv import *
+# from [package].srv import [Service]
+from minibot.srv import Minibot
+
 import rospy
 
 def handle_minibot(req):

@@ -2,12 +2,14 @@
 
 import sys
 import rospy
-# from beginner_tutorials.srv import *
+
+# from [package].srv import [Service]
+from minibot.srv import Minibot
 
 def minibot_client(x, y):
     rospy.wait_for_service('minibot')
     try:
-        add_two_ints = rospy.ServiceProxy('minibot', Minibot)
+        minibot = rospy.ServiceProxy('minibot', Minibot)
         resp1 = minibot_client(x, y)
         return resp1.sum
     except rospy.ServiceException, e:

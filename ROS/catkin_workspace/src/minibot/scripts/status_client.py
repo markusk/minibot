@@ -2,12 +2,12 @@
 
 import sys
 import rospy
-from beginner_tutorials.srv import *
+from minibot.srv import *
 
 def add_two_ints_client(x, y):
-    rospy.wait_for_service('add_two_ints')
+    rospy.wait_for_service('battery')
     try:
-        add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
+        add_two_ints = rospy.ServiceProxy('battery', Battery)
         resp1 = add_two_ints(x, y)
         return resp1.sum
     except rospy.ServiceException, e:
@@ -23,5 +23,5 @@ if __name__ == "__main__":
     else:
         print usage()
         sys.exit(1)
-    print "Requesting %s+%s"%(x, y)
-    print "%s + %s = %s"%(x, y, add_two_ints_client(x, y))
+    print "Requesting voltage %s+%s"%(x, y)
+    print "%s + %s. Voltage = %s"%(x, y, add_two_ints_client(x, y))

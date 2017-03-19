@@ -53,7 +53,7 @@ add_message_files(
 #   Message1.msg
 #   Message2.msg
    Num.msg
- )
+)
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -61,7 +61,7 @@ add_service_files(
 #   Service1.srv
 #   Service2.srv
    AddTwoInts.srv
- )
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(

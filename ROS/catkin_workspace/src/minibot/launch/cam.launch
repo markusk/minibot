@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Camera support -->
+  <node pkg="minibot" type="camera" name="minibot_camera"
+        output="screen"/>
+</launch>

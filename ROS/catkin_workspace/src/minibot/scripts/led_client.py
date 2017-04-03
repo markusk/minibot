@@ -2,26 +2,25 @@
 
 import sys
 import rospy
-from minibot.srv import *
+from led.srv import *
 
-def add_two_ints_client(x, y):
-    rospy.wait_for_service('battery')
+def led_switcher_client(pin):
+    rospy.wait_for_service('led')
     try:
-        add_two_ints = rospy.ServiceProxy('battery', Battery)
-        resp1 = add_two_ints(x, y)
-        return resp1.sum
+        led_switcher = rospy.ServiceProxy('led', Led)
+        resp1 = led_switcher(pin)
+        return resp1.result
     except rospy.ServiceException, e:
         print "Service call failed: %s"%e
 
 def usage():
-    return "%s [x y]"%sys.argv[0]
+    return "%s [pin]"%sys.argv[0]
 
 if __name__ == "__main__":
-    if len(sys.argv) == 3:
-        x = int(sys.argv[1])
-        y = int(sys.argv[2])
+    if len(sys.argv) == 2:
+        pin = int(sys.argv[1])
     else:
         print usage()
         sys.exit(1)
     print "Requesting voltage %s+%s"%(x, y)
-    print "%s + %s. Voltage = %s"%(x, y, add_two_ints_client(x, y))
+    print "LED %s switched. Result = %s"%(pin, led_switcher_client(pin))

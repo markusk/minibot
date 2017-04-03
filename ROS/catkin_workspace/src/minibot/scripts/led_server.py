@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 
-from minibot.srv import *
+from led.srv import *
 import rospy
 
 
 # handle_add_two_ints is called with instances of BatteryRequest and returns instances of BatteryResponse
 # The request name comes directly from the .srv filename
-def handle_add_two_ints(req):
+def handle_led(req):
     # here is all the work done :)
-    print "Returning [%s + %s = %s]"%(req.a, req.b, (req.a + req.b))
+    print "LED %s switched. Result: %s]"%(req.pin, req.pin)
 
     # The name of the response comes directly from the .srv filename!
-    return BatteryResponse(req.a + req.b)
+    return LedResponse(req.pin)
 
 
-def add_two_ints_server():
-    rospy.init_node('battery_server')
+def led_server():
+    rospy.init_node('led_server')
 
     # This declares a new service named battery with the Battery service type.
-    s = rospy.Service('battery', Battery, handle_add_two_ints)
+    s = rospy.Service('led', Led, handle_led)
 
-    print "Ready to provide battery details."
+    print "Ready to switch LEDs."
     rospy.spin()
 
 
 if __name__ == "__main__":
-    add_two_ints_server()
+    led_server()

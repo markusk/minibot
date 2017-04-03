@@ -1,4 +1,3 @@
-int64 a
-int64 b
+int8 pin
 ---
-int64 sum
+int8 result

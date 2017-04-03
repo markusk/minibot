@@ -1,14 +1,36 @@
 #!/usr/bin/env python
+# coding=utf-8
 
 # name of the package(!).srv
 from minibot.srv import *
 import rospy
+
+# for GPIO pin usage
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    print("Error importing RPi.GPIO!")
+
+##
+## GPIO stuff
+##
+GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
+# Raspberry Pi pin configuration:
+# pins	    BCM   BOARD
+ledPin    = 18 # pin 12
+
+# GPIO setup
+print "GPIO setup...""
+GPIO.setup(ledPin, GPIO.OUT)
 
 
 # handle_add_two_ints is called with instances of BatteryRequest and returns instances of BatteryResponse
 # The request name comes directly from the .srv filename
 def handle_led(req):
     # here is all the work done :)
+
+    # LED ON (low active!)
+    GPIO.output(req.pin, GPIO.LOW)
     print "LED %s switched. Result: %s"%(req.pin, req.pin)
 
     # The name of the response comes directly from the .srv filename!
@@ -27,3 +49,8 @@ def led_server():
 
 if __name__ == "__main__":
     led_server()
+
+
+# to be checked: where to put exit stuff for cleaning GPIOs:
+#  # GPIO cleanup
+#  GPIO.cleanup()

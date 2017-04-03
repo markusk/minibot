@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from led.srv import *
+# name of the package(!).srv
+from minibot.srv import *
 import rospy
 
 

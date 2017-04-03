@@ -2,7 +2,8 @@
 
 import sys
 import rospy
-from led.srv import *
+# name of the package(!).srv
+from minibot.srv import *
 
 def led_switcher_client(pin):
     rospy.wait_for_service('led')

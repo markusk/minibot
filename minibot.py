@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # coding=utf-8
 
+import time
+import atexit
+
+
 # for getting the hostname of the underlying system
 import socket
 
@@ -45,8 +49,6 @@ value = 0
 
 ###### motor stuff
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
-import time
-import atexit
 
 
 ###### LCD stuff

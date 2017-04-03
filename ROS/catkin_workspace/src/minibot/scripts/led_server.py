@@ -9,7 +9,7 @@ import rospy
 # The request name comes directly from the .srv filename
 def handle_led(req):
     # here is all the work done :)
-    print "LED %s switched. Result: %s]"%(req.pin, req.pin)
+    print "LED %s switched. Result: %s"%(req.pin, req.pin)
 
     # The name of the response comes directly from the .srv filename!
     return LedResponse(req.pin)

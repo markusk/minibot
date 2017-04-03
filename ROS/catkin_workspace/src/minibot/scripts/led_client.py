@@ -23,5 +23,4 @@ if __name__ == "__main__":
     else:
         print usage()
         sys.exit(1)
-    print "Requesting voltage %s+%s"%(x, y)
     print "LED %s switched. Result = %s"%(pin, led_switcher_client(pin))

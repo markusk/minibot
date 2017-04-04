@@ -25,7 +25,7 @@ GPIO.setup(ledPin, GPIO.OUT)
 
 
 # define a clean node exit
-def mye_exit():
+def my_exit():
   print "Shutting LED server down..."
   # GPIO cleanup
   GPIO.cleanup()

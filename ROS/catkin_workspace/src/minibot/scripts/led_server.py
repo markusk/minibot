@@ -20,7 +20,7 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 ledPin    = 18 # pin 12
 
 # GPIO setup
-print "GPIO setup...""
+print "GPIO setup..."
 GPIO.setup(ledPin, GPIO.OUT)
 
 

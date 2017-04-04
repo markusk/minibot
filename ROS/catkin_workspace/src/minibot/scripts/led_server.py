@@ -24,6 +24,17 @@ print "GPIO setup..."
 GPIO.setup(ledPin, GPIO.OUT)
 
 
+# define a clean node exit
+def mye_exit():
+  print "Shutting LED server down..."
+  # GPIO cleanup
+  GPIO.cleanup()
+  print "Done."
+
+# call this method on mode exit
+rospy.on_shutdown(my_exit)
+
+
 # handle_add_two_ints is called with instances of BatteryRequest and returns instances of BatteryResponse
 # The request name comes directly from the .srv filename
 def handle_led(req):
@@ -49,8 +60,3 @@ def led_server():
 
 if __name__ == "__main__":
     led_server()
-
-
-# to be checked: where to put exit stuff for cleaning GPIOs:
-#  # GPIO cleanup
-#  GPIO.cleanup()

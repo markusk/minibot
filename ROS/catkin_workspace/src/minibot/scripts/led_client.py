@@ -9,13 +9,13 @@ def led_switcher_client(pin):
     rospy.wait_for_service('led')
     try:
         led_switcher = rospy.ServiceProxy('led', Led)
-        resp1 = led_switcher(pin)
-        return resp1.result
+        response = led_switcher(pin, state)
+        return response.result
     except rospy.ServiceException, e:
         print "Service call failed: %s"%e
 
 def usage():
-    return "%s [pin]"%sys.argv[0]
+    return "\nError!\n\nUsage: %s [pin] [state]\nExample to turn a LED for GPIO 18 ON: %s 18 1\n"%(sys.argv[0], sys.argv[0])
 
 if __name__ == "__main__":
     # enough arguments?
@@ -27,4 +27,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # debug
-    print "LED %s switched to %s. Result: %s"%(pin, state, led_switcher_client(pin))
+    print "GPIO %s switched to %s. Result: %s"%(pin, state, led_switcher_client(pin))

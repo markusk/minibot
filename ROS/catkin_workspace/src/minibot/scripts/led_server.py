@@ -57,17 +57,17 @@ def handle_led(req):
     # here is all the work done :)
 
     # switch GPIO
-    # (LEDs are low active!)
-    if req.state = True
+    if (req.state == 1):
       GPIO.output(req.pin, GPIO.HIGH)
-    else
+    else:
+      # (LEDs are low active!)
       GPIO.output(req.pin, GPIO.LOW)
 
     # store state in list
     gpioStatus[req.pin-1] = False
 
     # debug
-    print "GPIO %s switched to LOW. Result: %s"%(req.pin, req.state, req.pin)
+    print "GPIO %s switched to %s. Result: %s"%(req.pin, req.state, req.pin)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     return LedResponse(req.pin)

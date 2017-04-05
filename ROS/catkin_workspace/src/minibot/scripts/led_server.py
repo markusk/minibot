@@ -22,6 +22,8 @@ ledPin    = 18 # pin 12
 # GPIO setup
 print "GPIO setup..."
 GPIO.setup(ledPin, GPIO.OUT)
+# LED off (low active!)
+GPIO.output(ledPin, GPIO.HIGH)
 
 
 # define a clean node exit
@@ -40,7 +42,7 @@ rospy.on_shutdown(my_exit)
 def handle_led(req):
     # here is all the work done :)
 
-    # LED ON (low active!)
+    # LED on (low active!)
     GPIO.output(req.pin, GPIO.LOW)
     print "LED %s switched. Result: %s"%(req.pin, req.pin)
 

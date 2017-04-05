@@ -19,11 +19,21 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # pins	    BCM   BOARD
 ledPin    = 18 # pin 12
 
+# setting these LOW at startup
+# pinListLow = (ledPin)
+
+# setting these HIGH at startup
+pinListHigh = (ledPin)
+
 # GPIO setup
 print "GPIO setup..."
 GPIO.setup(ledPin, GPIO.OUT)
-# LED off (low active!)
-GPIO.output(ledPin, GPIO.HIGH)
+
+# all LOW
+# GPIO.output(pinListLow, GPIO.LOW)
+
+# all HIGH
+GPIO.output(pinListHigh, GPIO.HIGH)
 
 
 # define a clean node exit

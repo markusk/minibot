@@ -1,3 +1,4 @@
 int8 pin
+bool state
 ---
 int8 result

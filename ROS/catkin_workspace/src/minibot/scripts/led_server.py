@@ -56,13 +56,20 @@ rospy.on_shutdown(my_exit)
 def handle_led(req):
     # here is all the work done :)
 
-    # LED on (low active!)
-    GPIO.output(req.pin, GPIO.LOW)
-    print "LED %s switched. Result: %s"%(req.pin, req.pin)
-    # store state
+    # switch GPIO
+    # (LEDs are low active!)
+    if req.state = True
+      GPIO.output(req.pin, GPIO.HIGH)
+    else
+      GPIO.output(req.pin, GPIO.LOW)
+
+    # store state in list
     gpioStatus[req.pin-1] = False
 
-    # The name of the response comes directly from the .srv filename!
+    # debug
+    print "GPIO %s switched to LOW. Result: %s"%(req.pin, req.state, req.pin)
+
+    # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     return LedResponse(req.pin)
 
 

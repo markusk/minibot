@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Turnin LEDs on or off -->
+  <node name="led_server" pkg="minibot" type="led_server" output="screen"/>
+</launch>
+
+
+<!-- Examples:
+  <node name="add_two_ints_server" pkg="beginner_tutorials" type="add_two_ints_server" />
+  <node name="add_two_ints_client" pkg="beginner_tutorials" type="add_two_ints_client" args="$(arg a) $(arg b)" />
+-->

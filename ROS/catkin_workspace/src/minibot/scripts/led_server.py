@@ -35,6 +35,10 @@ GPIO.setup(ledPin, GPIO.OUT)
 # all HIGH
 GPIO.output(pinListHigh, GPIO.HIGH)
 
+# a list for saving the state of each of the 40 GPIO when changed via this node
+# False means LOW
+gpioStatus = [False for i in range(40)]
+
 
 # define a clean node exit
 def my_exit():
@@ -55,6 +59,8 @@ def handle_led(req):
     # LED on (low active!)
     GPIO.output(req.pin, GPIO.LOW)
     print "LED %s switched. Result: %s"%(req.pin, req.pin)
+    # store state
+    gpioStatus[req.pin-1] = False
 
     # The name of the response comes directly from the .srv filename!
     return LedResponse(req.pin)

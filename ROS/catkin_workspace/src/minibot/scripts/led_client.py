@@ -18,9 +18,13 @@ def usage():
     return "%s [pin]"%sys.argv[0]
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        pin = int(sys.argv[1])
+    # enough arguments?
+    if len(sys.argv) == 3:
+        pin   = int(sys.argv[1])
+        state = int(sys.argv[2])
     else:
         print usage()
         sys.exit(1)
-    print "LED %s switched. Result = %s"%(pin, led_switcher_client(pin))
+
+    # debug
+    print "LED %s switched to %s. Result: %s"%(pin, state, led_switcher_client(pin))

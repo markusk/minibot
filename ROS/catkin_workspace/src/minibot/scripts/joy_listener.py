@@ -20,7 +20,20 @@ def callback(joy):
     # simple:
     if (joy.buttons[0] == 1):
       rospy.loginfo('Button 1 pressed!')
-
+      #
+      # turn a led
+      #
+      # Service 'led' from led_server.py ready?
+      rospy.wait_for_service('led')
+      try:
+          # Create the handle 'led_switcher' with the service type 'Led'.
+          # The latter automatically generates the LedRequest and LedResponse objects.
+          led_switcher = rospy.ServiceProxy('led', Led)
+          # the handle can be called like a normal function
+          response = led_switcher(18, joy.buttons[0])
+          print "Result: %s"%response.result
+      except rospy.ServiceException, e:
+          print "Service call failed: %s"%e
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same

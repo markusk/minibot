@@ -2,26 +2,36 @@
 # coding=utf-8
 
 
-""" This is a simple listener for the joy_node. It listens on the topic 'joy' and prints out some information.
+""" This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
+    I also switches a LED on on my Raspberry (GPIO 18) when button 1 is pressed.
+    This needs the led_listener to be run on the Raspberry Pi. Like this:
 
-Usage:
-1. Start roscore
-2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
-3. Run the joystick node: rosrun joy joy_node
-4. Run this listener: rosrun minibot joy_listener
-5. Press button 1 on th joystick and see the output. En-Joy! ;-)
+Usage
+-----
+
+Raspberry Pi:
+1. Run: roscore
+2. Run the led server on the Pi: rosrun minibot led_server.py
+
+Another Ubuntu machine:
+1. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
+2. Run the joystick node: rosrun joy joy_node
+3. Run this listener: rosrun minibot joy_listener
+4. Press button 1 on th joystick and see the output. En-Joy! ;-)
 
 """
 
 import rospy
 from sensor_msgs.msg import Joy
+# name of the package(!).srv
+from minibot.srv import *
 
 def callback(joy):
     # simple:
     if (joy.buttons[0] == 1):
       rospy.loginfo('Button 1 pressed!')
       #
-      # turn a led
+      # turn a led ON
       #
       # Service 'led' from led_server.py ready?
       rospy.wait_for_service('led')
@@ -30,8 +40,9 @@ def callback(joy):
           # The latter automatically generates the LedRequest and LedResponse objects.
           led_switcher = rospy.ServiceProxy('led', Led)
           # the handle can be called like a normal function
-          response = led_switcher(18, joy.buttons[0])
-          print "Result: %s"%response.result
+          response = led_switcher(18, 0)
+          rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
+
       except rospy.ServiceException, e:
           print "Service call failed: %s"%e
 
@@ -45,6 +56,9 @@ def listener():
 
     # subscribe the joy(stick) topic
     rospy.Subscriber('joy', Joy, callback)
+
+    # Ready
+    rospy.loginfo('Ready. Press button 1 on your joystick now.')
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

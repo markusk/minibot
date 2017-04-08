@@ -14,10 +14,12 @@ Raspberry Pi:
 2. Run the led server on the Pi: rosrun minibot led_server.py
 
 Another Ubuntu machine:
-1. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
-2. Run the joystick node: rosrun joy joy_node
-3. Run this listener: rosrun minibot joy_listener
-4. Press button 1 on th joystick and see the output. En-Joy! ;-)
+1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/
+   i.E. export ROS_MASTER_URI=http://pi-desktop:11311/
+2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
+3. Run the joystick node: rosrun joy joy_node
+4. Run this listener: rosrun minibot joy_listener
+5. Press button 1 on th joystick and see the output. En-Joy! ;-)
 
 """
 

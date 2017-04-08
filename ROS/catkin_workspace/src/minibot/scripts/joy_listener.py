@@ -27,6 +27,7 @@ from sensor_msgs.msg import Joy
 from minibot.srv import *
 
 def callback(joy):
+    bool ledPin = False
     # simple:
     if (joy.buttons[0] == 1):
       rospy.loginfo('Button 1 pressed!')
@@ -35,16 +36,31 @@ def callback(joy):
       #
       # Service 'led' from led_server.py ready?
       rospy.wait_for_service('led')
+
       try:
           # Create the handle 'led_switcher' with the service type 'Led'.
           # The latter automatically generates the LedRequest and LedResponse objects.
           led_switcher = rospy.ServiceProxy('led', Led)
-          # the handle can be called like a normal function
-          response = led_switcher(18, 0)
+
+          # if LED is stored as OFF, turn it ON
+          if (ledPin == False):
+              # Turn LED ON
+              # store new LED state
+              ledPin = True
+              # the handle can be called like a normal function
+              response = led_switcher(18, 0)
+          else:
+              # Turn LED OFF
+              # store new LED state
+              ledPin = False
+              # the handle can be called like a normal function
+              response = led_switcher(18, 1)
+
+          # show result
           rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
 
       except rospy.ServiceException, e:
-          print "Service call failed: %s"%e
+          print "Service call for 'led' failed: %s"%e
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same

@@ -26,9 +26,15 @@ from sensor_msgs.msg import Joy
 # name of the package(!).srv
 from minibot.srv import *
 
+
+# stores the state of the LED pin/GPIO
+ledPin = False
+
+
 def callback(joy):
-    bool ledPin = False
-    # simple:
+    # need to modify the global variable
+    global ledPin
+    # button 1 (index 0) pressed (1)?
     if (joy.buttons[0] == 1):
       rospy.loginfo('Button 1 pressed!')
       #
@@ -48,12 +54,14 @@ def callback(joy):
               # store new LED state
               ledPin = True
               # the handle can be called like a normal function
+              rospy.loginfo('Turning LED on.')
               response = led_switcher(18, 0)
           else:
               # Turn LED OFF
               # store new LED state
               ledPin = False
               # the handle can be called like a normal function
+              rospy.loginfo('Turning LED off.')
               response = led_switcher(18, 1)
 
           # show result

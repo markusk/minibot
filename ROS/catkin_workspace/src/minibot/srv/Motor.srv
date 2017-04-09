@@ -1,0 +1,4 @@
+int8  direction
+int16 speed
+---
+int8  result

@@ -8,10 +8,10 @@ from minibot.srv import *
 import rospy
 
 # for getting the hostname of the underlying system
-#import socket
+import socket
 # showing hostname
-#hostname = socket.gethostname()
-#print("Running on host " + hostname + ".")
+hostname = socket.gethostname()
+rospy.loginfo("Running on host %s.", hostname)
 
 
 # for GPIO pin usage on the Raspberry Pi
@@ -46,37 +46,37 @@ GPIO.output(pinListHigh, GPIO.HIGH)
 
 
 ###### motor stuff
-from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
-
 # run some parts only on the real robot
-# if hostname == 'minibot':
-# create a default motor object, no changes to I2C address or frequency
-mh = Adafruit_MotorHAT(addr=0x60)
+if hostname == 'minibot':
+    from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
-# using motor 1 and 2 on RasPi hat
-myMotor1 = mh.getMotor(1)
-myMotor2 = mh.getMotor(2)
+    # create a default motor object, no changes to I2C address or frequency
+    mh = Adafruit_MotorHAT(addr=0x60)
 
-# recommended for auto-disabling motors on shutdown!
-def turnOffMotors():
-    myMotor1.run(Adafruit_MotorHAT.RELEASE);
-    myMotor2.run(Adafruit_MotorHAT.RELEASE);
+    # using motor 1 and 2 on RasPi hat
+    myMotor1 = mh.getMotor(1)
+    myMotor2 = mh.getMotor(2)
 
-# turning off motors NOW
-turnOffMotors();
+    # recommended for auto-disabling motors on shutdown!
+    def turnOffMotors():
+        myMotor1.run(Adafruit_MotorHAT.RELEASE);
+        myMotor2.run(Adafruit_MotorHAT.RELEASE);
 
-# set the speed (from 0 (off) to 255 (max speed))
-startSpeed = 100
-myMotor1.setSpeed(startSpeed)
-myMotor2.setSpeed(startSpeed)
+    # turning off motors NOW
+    turnOffMotors();
+
+    # set the speed (from 0 (off) to 255 (max speed))
+    startSpeed = 100
+    myMotor1.setSpeed(startSpeed)
+    myMotor2.setSpeed(startSpeed)
 
 
 # define a clean node exit
 def my_exit():
   rospy.loginfo("Shutting down motor service...")
   # run some parts only on the real robot
-  # if hostname == 'minibot':
-  turnOffMotors();
+  if hostname == 'minibot':
+      turnOffMotors();
   # GPIO cleanup
   GPIO.cleanup()
   rospy.loginfo("Done.")

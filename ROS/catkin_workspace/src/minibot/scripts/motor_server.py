@@ -19,6 +19,8 @@ rospy.loginfo("Running on host %s.", hostname)
 ###############################
 # run some parts only on the real robot
 if hostname == 'minibot':
+    rospy.loginfo("Setting up I2C...")
+
     from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
     # create a default motor object, no changes to I2C address or frequency
@@ -40,6 +42,8 @@ if hostname == 'minibot':
     startSpeed = 100
     myMotor1.setSpeed(startSpeed)
     myMotor2.setSpeed(startSpeed)
+else:
+    rospy.loginfo("Skipping I2C setup. This is not the robot.")
 
 
 # define a clean node exit

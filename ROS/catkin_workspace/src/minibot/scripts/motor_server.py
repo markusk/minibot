@@ -14,38 +14,9 @@ hostname = socket.gethostname()
 rospy.loginfo("Running on host %s.", hostname)
 
 
-# for GPIO pin usage on the Raspberry Pi
-try:
-    import RPi.GPIO as GPIO
-except RuntimeError:
-    rospy.logerr("Error importing RPi.GPIO!")
-
-
-## GPIO stuff
-# We use the GPIO names, _not_ the pin numbers on the board
-GPIO.setmode(GPIO.BCM)
-# Raspberry Pi pin configuration:
-# pins	    BCM   BOARD
-ledPin    = 18 # pin 12
-
-# setting these LOW at startup
-# pinListLow = (ledPin)
-
-# setting these HIGH at startup
-pinListHigh = (ledPin)
-
-# GPIO setup
-rospy.loginfo("GPIO setup...")
-GPIO.setup(ledPin, GPIO.OUT)
-
-# all pins which should be LOW at ini
-# GPIO.output(pinListLow, GPIO.LOW)
-
-# all pins which should be HIGH at ini
-GPIO.output(pinListHigh, GPIO.HIGH)
-
-
+###############################
 ###### motor stuff
+###############################
 # run some parts only on the real robot
 if hostname == 'minibot':
     from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
@@ -77,8 +48,6 @@ def my_exit():
   # run some parts only on the real robot
   if hostname == 'minibot':
       turnOffMotors();
-  # GPIO cleanup
-  GPIO.cleanup()
   rospy.loginfo("Done.")
 
 # call this method on node exit
@@ -90,16 +59,15 @@ rospy.on_shutdown(my_exit)
 def handle_led(req):
     """ In this function all the work is done :) """
 
-    # switch GPIO to HIGH, if '1' was sent
+    # switch xxx to HIGH, if '1' was sent
     if (req.state == 1):
-      GPIO.output(req.pin, GPIO.HIGH)
+      # do something
     else:
       # for all other values we set it to LOW
-      # (LEDs are low active!)
-      GPIO.output(req.pin, GPIO.LOW)
+      # do something
 
     # debug
-    rospy.loginfo("GPIO %s switched to %s. Result: %s", req.pin, req.state, req.pin)
+    rospy.loginfo("xxx %s switched to %s. Result: %s", req.pin, req.state, req.pin)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     return LedResponse(req.pin)

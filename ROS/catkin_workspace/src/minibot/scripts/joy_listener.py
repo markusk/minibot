@@ -71,7 +71,7 @@ def callback(joy):
           rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
 
       except rospy.ServiceException, e:
-          print "Service call for 'led' failed: %s"%e
+          rospy.logerr("Service call for 'led' failed: %s", e)
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same

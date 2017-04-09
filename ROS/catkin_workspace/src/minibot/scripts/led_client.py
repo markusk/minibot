@@ -19,7 +19,7 @@ def led_switcher_client(pin):
         response = led_switcher(pin, state)
         return response.result
     except rospy.ServiceException, e:
-        print "Service call failed: %s"%e
+        rospy.logerr("Service call failed: %s", e)
 
 def usage():
     return "\nError!\n\nUsage: %s [pin] [state]\nExample to turn a LED for GPIO 18 ON: %s 18 1\n"%(sys.argv[0], sys.argv[0])
@@ -35,4 +35,4 @@ if __name__ == "__main__":
 
     # call the led_switcher function
     # and show the result
-    print "GPIO %s switched to %s. Result: %s"%(pin, state, led_switcher_client(pin))
+    rospy.loginfo("GPIO %s switched to %s. Result: %s", pin, state, led_switcher_client(pin))

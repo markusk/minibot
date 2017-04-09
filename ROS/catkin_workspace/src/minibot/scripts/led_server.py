@@ -11,7 +11,7 @@ import rospy
 try:
     import RPi.GPIO as GPIO
 except RuntimeError:
-    print("Error importing RPi.GPIO!")
+    rospy.logerr("Error importing RPi.GPIO!")
 
 
 ## GPIO stuff
@@ -28,7 +28,7 @@ ledPin    = 18 # pin 12
 pinListHigh = (ledPin)
 
 # GPIO setup
-print "GPIO setup..."
+rospy.loginfo("GPIO setup...")
 GPIO.setup(ledPin, GPIO.OUT)
 
 # all pins which should be LOW at ini
@@ -40,10 +40,10 @@ GPIO.output(pinListHigh, GPIO.HIGH)
 
 # define a clean node exit
 def my_exit():
-  print "Shutting LED server down..."
+  rospy.loginfo("Shutting LED server down...")
   # GPIO cleanup
   GPIO.cleanup()
-  print "Done."
+  rospy.loginfo("Done.")
 
 # call this method on node exit
 rospy.on_shutdown(my_exit)
@@ -63,7 +63,7 @@ def handle_led(req):
       GPIO.output(req.pin, GPIO.LOW)
 
     # debug
-    print "GPIO %s switched to %s. Result: %s"%(req.pin, req.state, req.pin)
+    rospy.loginfo("GPIO %s switched to %s. Result: %s", req.pin, req.state, req.pin)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     return LedResponse(req.pin)
@@ -77,7 +77,7 @@ def led_server():
     # All requests are passed to the 'handle_led' function.
     # 'handle_led' is called with instances of LedRequest and returns instances of LedResponse
     s = rospy.Service('led', Led, handle_led)
-    print "Ready to switch LEDs."
+    rospy.loginfo("Ready to switch LEDs.")
 
     # Keep our code from exiting until this service node is shutdown
     rospy.spin()

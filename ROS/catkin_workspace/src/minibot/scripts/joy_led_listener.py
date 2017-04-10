@@ -19,8 +19,8 @@ Another Ubuntu machine:
 2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
 3. In the next terminal window repeat step 1. (export...)
 4. Run the joystick node: rosrun joy joy_node
-5. Run this listener: rosrun minibot joy_listener
-6. Press button 1 on th joystick and see the output. En-Joy! ;-)
+5. Run this listener: rosrun minibot joy_led_listener
+6. Press button 1 on the joystick/gamepad and see the output. En-Joy! ;-)
 
 """
 

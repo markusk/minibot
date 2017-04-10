@@ -36,8 +36,19 @@ startSpeed = 100
 
 
 def callback(joy):
+    """
+    # debug messages
+    rospy.loginfo("axis 0: %s", joy.axes[0])
+    rospy.loginfo("axis 1: %s", joy.axes[1])
+    rospy.loginfo("axis 2: %s", joy.axes[2])
+    rospy.loginfo("axis 3: %s", joy.axes[3])
+    rospy.loginfo("axis 4: %s", joy.axes[4])
+    rospy.loginfo("axis 5: %s", joy.axes[5])
+    rospy.loginfo("-------------------")
+    """
+
     # D-Pad, vertikal up
-    if (joy.axes[5] == -32767):
+    if (joy.axes[5] == 1.0):
       rospy.loginfo("Forward button pressed.")
 
       # Service 'motor' from motor_server.py ready?

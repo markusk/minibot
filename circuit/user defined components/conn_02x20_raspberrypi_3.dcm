@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP CONN_02X20_RaspberryPi_3
+D Connector 02x20 - Raspberry Pi 3
+K Raspberry
+$ENDCMP
+#
+#End Doc Library

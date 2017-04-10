@@ -58,9 +58,9 @@ def my_exit():
 rospy.on_shutdown(my_exit)
 
 
-# handle_led is called with instances of LedRequest and returns instances of LedResponse
+# handle_motor is called with instances of MotorRequest and returns instances of MotorResponse
 # The request name comes directly from the .srv filename
-def handle_led(req):
+def handle_motor(req):
     """ In this function all the work is done :) """
 
     # switch xxx to HIGH, if '1' was sent
@@ -74,17 +74,18 @@ def handle_led(req):
     rospy.loginfo("xxx %s switched to %s. Result: %s", req.pin, req.state, req.pin)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
-    return LedResponse(req.pin)
+    # we return the speed as "okay"
+    return MotorResponse(req.speed)
 
 
-def led_server():
+def motor_server():
     # Service nodes have to be initialised
-    rospy.init_node('led_server')
+    rospy.init_node('motor_server')
 
-    # This declares a new service named 'led'' with the 'Led' service type.
-    # All requests are passed to the 'handle_led' function.
-    # 'handle_led' is called with instances of LedRequest and returns instances of LedResponse
-    s = rospy.Service('led', Led, handle_led)
+    # This declares a new service named 'motor with the Motor service type.
+    # All requests are passed to the 'handle_motor' function.
+    # 'handle_motor' is called with instances of MotorRequest and returns instances of MotorResponse
+    s = rospy.Service('motor', Motor, handle_motor)
     rospy.loginfo("Ready to switch motors.")
 
     # Keep our code from exiting until this service node is shutdown
@@ -92,7 +93,7 @@ def led_server():
 
 
 if __name__ == "__main__":
-    led_server()
+    motor_server()
 
 
 

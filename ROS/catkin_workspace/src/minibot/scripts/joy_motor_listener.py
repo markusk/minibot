@@ -30,48 +30,32 @@ from sensor_msgs.msg import Joy
 from minibot.srv import *
 
 
-# stores the state of the LED pin/GPIO
-ledPin = False
+# set the motor speed (from 0 (off) to 255 (max speed))
+startSpeed = 100
 
 
 def callback(joy):
-    # need to modify the global variable
-    global ledPin
-    # button 1 (index 0) pressed (1)?
-    if (joy.buttons[0] == 1):
-      rospy.loginfo('Button 1 pressed!')
-      #
-      # turn a led ON
-      #
-      # Service 'led' from led_server.py ready?
-      rospy.wait_for_service('led')
+    # D-Pad, vertikal up
+    if (joy.axes[5] == -32767):
+      rospy.loginfo("Forward button pressed.")
 
+      # Service 'motor' from motor_server.py ready?
+      rospy.wait_for_service('motor')
+
+      # Send driving direction to motor
       try:
-          # Create the handle 'led_switcher' with the service type 'Led'.
-          # The latter automatically generates the LedRequest and LedResponse objects.
-          led_switcher = rospy.ServiceProxy('led', Led)
-
-          # if LED is stored as OFF, turn it ON
-          if (ledPin == False):
-              # Turn LED ON
-              # store new LED state
-              ledPin = True
-              # the handle can be called like a normal function
-              rospy.loginfo('Turning LED on.')
-              response = led_switcher(18, 0)
-          else:
-              # Turn LED OFF
-              # store new LED state
-              ledPin = False
-              # the handle can be called like a normal function
-              rospy.loginfo('Turning LED off.')
-              response = led_switcher(18, 1)
+          # Create the handle 'motor_switcher' with the service type 'Motor'.
+          # The latter automatically generates the MotorRequest and MotorResponse objects.
+          motor_switcher = rospy.ServiceProxy('motor', Motor)
+          # the handle can be called like a normal function
+          rospy.loginfo("Switching motors to forward @ speed %s.", startSpeed)
+          response = motor_switcher("FORWARD", startSpeed)
 
           # show result
           rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
 
       except rospy.ServiceException, e:
-          rospy.logerr("Service call for 'led' failed: %s", e)
+          rospy.logerr("Service call for 'motor' failed: %s", e)
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same
@@ -85,7 +69,7 @@ def listener():
     rospy.Subscriber('joy', Joy, callback)
 
     # Ready
-    rospy.loginfo('Ready. Press button 1 on your joystick now.')
+    rospy.loginfo("Ready. Press a button on your joystick D-Pad now.")
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

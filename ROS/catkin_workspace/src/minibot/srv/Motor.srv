@@ -1,4 +1,4 @@
-String direction
+string direction
 int16  speed
 ---
 int16  result

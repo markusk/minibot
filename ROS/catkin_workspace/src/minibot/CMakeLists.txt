@@ -66,6 +66,7 @@ add_service_files(
 #   Service1.srv
 #   Service2.srv
    Led.srv
+   Motor.srv
 )
 
 ## Generate actions in the 'action' folder

@@ -25,6 +25,7 @@ Another Ubuntu machine:
 """
 
 import rospy
+from std_msgs.msg import String
 from sensor_msgs.msg import Joy
 # name of the package(!).srv
 from minibot.srv import *

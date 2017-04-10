@@ -64,14 +64,24 @@ def handle_motor(req):
     """ In this function all the work is done :) """
 
     # switch xxx to HIGH, if '1' was sent
-    if (req.state == 1):
-      # do something
+    if (req.direction == "FORWARD"): # and speed. returns result.
+        # drive
+        rospy.loginfo("Driving forward.")
+        # @todo: increase speed?
+        myMotor1.run(Adafruit_MotorHAT.FORWARD)
+        myMotor2.run(Adafruit_MotorHAT.FORWARD)
+    elif:
+        rospy.loginfo("Driving backwards.")
+        # @todo: increase speed?
+        myMotor1.run(Adafruit_MotorHAT.BACKWARD)
+        myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+    elif:
+        rospy.loginfo("Stopping.")
+        myMotor1.run(Adafruit_MotorHAT.RELEASE)
+        myMotor2.run(Adafruit_MotorHAT.RELEASE)
+        # @todo: also slow down?
     else:
-      # for all other values we set it to LOW
-      # do something
-
-    # debug
-    rospy.loginfo("xxx %s switched to %s. Result: %s", req.pin, req.state, req.pin)
+      rospy.logerr("Direction '%s' not allowed.", req.direction)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     # we return the speed as "okay"
@@ -98,13 +108,6 @@ if __name__ == "__main__":
 
 
 """ motor stuff to be implemented here:
-    ### drive
-    # run some parts only on the real robot
-    if hostname == 'minibot':
-        # drive
-        rospy.loginfo("Forward! ")
-        myMotor1.run(Adafruit_MotorHAT.FORWARD)
-        myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
         rospy.loginfo("Speed up...")
         for i in range(startSpeed, 255):
@@ -117,24 +120,4 @@ if __name__ == "__main__":
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
             time.sleep(0.01)
-
-        rospy.loginfo("Backward! ")
-        myMotor1.run(Adafruit_MotorHAT.BACKWARD)
-        myMotor2.run(Adafruit_MotorHAT.BACKWARD)
-
-        rospy.loginfo("Speed up...")
-        for i in range(startSpeed, 255):
-            myMotor1.setSpeed(i)
-            myMotor2.setSpeed(i)
-            time.sleep(0.01)
-
-        rospy.loginfo("Slow down...")
-        for i in range(255, startSpeed, -1):
-            myMotor1.setSpeed(i)
-            myMotor2.setSpeed(i)
-            time.sleep(0.01)
-
-        rospy.loginfo("Release")
-        myMotor1.run(Adafruit_MotorHAT.RELEASE)
-        myMotor2.run(Adafruit_MotorHAT.RELEASE)
 """

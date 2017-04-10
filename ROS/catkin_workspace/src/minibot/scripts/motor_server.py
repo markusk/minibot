@@ -67,18 +67,21 @@ def handle_motor(req):
     if (req.direction == "FORWARD"): # and speed. returns result.
         # drive
         rospy.loginfo("Driving forward.")
-        # @todo: increase speed?
-        myMotor1.run(Adafruit_MotorHAT.FORWARD)
-        myMotor2.run(Adafruit_MotorHAT.FORWARD)
+        if hostname == 'minibot':
+            # @todo: increase speed?
+            myMotor1.run(Adafruit_MotorHAT.FORWARD)
+            myMotor2.run(Adafruit_MotorHAT.FORWARD)
     elif:
         rospy.loginfo("Driving backwards.")
-        # @todo: increase speed?
-        myMotor1.run(Adafruit_MotorHAT.BACKWARD)
-        myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+        if hostname == 'minibot':
+            # @todo: increase speed?
+            myMotor1.run(Adafruit_MotorHAT.BACKWARD)
+            myMotor2.run(Adafruit_MotorHAT.BACKWARD)
     elif:
         rospy.loginfo("Stopping.")
-        myMotor1.run(Adafruit_MotorHAT.RELEASE)
-        myMotor2.run(Adafruit_MotorHAT.RELEASE)
+        if hostname == 'minibot':
+            myMotor1.run(Adafruit_MotorHAT.RELEASE)
+            myMotor2.run(Adafruit_MotorHAT.RELEASE)
         # @todo: also slow down?
     else:
       rospy.logerr("Direction '%s' not allowed.", req.direction)

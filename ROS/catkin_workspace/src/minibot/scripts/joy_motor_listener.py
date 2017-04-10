@@ -3,15 +3,15 @@
 
 
 """ This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
-    I also switches a LED on on my Raspberry (GPIO 18) when button 1 is pressed.
-    This needs the led_listener to be run on the Raspberry Pi. Like this:
+    I then switches on motors on my Raspberry when the D-Pad is used on the joystick/gamepad.
+    This needs the motor_server to be run on the Raspberry Pi. Like this:
 
 Usage
 -----
 
 Raspberry Pi:
 1. Run: roscore
-2. Run the led server on the Pi: rosrun minibot led_server.py
+2. Run the motor server on the Pi: rosrun minibot motor_server.py
 
 Another Ubuntu machine:
 1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/
@@ -19,8 +19,8 @@ Another Ubuntu machine:
 2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
 3. In the next terminal window repeat step 1. (export...)
 4. Run the joystick node: rosrun joy joy_node
-5. Run this listener: rosrun minibot joy_listener
-6. Press button 1 on th joystick and see the output. En-Joy! ;-)
+5. Run this listener: rosrun minibot joy_motor_listener
+6. Use the D-Pad buttons on the joystick/gamepad to control the motors.
 
 """
 

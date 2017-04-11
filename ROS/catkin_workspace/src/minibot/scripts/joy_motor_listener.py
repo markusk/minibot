@@ -73,6 +73,19 @@ def callback(joy):
     # D-Pad, vertikal up
     if   (joy.axes[5] == 1.0):
       rospy.loginfo("Forward button pressed.")
+      drive("FORWARD")
+    # D-Pad, vertikal down
+    elif (joy.axes[5] == -1.0):
+      rospy.loginfo("Backward button pressed.")
+      drive("BACKWARD")
+    # D-Pad, horizontal right
+    elif (joy.axes[4] ==  1.0):
+      rospy.loginfo("Right button pressed.")
+      drive("RIGHT")
+    # D-Pad, horizontal left
+    elif (joy.axes[4] == -1.0):
+      rospy.loginfo("Left button pressed.")
+      drive("LEFT")
 
 
 def listener():

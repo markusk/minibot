@@ -84,7 +84,7 @@ def handle_motor(req):
             myMotor2.run(Adafruit_MotorHAT.RELEASE)
         # @todo: also slow down?
     else:
-      rospy.logerr("Direction '%s' not allowed.", req.direction)
+      rospy.logerr("Direction '%s' not implemented.", req.direction)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     # we return the speed as "okay"

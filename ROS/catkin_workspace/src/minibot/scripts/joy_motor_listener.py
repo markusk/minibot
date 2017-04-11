@@ -35,6 +35,28 @@ from minibot.srv import *
 startSpeed = 100
 
 
+#  this will execute the "drive" command
+def drive(direction):
+    # Service 'motor' from motor_server.py ready?
+    rospy.wait_for_service('motor')
+
+    # Send driving direction to motor
+    try:
+        # Create the handle 'motor_switcher' with the service type 'Motor'.
+        # The latter automatically generates the MotorRequest and MotorResponse objects.
+        motor_switcher = rospy.ServiceProxy('motor', Motor)
+
+         # the handle can be called like a normal function
+        rospy.loginfo("Switching motors to forward @ speed %s.", startSpeed)
+        response = motor_switcher(direction, startSpeed)
+
+        # show result
+        rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
+
+    except rospy.ServiceException, e:
+        rospy.logerr("Service call for 'motor' failed: %s", e)
+
+
 def callback(joy):
     """
     # debug messages
@@ -47,27 +69,11 @@ def callback(joy):
     rospy.loginfo("-------------------")
     """
 
+    # which button was pressed?
     # D-Pad, vertikal up
-    if (joy.axes[5] == 1.0):
+    if   (joy.axes[5] == 1.0):
       rospy.loginfo("Forward button pressed.")
 
-      # Service 'motor' from motor_server.py ready?
-      rospy.wait_for_service('motor')
-
-      # Send driving direction to motor
-      try:
-          # Create the handle 'motor_switcher' with the service type 'Motor'.
-          # The latter automatically generates the MotorRequest and MotorResponse objects.
-          motor_switcher = rospy.ServiceProxy('motor', Motor)
-          # the handle can be called like a normal function
-          rospy.loginfo("Switching motors to forward @ speed %s.", startSpeed)
-          response = motor_switcher("FORWARD", startSpeed)
-
-          # show result
-          rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
-
-      except rospy.ServiceException, e:
-          rospy.logerr("Service call for 'motor' failed: %s", e)
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same

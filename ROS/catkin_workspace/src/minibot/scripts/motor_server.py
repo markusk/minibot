@@ -77,6 +77,18 @@ def handle_motor(req):
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
             myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+    elif (req.direction == "LEFT"):
+        rospy.loginfo("Driving left.")
+        if hostname == 'minibot':
+            # @todo: increase speed?
+            myMotor1.run(Adafruit_MotorHAT.BACKWARD)
+            myMotor2.run(Adafruit_MotorHAT.FORWARD)
+    elif (req.direction == "RIGHT"):
+        rospy.loginfo("Driving right.")
+        if hostname == 'minibot':
+            # @todo: increase speed?
+            myMotor1.run(Adafruit_MotorHAT.FORWARD)
+            myMotor2.run(Adafruit_MotorHAT.BACKWARD)
     elif (req.direction == "STOP"):
         rospy.loginfo("Stopping.")
         if hostname == 'minibot':

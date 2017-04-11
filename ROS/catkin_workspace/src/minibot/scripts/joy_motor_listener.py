@@ -47,7 +47,7 @@ def drive(direction):
         motor_switcher = rospy.ServiceProxy('motor', Motor)
 
          # the handle can be called like a normal function
-        rospy.loginfo("Switching motors to forward @ speed %s.", startSpeed)
+        rospy.loginfo("Switching motors to %s @ speed %s.", direction, startSpeed)
         response = motor_switcher(direction, startSpeed)
 
         # show result
@@ -72,20 +72,20 @@ def callback(joy):
     # which button was pressed?
     # D-Pad, vertikal up
     if   (joy.axes[5] == 1.0):
-      rospy.loginfo("Forward button pressed.")
+      rospy.loginfo("FORWARD button pressed.")
       drive("FORWARD")
     # D-Pad, vertikal down
     elif (joy.axes[5] == -1.0):
-      rospy.loginfo("Backward button pressed.")
+      rospy.loginfo("BACKWARD button pressed.")
       drive("BACKWARD")
-    # D-Pad, horizontal right
-    elif (joy.axes[4] ==  1.0):
-      rospy.loginfo("Right button pressed.")
-      drive("RIGHT")
     # D-Pad, horizontal left
-    elif (joy.axes[4] == -1.0):
-      rospy.loginfo("Left button pressed.")
+    elif (joy.axes[4] ==  1.0):
+      rospy.loginfo("LEFT button pressed.")
       drive("LEFT")
+    # D-Pad, horizontal right
+    elif (joy.axes[4] == -1.0):
+      rospy.loginfo("RIGHT button pressed.")
+      drive("RIGHT")
 
 
 def listener():

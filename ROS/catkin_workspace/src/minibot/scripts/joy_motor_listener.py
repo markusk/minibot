@@ -86,6 +86,10 @@ def callback(joy):
     elif (joy.axes[4] == -1.0):
       rospy.loginfo("RIGHT button pressed.")
       drive("RIGHT")
+    # red button on my gamepad
+    elif (joy.buttons[10] == 1.0):
+      rospy.loginfo("RED button pressed.")
+      drive("STOP")
 
 
 def listener():

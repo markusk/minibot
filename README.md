@@ -32,7 +32,7 @@ My little Raspberry Pi and ROS robot - with some python stuff
 
 ## Run/Test
 <ol>
-<li>cd ~/minibot</li>
+<li>cd ~/minibot/test</li>
 <li>./minibot</li>
 </ol>
 

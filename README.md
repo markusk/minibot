@@ -35,3 +35,15 @@ My little Raspberry Pi and ROS robot - with some python stuff
 <li>cd ~/minibot</li>
 <li>./minibot</li>
 </ol>
+
+## ROS Setup
+Install ROS on Raspberry Pi
+create a catkin workspace
+$ catkin_make
+delete the src folder
+create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository.
+$ catkin_make
+
+## Run/Test ROS
+Run master on Raspi/other computer
+On the corresponding other computer, the "ROS slave": export ROS_MASTER_URI=http://name-or-IP:11311

@@ -1,0 +1,21 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+iface dhcp inet dhcp
+
+iface lan inet static
+  address 192.168.1.144/24
+  gateway 192.168.1.1
+  dns-nameservers 192.168.1.1
+#  dns-search example.net
+
+iface enxb827eb22638f inet manual
+  hwaddress     random
+# hwaddress     12:34:56:78:9a:bc
+  up            dhclient $IFACE
+auto enxb827eb22638f

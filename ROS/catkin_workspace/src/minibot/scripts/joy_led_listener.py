@@ -20,6 +20,7 @@ Another Ubuntu machine:
 3. In the next terminal window repeat step 1. (export...)
 4. Run the joystick node: rosrun joy joy_node
 5. Run this listener: rosrun minibot joy_led_listener
+   (sudo apt install ros-kinetic-joystick-drivers)
 6. Press button 1 on the joystick/gamepad and see the output. En-Joy! ;-)
 
 """

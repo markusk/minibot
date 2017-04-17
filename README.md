@@ -37,13 +37,18 @@ My little Raspberry Pi and ROS robot - with some python stuff
 </ol>
 
 ## ROS Setup
-Install ROS on Raspberry Pi
-create a catkin workspace
-$ catkin_make
-delete the src folder
-create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository.
-$ catkin_make
+<ol>
+<li>Install ROS on Raspberry Pi</li>
+<li>create a catkin workspace</li>
+<li>$ catkin_make</li>
+<li>delete the src folder</li>
+<li>create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository.</li>
+<li>$ catkin_make</li>
+</ol>
 
 ## Run/Test ROS
-Run master on Raspi/other computer
-On the corresponding other computer, the "ROS slave": export ROS_MASTER_URI=http://name-or-IP:11311
+<ol>
+<li>Run master on Raspi/other computer</li>
+<li>On the corresponding other computer, the "ROS slave":</li>
+$ export ROS_MASTER_URI=http://name-or-IP:11311
+</ol>

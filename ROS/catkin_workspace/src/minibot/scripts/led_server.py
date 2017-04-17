@@ -7,16 +7,30 @@
 from minibot.srv import *
 import rospy
 
-# for GPIO pin usage on the Raspberry Pi
-try:
-    import RPi.GPIO as GPIO
-except RuntimeError:
-    rospy.logerr("Error importing RPi.GPIO!")
+
+# for getting the hostname of the underlying system
+import socket
+# showing hostname
+hostname = socket.gethostname()
+rospy.loginfo("Running on host %s.", hostname)
+
+
+rospy.loginfo("Setting up RPi.GPIO...")
+# run some parts only on the real robot
+if hostname == 'minibot':
+    # for GPIO pin usage on the Raspberry Pi
+    try:
+        import RPi.GPIO as GPIO
+    except RuntimeError:
+        rospy.logerr("Error importing RPi.GPIO!")
+else:
+    rospy.loginfo("NOT setup. Simulating due to other host!")
 
 
 ## GPIO stuff
 # We use the GPIO names, _not_ the pin numbers on the board
-GPIO.setmode(GPIO.BCM)
+if hostname == 'minibot':
+    GPIO.setmode(GPIO.BCM)
 # Raspberry Pi pin configuration:
 # pins	    BCM   BOARD
 ledPin    = 18 # pin 12
@@ -29,20 +43,23 @@ pinListHigh = (ledPin)
 
 # GPIO setup
 rospy.loginfo("GPIO setup...")
-GPIO.setup(ledPin, GPIO.OUT)
+if hostname == 'minibot':
+    GPIO.setup(ledPin, GPIO.OUT)
 
 # all pins which should be LOW at ini
 # GPIO.output(pinListLow, GPIO.LOW)
 
 # all pins which should be HIGH at ini
-GPIO.output(pinListHigh, GPIO.HIGH)
+if hostname == 'minibot':
+    GPIO.output(pinListHigh, GPIO.HIGH)
 
 
 # define a clean node exit
 def my_exit():
   rospy.loginfo("Shutting LED server down...")
-  # GPIO cleanup
-  GPIO.cleanup()
+  if hostname == 'minibot':
+      # GPIO cleanup
+      GPIO.cleanup()
   rospy.loginfo("Done.")
 
 # call this method on node exit
@@ -56,11 +73,13 @@ def handle_led(req):
 
     # switch GPIO to HIGH, if '1' was sent
     if (req.state == 1):
-      GPIO.output(req.pin, GPIO.HIGH)
+        if hostname == 'minibot':
+            GPIO.output(req.pin, GPIO.HIGH)
     else:
       # for all other values we set it to LOW
       # (LEDs are low active!)
-      GPIO.output(req.pin, GPIO.LOW)
+      if hostname == 'minibot':
+          GPIO.output(req.pin, GPIO.LOW)
 
     # debug
     rospy.loginfo("GPIO %s switched to %s. Result: %s", req.pin, req.state, req.pin)
@@ -77,6 +96,8 @@ def led_server():
     # All requests are passed to the 'handle_led' function.
     # 'handle_led' is called with instances of LedRequest and returns instances of LedResponse
     s = rospy.Service('led', Led, handle_led)
+    if hostname == 'minibot':
+        rospy.logwarn("SIMULATING due the fact that the hostname is not 'minibot'.")
     rospy.loginfo("Ready to switch LEDs.")
 
     # Keep our code from exiting until this service node is shutdown

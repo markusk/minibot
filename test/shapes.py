@@ -38,7 +38,6 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 
 # Load default font.
 # font = ImageFont.load_default()
-
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 # font = ImageFont.truetype('Roboto-Regular.ttf', 12)
@@ -46,8 +45,8 @@ size = 15
 font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', size)
 
 # Write two lines of text.
-draw.text((0, 0),  'Domo Arigato :)',  font=font, fill=255)
-draw.text((0, size), 'Battery: 11.1V', font=font, fill=255)
+draw.text((0, 0),    'Domo Arigato :)',  font=font, fill=255)
+draw.text((0, size), 'Battery: 99.9 V', font=font, fill=255)
 
 # Display image.
 disp.image(image)

@@ -7,17 +7,17 @@ import time
 import sys
 
 # print arguments
-i = range(len(sys.argv)):
+i = len(sys.argv)
 
-if i == 0 || i > 2:
-    print "Usage: " % (i,sys.argv[0] "text1 text2")
-    exit -1
-elif i == 1:
+if i == 2:
     print "%d. argument: %s" % (i,sys.argv[1])
-elif i == 2:
+elif i == 3:
     print "%d. argument: %s" % (i,sys.argv[2])
+else:
+    print("Usage: " + sys.argv[0] + " text1 text2")
+    sys.exit(-1)
 
-exit 0;
+sys.exit(0)
 
 
 # LCD stuff

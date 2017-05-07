@@ -6,17 +6,30 @@ import time
 # for getting arguments
 import sys
 
-# print arguments
-i = len(sys.argv)
-
-if i == 3:
-    print "1. argument: " + sys.argv[1]
-    print "2. argument: " + sys.argv[2]
-else:
-    print("Usage: " + sys.argv[0] + " text1 text2")
+# check arguments
+if len(sys.argv) != 3:
+#    print "1. argument: " + sys.argv[1]
+#    print "2. argument: " + sys.argv[2]
+    print "Usage: " + sys.argv[0] + " text1 text2"
     sys.exit(-1)
 
+# check arg length
+length = 15
+if len(sys.argv[1]) > length:
+    print "ERROR: Text 1 exceeds length of %d." % length
+    if len(sys.argv[2]) > length:
+        print "ERROR: Text 2 exceeds length of %d." % length
+    sys.exit(-1)
+
+if len(sys.argv[2]) > length:
+    if len(sys.argv[1]) > length:
+        print "ERROR: Text 1 exceeds length of %d." % length
+    print "ERROR: Text 2 exceeds length of %d." % length
+    sys.exit(-1)
+
+
 sys.exit(0)
+
 
 
 # LCD stuff

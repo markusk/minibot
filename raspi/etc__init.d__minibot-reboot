@@ -1,0 +1,26 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          minibot-reboot
+# Required-Start:    $local_fs $syslog
+# Required-Stop:     $local_fs $syslog
+# Default-Start:
+# Default-Stop:      6
+# Short-Description: Shows a reboot text on the minibot OLED.
+# Description:       It runs in rc6.d, when the computer is rebootet.
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+# This script runs on rebooting Ubuntu.
+# see link in /etc/rc0.d/K99...
+#
+# Source: http://ccm.net/faq/3348-execute-a-script-at-startup-and-shutdown-on-ubuntu
+# and https://wiki.ubuntuusers.de/SysVinit/
+
+echo "Starting minibot reboot script."
+
+# show a text on the minibot OLED
+/home/pi/minibot/test/lcd_text.py "Rebooting" "..."
+
+exit 0

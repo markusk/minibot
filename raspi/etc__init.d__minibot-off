@@ -1,0 +1,24 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          minibot-off
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:
+# Default-Stop:      0
+# Short-Description: Turns the minibot OLED off.
+# Description:       It runs, when the computer is shutdown in rc0.d.
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+# This script runs on Ubuntu shutdown.
+# see link in /etc/rc0.d/K99...
+#
+# Source: http://ccm.net/faq/3348-execute-a-script-at-startup-and-shutdown-on-ubuntu
+# and https://wiki.ubuntuusers.de/SysVinit/
+
+echo "Starting minibot off script."
+
+# show text on my OLED
+/home/pi/minibot/test/lcd_text.py "" ""

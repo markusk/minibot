@@ -10,7 +10,7 @@ import sys
 if len(sys.argv) != 3:
 #    print "1. argument: " + sys.argv[1]
 #    print "2. argument: " + sys.argv[2]
-    print "Usage: " + sys.argv[0] + " text1 text2"
+    print "ERROR. Correct Usage is: " + sys.argv[0] + " text1 text2"
     sys.exit(-1)
 
 # check arg length

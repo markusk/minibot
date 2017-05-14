@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# This script runs when booting Ubuntu is ready at a user level.
+echo "Showing minibot Ready message."
+
+# show a text on the minibot OLED
+/home/pi/minibot/test/lcd_text.py "Ready." ""
+
+exit 0

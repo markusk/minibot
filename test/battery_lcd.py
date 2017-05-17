@@ -36,16 +36,10 @@ draw = ImageDraw.Draw(image)
 draw.rectangle((0,0,width,height), outline=0, fill=0)
 
 # Load default font.
-# font = ImageFont.load_default()
-# Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
-# Some other nice fonts to try: http://www.dafont.com/bitmap.php
-# font = ImageFont.truetype('Roboto-Regular.ttf', 12)
 size = 15
 font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', size)
 
-#
 # read voltage
-#
 from MCP3008 import MCP3008 # for battery reading
 
 adc = MCP3008()
@@ -60,11 +54,12 @@ voltage = (value / 68.693182)
 # print("Battery: %.1f Volt" % voltage)
 
 
-#
+# get time
+timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
+
 # Write Text and Voltage
-#
-draw.text((0, 0),     'Domo Arigato...',  font=font, fill=255)
-draw.text((0, size), ("Battery: %.2fV" % voltage), font=font, fill=255)
+draw.text((0, 0),    ("Time: %s" % timeString),  font=font, fill=255)
+draw.text((0, size), ("Battery: %.2fV" % voltage),                   font=font, fill=255)
 
 # Display image.
 disp.image(image)

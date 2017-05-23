@@ -4,6 +4,7 @@
 # for time and sleep
 import time
 
+# AD converter stuff
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 
@@ -43,6 +44,7 @@ font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', siz
 # read voltage
 from MCP3008 import MCP3008 # for battery reading
 
+# the AD converter object
 adc = MCP3008()
 
 while (True):

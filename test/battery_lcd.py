@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 
+# for time and sleep
 import time
 
 import Adafruit_GPIO.SPI as SPI
@@ -43,24 +44,32 @@ font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', siz
 from MCP3008 import MCP3008 # for battery reading
 
 adc = MCP3008()
-voltage = 0
 
-# read AD converter (battery voltage)
-# use channel 0 on IC
-value = adc.read(channel = 0)
-# 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
-voltage = (value / 68.693182)
-# print("Value: %d" % value)
-# print("Battery: %.1f Volt" % voltage)
+while (True):
+    # Clear display.
+    disp.clear()
+    disp.display()
 
+    voltage = 0
 
-# get time
-timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
+    # read AD converter (battery voltage)
+    # use channel 0 on IC
+    value = adc.read(channel = 0)
+    # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
+    voltage = (value / 68.693182)
+    # print("Value: %d" % value)
+    # print("Battery: %.1f Volt" % voltage)
 
-# Write Text and Voltage
-draw.text((0, 0),    ("Time: %s" % timeString),  font=font, fill=255)
-draw.text((0, size), ("Battery: %.2fV" % voltage),                   font=font, fill=255)
+    # get time
+    timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
-# Display image.
-disp.image(image)
-disp.display()
+    # Write Text and Voltage
+    draw.text((0, 0),    ("Time: %s" % timeString),  font=font, fill=255)
+    draw.text((0, size), ("Battery: %.2fV" % voltage),                   font=font, fill=255)
+
+    # Display image.
+    disp.image(image)
+    disp.display()
+
+    # wait 1 second
+    time.sleep(1)

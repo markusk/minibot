@@ -45,10 +45,6 @@ from MCP3008 import MCP3008 # for battery reading
 adc = MCP3008()
 
 while (True):
-    # Clear display.
-    disp.clear()
-    disp.display()
-
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 

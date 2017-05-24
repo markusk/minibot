@@ -21,6 +21,26 @@ disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 # Initialize library.
 disp.begin()
 
+
+# for signal handling
+import signal
+import sys
+
+# my signal handler
+def sig_handler(_signo, _stack_frame):
+    # clear display
+    disp.clear()
+    disp.display()
+    print "battery_lcd terminated clean."
+    sys.exit(0)
+
+# signals to be handled
+signal.signal(signal.SIGINT,  sig_handler)
+signal.signal(signal.SIGHUP,  sig_handler)
+signal.signal(signal.SIGTERM, sig_handler)
+
+
+
 # Clear display.
 disp.clear()
 disp.display()

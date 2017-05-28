@@ -21,6 +21,9 @@ def listener():
     # subscribe the message cmd_vel
     rospy.Subscriber('cmd_vel', Twist, callback)
 
+    # Ready
+    rospy.loginfo("Ready. Control me via keyboard now.")
+
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 

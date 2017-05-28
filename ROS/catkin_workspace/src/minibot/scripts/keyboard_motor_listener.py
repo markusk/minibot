@@ -3,6 +3,9 @@
 ## Simple keyboard_listener demo
 ## that listens to geometry_msgs/Twist published by the 'cmd_vel' topic
 ## of the teleop_twist_keyboard node
+#
+# Usage:
+# roslaunch minibot keyboard_motor_control.launch
 
 import rospy
 from geometry_msgs.msg import Twist

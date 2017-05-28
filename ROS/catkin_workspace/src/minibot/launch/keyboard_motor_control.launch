@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Listening to a teleop_twist_keyboard -->
+<launch>
+  <!-- This nodes listens to keyboard input -->
+  <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+  <!-- This nodes takes the keyboard input and performs any action -->
+  <node name="keyboard_listener" pkg="minibot" type="keyboard_listener.py" output="screen"/>
+</launch>

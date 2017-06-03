@@ -96,7 +96,7 @@ def led_server():
     # All requests are passed to the 'handle_led' function.
     # 'handle_led' is called with instances of LedRequest and returns instances of LedResponse
     s = rospy.Service('led', Led, handle_led)
-    if hostname == 'minibot':
+    if hostname != 'minibot':
         rospy.logwarn("SIMULATING due the fact that the hostname is not 'minibot'.")
     rospy.loginfo("Ready to switch LEDs.")
 

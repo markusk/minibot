@@ -16,12 +16,12 @@ from minibot.srv import *
 # set the motor speed (from 0 (off) to 255 (max speed))
 startSpeed = 100
 
+# Service 'motor' from motor_server.py ready?
+rospy.loginfo("Waiting for service 'motor'")
+rospy.wait_for_service('motor')
 
 #  this will execute the "drive" command
 def drive(direction):
-    # Service 'motor' from motor_server.py ready?
-    rospy.wait_for_service('motor')
-
     # Send driving direction to motor
     try:
         # Create the handle 'motor_switcher' with the service type 'Motor'.

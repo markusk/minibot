@@ -45,26 +45,26 @@ def callback(data):
     rospy.loginfo(rospy.get_caller_id() + ' received z=%s', data.angular.z)
 
     # which key / Speed was pressed?
-    #
-    if  (data.linear.x == 1.0):
+    # i key
+    if  (data.linear.x > 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("FORWARD key pressed.")
       drive("FORWARD")
-    #
-    elif (data.linear.x == 2.0):
-      rospy.loginfo("BACKWARD key pressed.")
-      drive("BACKWARD")
-    #
-    elif (data.linear.x == 3.0):
-      rospy.loginfo("LEFT key pressed.")
-      drive("LEFT")
-    #
-    elif (data.linear.x == 4.0):
-      rospy.loginfo("RIGHT key pressed.")
-      drive("RIGHT")
-    #
-    elif (data.linear.x == 5.0):
+    # k key
+    elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("STOP key pressed.")
       drive("STOP")
+    # , key
+    elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
+      rospy.loginfo("BACKWARD key pressed.")
+      drive("BACKWARD")
+    # j key
+    elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
+      rospy.loginfo("LEFT key pressed.")
+      drive("LEFT")
+    # l key
+    elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
+      rospy.loginfo("BACKWARD key pressed.")
+      drive("RIGHT")
 
 
 def listener():

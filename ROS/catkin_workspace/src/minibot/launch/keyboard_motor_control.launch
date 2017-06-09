@@ -3,7 +3,7 @@
 <!-- Listening to a teleop_twist_keyboard -->
 <launch>
   <!-- Controlling the motor on a hardware level -->
-  <node name="motor_server" pkg="minibot" type="motor_server" output="screen"/>
+  <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>
 
   <!-- This nodes listens to keyboard input -->
   <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>

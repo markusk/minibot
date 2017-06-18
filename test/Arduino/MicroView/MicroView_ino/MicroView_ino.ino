@@ -38,7 +38,11 @@ const int fontHeight = 10;
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 
 // stores the callibration status data
-uint8_t system, gyro, accel, mag;
+uint8_t system = 0;
+uint8_t gyro   = 0;
+uint8_t accel  = 0;
+uint8_t mag    = 0;
+
 
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
@@ -130,8 +134,6 @@ void getCalStatus(void)
   /* Get the four calibration values (0..3) */
   /* Any sensor data reporting 0 should be ignored, */
   /* 3 means 'fully calibrated" */
-  system = gyro = accel = mag = 0;
-
   bno.getCalibration(&system, &gyro, &accel, &mag);
 }
 
@@ -258,20 +260,27 @@ void loop(void)
   uView.setCursor(0, 0*fontHeight);
   uView.print("9DOF Live!");
 
-  uView.setCursor(0, 1*fontHeight);
-  uView.print("----------");
+  //uView.setCursor(0, 1*fontHeight);
+  //uView.print("----------");
 
-  uView.setCursor(0, 2*fontHeight);
+  uView.setCursor(0, 1*fontHeight);
   uView.print("X:");
   uView.print(event.orientation.x, 4);
 
-  uView.setCursor(0, 3*fontHeight);
+  uView.setCursor(0, 2*fontHeight);
   uView.print("Y:");
   uView.print(event.orientation.y, 4);
 
-  uView.setCursor(0, 4*fontHeight);
+  uView.setCursor(0, 3*fontHeight);
   uView.print("Z:");
   uView.print(event.orientation.z, 4);
+
+  // check callibration
+  getCalStatus();
+
+  uView.setCursor(0, 4*fontHeight);
+  uView.print("System: ");
+  uView.print(system);
 
   uView.display();
 

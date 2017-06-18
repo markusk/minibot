@@ -135,16 +135,33 @@ void setup(void)
   delay(700);
   uView.clear(PAGE);	// erase the memory buffer, when next uView.display() is called, the OLED will be cleared.
 
+  // set font and cursor
+  uView.setFontType(0);
+  uView.setCursor(0,0);
+  
+  // 10x5 lines availabe
+  //           1234567890
+  uView.print(" Robotik- ");
+  uView.print(" labor :) ");
+  uView.print("----------");
+  uView.print(" Adafruit ");
+  uView.print("  BNO055  ");
+  uView.print("Sensortest");
+  uView.display();
 
-  Serial.begin(9600);
-  Serial.println("Orientation Sensor Test"); 
-  Serial.println("");
+  //Serial.begin(9600);
+  //Serial.println("Orientation Sensor Test"); 
+  //Serial.println("");
 
   /* Initialise the sensor */
   if(!bno.begin())
   {
+    uView.clear(PAGE);
     /* There was a problem detecting the BNO055 ... check your connections */
-    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    //Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    uView.print("Ooops, no BNO055 detected!");
+    uView.display();
+
     while(1);
   }
 

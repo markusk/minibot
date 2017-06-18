@@ -104,7 +104,7 @@ void displaySensorStatus(void)
 
   /* Display the results */
   uView.clear(PAGE);
-  
+
   uView.setCursor(0, 0*fontHeight);
   uView.print("System:0x");
   uView.print(system_status, HEX);
@@ -149,7 +149,7 @@ void displayCalStatus(void)
 
 
   uView.clear(PAGE);
-  
+
   uView.setCursor(0, 0*fontHeight);
   uView.print("Callibrat:");
 
@@ -235,24 +235,38 @@ void loop(void)
   sensors_event_t event;
   bno.getEvent(&event);
 
-  /* Display the floating point data * /
-  Serial.print("X: ");
-  Serial.print(event.orientation.x, 4);
-  Serial.print("\tY: ");
-  Serial.print(event.orientation.y, 4);
-  Serial.print("\tZ: ");
-  Serial.print(event.orientation.z, 4);
-*/
 
-  /* Optional: Display calibration status */
+  /* Optional: Display calibration status * /
   displayCalStatus();
+  delay(250);
+  */
 
-  /* Optional: Display sensor status (debug only) */
-  //displaySensorStatus();
+
+  uView.clear(PAGE);
+
+  uView.setCursor(0, 0*fontHeight);
+  uView.print("9DOF Live!");
+
+  uView.setCursor(0, 1*fontHeight);
+  uView.print("----------");
+
+  uView.setCursor(0, 2*fontHeight);
+  uView.print("X:");
+  uView.print(event.orientation.x, 4);
+
+  uView.setCursor(0, 3*fontHeight);
+  uView.print("Y:");
+  uView.print(event.orientation.y, 4);
+
+  uView.setCursor(0, 4*fontHeight);
+  uView.print("Z:");
+  uView.print(event.orientation.z, 4);
+
+  uView.display();
+
 
   /* Wait the specified delay before requesting nex data */
   delay(BNO055_SAMPLERATE_DELAY_MS);
 }
-
 
 

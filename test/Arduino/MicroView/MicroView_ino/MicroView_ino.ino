@@ -265,14 +265,26 @@ void loop(void)
 
   uView.setCursor(0, 1*fontHeight);
   uView.print("X:");
+  if (event.orientation.x < 99)
+    uView.print(" ");
+  if (event.orientation.x < 9)
+    uView.print(" ");
   uView.print(event.orientation.x, 4);
 
   uView.setCursor(0, 2*fontHeight);
   uView.print("Y:");
+  if (event.orientation.y < 99)
+    uView.print(" ");
+  if (event.orientation.y < 9)
+    uView.print(" ");
   uView.print(event.orientation.y, 4);
 
   uView.setCursor(0, 3*fontHeight);
   uView.print("Z:");
+  if (event.orientation.z < 99)
+    uView.print(" ");
+  if (event.orientation.z < 9)
+    uView.print(" ");
   uView.print(event.orientation.z, 4);
 
   // check callibration

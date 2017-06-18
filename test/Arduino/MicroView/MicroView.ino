@@ -377,6 +377,9 @@ void loop() {
 	uView.print(3);
 	uView.display();			// display the memory buffer drawn
 
+
+/* CLOCK
+
 	while ((second() % 11 )!=0) {
 		if (mSec!=(unsigned long)second()) {
 			if (drawnFirst) {
@@ -410,7 +413,9 @@ void loop() {
 	}
 	drawnFirst=false;
 	uView.clear(PAGE);
+*/
 
+/* SPRITE
 	int maxX=40;
 	onDelay=30;
 	uView.setFontType(0);
@@ -453,6 +458,7 @@ void loop() {
 		uView.display();
 	}
 
+
 	for (int x=maxX; x>0;x-=2) {
 		uView.setFontType(4);
 		uView.drawChar(x,10,48,WHITE, XOR);
@@ -489,7 +495,10 @@ void loop() {
 
 		uView.display();
 	}
+*/
 
+
+/* LINES
 	onDelay=5;
 	uView.setFontType(0);
 	uView.setCursor(0,40);
@@ -509,7 +518,10 @@ void loop() {
 		uView.line(x0,y0,x1,y1, WHITE,XOR);
 		uView.display();
 	}
+*/
 
+
+/* RECTANGLES
 	uView.setCursor(0,40);
 	uView.print("RECTANGLE ");    
 	uView.display();
@@ -530,7 +542,10 @@ void loop() {
 	uView.print("  CIRCLE  ");    
 	uView.display();
 	delay(500);
-	
+*/
+
+
+/* CIRCLES	
 	x0=32;y0=24;
 	for (i=0;i<32;i++) {
 		uView.circle(x0,y0,i,WHITE,XOR);			// draw circle at x0,y0 with radius of i using WHITE color and XOR draw mode
@@ -542,7 +557,10 @@ void loop() {
 		
 	}
 	delay(500);
-	
+*/
+
+
+// TEXT Font 0
 	uView.clear(PAGE);
 	uView.setCursor(0,40);
 	uView.print("  Font 0  ");    
@@ -554,6 +572,8 @@ void loop() {
 	uView.display();
 	delay(1500);
 
+
+// TEXT Font 1
 	uView.clear(PAGE);
 	uView.setCursor(0,40);
 	uView.print("  Font 1  ");    
@@ -565,7 +585,9 @@ void loop() {
 	uView.display();
 	delay(1500);
 	uView.clear(PAGE);
+
 	
+/* COUNTER
 	counter=99999;
 	while (counter>99970) {
 		
@@ -603,6 +625,8 @@ void loop() {
 		}
 	}
 	uView.clear(PAGE);
+*/
+
 /*
 	// Simple Tutorial 
 	uView.setFontType(0);

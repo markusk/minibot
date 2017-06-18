@@ -37,6 +37,10 @@ const int fontHeight = 10;
 /* Set the delay between fresh samples */
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 
+// stores the callibration status data
+uint8_t system, gyro, accel, mag;
+
+
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 /**************************************************************************/
@@ -49,7 +53,6 @@ void displaySensorDetails(void)
 {
   sensor_t sensor;
   bno.getSensor(&sensor);
-
 
 
   // 10x6 lines availabe
@@ -121,6 +124,18 @@ void displaySensorStatus(void)
   uView.display();
 }
 
+
+void getCalStatus(void)
+{
+  /* Get the four calibration values (0..3) */
+  /* Any sensor data reporting 0 should be ignored, */
+  /* 3 means 'fully calibrated" */
+  system = gyro = accel = mag = 0;
+
+  bno.getCalibration(&system, &gyro, &accel, &mag);
+}
+
+
 /**************************************************************************/
 /*
     Display sensor calibration status
@@ -128,14 +143,10 @@ void displaySensorStatus(void)
 /**************************************************************************/
 void displayCalStatus(void)
 {
-  /* Get the four calibration values (0..3) */
-  /* Any sensor data reporting 0 should be ignored, */
-  /* 3 means 'fully calibrated" */
-  uint8_t system, gyro, accel, mag;
-  system = gyro = accel = mag = 0;
-  bno.getCalibration(&system, &gyro, &accel, &mag);
-
-
+  // get status
+  getCalStatus();
+  
+  
   /* The data should be ignored until the system calibration is > 0 */
   //Serial.print("\t");
   if (!system)

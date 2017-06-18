@@ -49,38 +49,43 @@ void displaySensorDetails(void)
 {
   sensor_t sensor;
   bno.getSensor(&sensor);
-  char buffer[7];         //the ASCII of the integer will be stored in this char array
 
+
+
+  // 10x6 lines availabe
+  //           1234567890
   uView.clear(PAGE);
 
-  //Serial.print  ("Sensor:       "); 
+  // Name
+  //uView.setCursor(0, 0*fontHeight);
+  //uView.print(sensor.name);
+
+  // Driver Version
   uView.setCursor(0, 0*fontHeight);
-  uView.print(sensor.name);
-
-  //Serial.print  ("Driver Ver:   "); 
-  uView.setCursor(0, 1*fontHeight);
   uView.print("Version: ");
-  itoa(sensor.version, buffer, 10);
-  uView.print(buffer);
+  uView.print(sensor.version);
 
-  //Serial.print  ("Unique ID:    ");
+  // Unique ID
+  uView.setCursor(0, 1*fontHeight);
+  uView.print("ID:  ");
+  uView.print(sensor.sensor_id);
+
+  // Min Value
+  uView.setCursor(0, 3*fontHeight);
+  uView.print("Min: ");
+  uView.print(sensor.min_value);
+
+  // Max Value
   uView.setCursor(0, 2*fontHeight);
-  uView.print("ID: ");
-  itoa(sensor.sensor_id, buffer, 10);
-  uView.print(buffer);
+  uView.print("Max: ");
+  uView.print(sensor.max_value);
 
-  //Serial.print  ("Max Value:    "); 
-  Serial.print(sensor.max_value); 
-  //Serial.println(" xxx");
-  Serial.print  ("Min Value:    "); 
-  Serial.print(sensor.min_value); 
-  //Serial.println(" xxx");
-  Serial.print  ("Resolution:   "); 
-  Serial.print(sensor.resolution); 
-  //Serial.println(" xxx");
-  //Serial.println("------------------------------------");
-  //Serial.println("");
+  // Resolution
+  uView.setCursor(0, 4*fontHeight);
+  uView.print("Res: ");
+  uView.print(sensor.resolution); 
 
+  // show it
   uView.display();
 
   delay(500);

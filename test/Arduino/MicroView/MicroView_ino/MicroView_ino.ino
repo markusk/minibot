@@ -87,9 +87,8 @@ void displaySensorDetails(void)
 
   // show it
   uView.display();
-
-  delay(500);
 }
+
 
 /**************************************************************************/
 /*
@@ -103,16 +102,23 @@ void displaySensorStatus(void)
   system_status = self_test_results = system_error = 0;
   bno.getSystemStatus(&system_status, &self_test_results, &system_error);
 
-  /* Display the results in the Serial Monitor */
-  Serial.println("");
-  Serial.print("System Status: 0x");
-  Serial.println(system_status, HEX);
-  Serial.print("Self Test:     0x");
-  Serial.println(self_test_results, HEX);
-  Serial.print("System Error:  0x");
-  Serial.println(system_error, HEX);
-  Serial.println("");
-  delay(500);
+  /* Display the results */
+  uView.clear(PAGE);
+  
+  uView.setCursor(0, 0*fontHeight);
+  uView.print("System:0x");
+  uView.print(system_status, HEX);
+
+  uView.setCursor(0, 1*fontHeight);
+  uView.print("Test:  0x");
+  uView.print(self_test_results, HEX);
+
+  uView.setCursor(0, 2*fontHeight);
+  uView.print("Error: 0x");
+  uView.print(system_error, HEX);
+
+  // show it
+  uView.display();
 }
 
 /**************************************************************************/
@@ -171,9 +177,6 @@ void setup(void)
   uView.print("Sensortest");
   uView.display();
 
-  //Serial.begin(9600);
-  //Serial.println("Orientation Sensor Test"); 
-  //Serial.println("");
 
   /* Initialise the sensor */
   if(!bno.begin())
@@ -181,9 +184,8 @@ void setup(void)
     uView.clear(PAGE);
     uView.setCursor(0,0);
     /* There was a problem detecting the BNO055 ... check your connections */
-    //Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
     uView.println("Ooops, no    BNO055 detected!");
-    uView.print("Please reset HW.");
+    uView.print("Please check I2C.");
     uView.display();
 
     while(1);
@@ -193,9 +195,11 @@ void setup(void)
 
   /* Display some basic information on this sensor */
   displaySensorDetails();
+  delay(1000);
 
   /* Optional: Display current status */
   displaySensorStatus();
+  delay(1000);
 
   bno.setExtCrystalUse(true);
 }

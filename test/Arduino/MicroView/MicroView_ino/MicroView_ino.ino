@@ -7,6 +7,7 @@
 // MicroView OLED
 #include <MicroView.h>
 
+const int fontHeight = 10;
 
 /* This driver uses the Adafruit unified sensor library (Adafruit_Sensor),
  which provides a common 'type' for sensor data and some helper functions.
@@ -48,24 +49,40 @@ void displaySensorDetails(void)
 {
   sensor_t sensor;
   bno.getSensor(&sensor);
-  Serial.println("------------------------------------");
-  Serial.print  ("Sensor:       "); 
-  Serial.println(sensor.name);
-  Serial.print  ("Driver Ver:   "); 
-  Serial.println(sensor.version);
-  Serial.print  ("Unique ID:    "); 
-  Serial.println(sensor.sensor_id);
-  Serial.print  ("Max Value:    "); 
+  char buffer[7];         //the ASCII of the integer will be stored in this char array
+
+  uView.clear(PAGE);
+
+  //Serial.print  ("Sensor:       "); 
+  uView.setCursor(0, 0*fontHeight);
+  uView.print(sensor.name);
+
+  //Serial.print  ("Driver Ver:   "); 
+  uView.setCursor(0, 1*fontHeight);
+  uView.print("Version: ");
+  itoa(sensor.version, buffer, 10);
+  uView.print(buffer);
+
+  //Serial.print  ("Unique ID:    ");
+  uView.setCursor(0, 2*fontHeight);
+  uView.print("ID: ");
+  itoa(sensor.sensor_id, buffer, 10);
+  uView.print(buffer);
+
+  //Serial.print  ("Max Value:    "); 
   Serial.print(sensor.max_value); 
-  Serial.println(" xxx");
+  //Serial.println(" xxx");
   Serial.print  ("Min Value:    "); 
   Serial.print(sensor.min_value); 
-  Serial.println(" xxx");
+  //Serial.println(" xxx");
   Serial.print  ("Resolution:   "); 
   Serial.print(sensor.resolution); 
-  Serial.println(" xxx");
-  Serial.println("------------------------------------");
-  Serial.println("");
+  //Serial.println(" xxx");
+  //Serial.println("------------------------------------");
+  //Serial.println("");
+
+  uView.display();
+
   delay(500);
 }
 
@@ -138,8 +155,8 @@ void setup(void)
   // set font and cursor
   uView.setFontType(0);
   uView.setCursor(0,0);
-  
-  // 10x5 lines availabe
+
+  // 10x6 lines availabe
   //           1234567890
   uView.print(" Robotik- ");
   uView.print(" labor :) ");
@@ -157,9 +174,11 @@ void setup(void)
   if(!bno.begin())
   {
     uView.clear(PAGE);
+    uView.setCursor(0,0);
     /* There was a problem detecting the BNO055 ... check your connections */
     //Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-    uView.print("Ooops, no BNO055 detected!");
+    uView.println("Ooops, no    BNO055 detected!");
+    uView.print("Please reset HW.");
     uView.display();
 
     while(1);
@@ -179,34 +198,34 @@ void setup(void)
 
 void loop(void)
 {
-/*
+  /*
   // MicroView
-  // TEXT Font 0
-  uView.clear(PAGE);
-  uView.setCursor(0,40);
-  uView.print("  Font 0  ");    
-  uView.display();
-
-  uView.setFontType(0);
-  uView.setCursor(0,0);
-  uView.print("01234567890ABCDabcd01234567890ABCDabcd");
-  uView.display();
-  delay(1500);
-
-
-  // TEXT Font 1
-  uView.clear(PAGE);
-  uView.setCursor(0,40);
-  uView.print("  Font 1  ");    
-  uView.display();
-
-  uView.setFontType(1);
-  uView.setCursor(0,0);
-  uView.print("0123ABCDabcd");
-  uView.display();
-  delay(1500);
-  uView.clear(PAGE);
-*/
+   // TEXT Font 0
+   uView.clear(PAGE);
+   uView.setCursor(0,40);
+   uView.print("  Font 0  ");    
+   uView.display();
+   
+   uView.setFontType(0);
+   uView.setCursor(0,0);
+   uView.print("01234567890ABCDabcd01234567890ABCDabcd");
+   uView.display();
+   delay(1500);
+   
+   
+   // TEXT Font 1
+   uView.clear(PAGE);
+   uView.setCursor(0,40);
+   uView.print("  Font 1  ");    
+   uView.display();
+   
+   uView.setFontType(1);
+   uView.setCursor(0,0);
+   uView.print("0123ABCDabcd");
+   uView.display();
+   delay(1500);
+   uView.clear(PAGE);
+   */
 
   /* Get a new sensor event */
   sensors_event_t event;
@@ -232,5 +251,6 @@ void loop(void)
   /* Wait the specified delay before requesting nex data */
   delay(BNO055_SAMPLERATE_DELAY_MS);
 }
+
 
 

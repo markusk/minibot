@@ -135,22 +135,46 @@ void displayCalStatus(void)
   system = gyro = accel = mag = 0;
   bno.getCalibration(&system, &gyro, &accel, &mag);
 
+
   /* The data should be ignored until the system calibration is > 0 */
-  Serial.print("\t");
+  //Serial.print("\t");
   if (!system)
   {
-    Serial.print("! ");
+    uView.clear(PAGE);
+    uView.setCursor(0, 0*fontHeight);
+    uView.print("Waiting...");
+    // show it
+    uView.display();
   }
 
-  /* Display the individual values */
-  Serial.print("Sys:");
-  Serial.print(system, DEC);
-  Serial.print(" G:");
-  Serial.print(gyro, DEC);
-  Serial.print(" A:");
-  Serial.print(accel, DEC);
-  Serial.print(" M:");
-  Serial.print(mag, DEC);
+
+  uView.clear(PAGE);
+  
+  uView.setCursor(0, 0*fontHeight);
+  uView.print("Callibrat:");
+
+  // Sys
+  uView.setCursor(0, 1*fontHeight);
+  uView.print("Sys:  ");
+  uView.print(system, DEC);
+
+  // Gyrocope
+  uView.setCursor(0, 2*fontHeight);
+  uView.print("Gyro: ");
+  uView.print(gyro, DEC);
+
+  // Accelerometer
+  uView.setCursor(0, 3*fontHeight);
+  uView.print("Accel:");
+  uView.print(accel, DEC);
+
+  // Magnetometer
+  uView.setCursor(0, 4*fontHeight);
+  uView.print("Mag:  ");
+  uView.print(mag, DEC);
+
+  // show it
+  uView.display();
 }
 
 
@@ -207,55 +231,24 @@ void setup(void)
 
 void loop(void)
 {
-  /*
-  // MicroView
-   // TEXT Font 0
-   uView.clear(PAGE);
-   uView.setCursor(0,40);
-   uView.print("  Font 0  ");    
-   uView.display();
-   
-   uView.setFontType(0);
-   uView.setCursor(0,0);
-   uView.print("01234567890ABCDabcd01234567890ABCDabcd");
-   uView.display();
-   delay(1500);
-   
-   
-   // TEXT Font 1
-   uView.clear(PAGE);
-   uView.setCursor(0,40);
-   uView.print("  Font 1  ");    
-   uView.display();
-   
-   uView.setFontType(1);
-   uView.setCursor(0,0);
-   uView.print("0123ABCDabcd");
-   uView.display();
-   delay(1500);
-   uView.clear(PAGE);
-   */
-
   /* Get a new sensor event */
   sensors_event_t event;
   bno.getEvent(&event);
 
-  /* Display the floating point data */
+  /* Display the floating point data * /
   Serial.print("X: ");
   Serial.print(event.orientation.x, 4);
   Serial.print("\tY: ");
   Serial.print(event.orientation.y, 4);
   Serial.print("\tZ: ");
   Serial.print(event.orientation.z, 4);
+*/
 
   /* Optional: Display calibration status */
   displayCalStatus();
 
   /* Optional: Display sensor status (debug only) */
   //displaySensorStatus();
-
-  /* New line for the next sample */
-  Serial.println("");
 
   /* Wait the specified delay before requesting nex data */
   delay(BNO055_SAMPLERATE_DELAY_MS);

@@ -1,8 +1,9 @@
 // Sensor stuff
 #include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BNO055.h>
-#include <utility/imumaths.h>
+//#include <Adafruit_Sensor.h>
+//#include <Adafruit_BNO055.h>
+//include <utility/imumaths.h>
+#include "bno055.h"
 
 // MicroView OLED
 #include <MicroView.h>
@@ -45,7 +46,7 @@ uint8_t mag    = 0;
 
 
 
-Adafruit_BNO055 bno = Adafruit_BNO055(0X0C);
+// Adafruit_BNO055 bno = Adafruit_BNO055(0X0C);
 
 /**************************************************************************/
 /*
@@ -55,6 +56,7 @@ Adafruit_BNO055 bno = Adafruit_BNO055(0X0C);
 /**************************************************************************/
 void displaySensorDetails(void)
 {
+/*
   sensor_t sensor;
   bno.getSensor(&sensor);
 
@@ -94,6 +96,7 @@ void displaySensorDetails(void)
 
   // show it
   uView.display();
+ */
 }
 
 
@@ -104,12 +107,13 @@ void displaySensorDetails(void)
 /**************************************************************************/
 void displaySensorStatus(void)
 {
-  /* Get the system status values (mostly for debugging purposes) */
+ /*
+  // Get the system status values (mostly for debugging purposes)
   uint8_t system_status, self_test_results, system_error;
   system_status = self_test_results = system_error = 0;
   bno.getSystemStatus(&system_status, &self_test_results, &system_error);
 
-  /* Display the results */
+  // Display the results
   uView.clear(PAGE);
 
   uView.setCursor(0, 0*fontHeight);
@@ -126,15 +130,16 @@ void displaySensorStatus(void)
 
   // show it
   uView.display();
+  */
 }
 
 
 void getCalStatus(void)
 {
-  /* Get the four calibration values (0..3) */
-  /* Any sensor data reporting 0 should be ignored, */
-  /* 3 means 'fully calibrated" */
-  bno.getCalibration(&systemCalib, &gyro, &accel, &mag);
+  // Get the four calibration values (0..3)
+  // Any sensor data reporting 0 should be ignored,
+  // 3 means 'fully calibrated"
+  // bno.getCalibration(&systemCalib, &gyro, &accel, &mag);
 }
 
 
@@ -145,11 +150,12 @@ void getCalStatus(void)
 /**************************************************************************/
 void displayCalStatus(void)
 {
+/*
   // get status
   getCalStatus();
   
   
-  /* The data should be ignored until the system calibration is > 0 */
+  // The data should be ignored until the system calibration is > 0
   //Serial.print("\t");
   if (!systemCalib)
   {
@@ -188,6 +194,7 @@ void displayCalStatus(void)
 
   // show it
   uView.display();
+  */
 }
 
 
@@ -215,12 +222,12 @@ void setup(void)
   uView.display();
 
 
-  /* Initialise the sensor */
-  if(!bno.begin())
+  // Initialise the sensor
+  if( true )
   {
     uView.clear(PAGE);
     uView.setCursor(0,0);
-    /* There was a problem detecting the BNO055 ... check your connections */
+    // There was a problem detecting the BNO055 ... check your connections
     uView.println("Ooops, no    BNO055 detected!");
     uView.print("Please check I2C.");
     uView.display();
@@ -230,23 +237,23 @@ void setup(void)
 
   delay(1000);
 
-  /* Display some basic information on this sensor */
+  // Display some basic information on this sensor
   displaySensorDetails();
   delay(1000);
 
-  /* Optional: Display current status */
+  // Optional: Display current status
   displaySensorStatus();
   delay(1000);
 
-  bno.setExtCrystalUse(true);
+  // bno.setExtCrystalUse(true);
 }
 
 
 void loop(void)
 {
-  /* Get a new sensor event */
-  sensors_event_t event;
-  bno.getEvent(&event);
+  // Get a new sensor event
+  // sensors_event_t event;
+  // bno.getEvent(&event);
 
 
   /* Optional: Display calibration status * /
@@ -265,27 +272,27 @@ void loop(void)
 
   uView.setCursor(0, 1*fontHeight);
   uView.print("X:");
-  if (event.orientation.x < 99)
-    uView.print(" ");
-  if (event.orientation.x < 9)
-    uView.print(" ");
-  uView.print(event.orientation.x, 4);
+//  if (event.orientation.x < 99)
+//    uView.print(" ");
+//  if (event.orientation.x < 9)
+//    uView.print(" ");
+//  uView.print(event.orientation.x, 4);
 
   uView.setCursor(0, 2*fontHeight);
   uView.print("Y:");
-  if (event.orientation.y < 99)
-    uView.print(" ");
-  if (event.orientation.y < 9)
-    uView.print(" ");
-  uView.print(event.orientation.y, 4);
+//  if (event.orientation.y < 99)
+//    uView.print(" ");
+//  if (event.orientation.y < 9)
+//    uView.print(" ");
+//  uView.print(event.orientation.y, 4);
 
   uView.setCursor(0, 3*fontHeight);
   uView.print("Z:");
-  if (event.orientation.z < 99)
-    uView.print(" ");
-  if (event.orientation.z < 9)
-    uView.print(" ");
-  uView.print(event.orientation.z, 4);
+//  if (event.orientation.z < 99)
+//    uView.print(" ");
+//  if (event.orientation.z < 9)
+//    uView.print(" ");
+//  uView.print(event.orientation.z, 4);
 
   // check callibration
   getCalStatus();
@@ -297,7 +304,7 @@ void loop(void)
   uView.display();
 
 
-  /* Wait the specified delay before requesting nex data */
+  // Wait the specified delay before requesting nex data
   delay(BNO055_SAMPLERATE_DELAY_MS);
 }
 

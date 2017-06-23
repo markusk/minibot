@@ -3,7 +3,19 @@
 //#include <Adafruit_Sensor.h>
 //#include <Adafruit_BNO055.h>
 //include <utility/imumaths.h>
+
+#if ARDUINO >= 100
+ #include "Arduino.h"
+#else
+ #include "WProgram.h"
+#endif
+
+// Bosch sensor stuff
 #include "bno055.h"
+
+// For I2C
+#include <Wire.h>
+
 
 // MicroView OLED
 #include <MicroView.h>

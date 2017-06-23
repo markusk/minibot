@@ -191,7 +191,7 @@ typedef	signed long long int s64;/**< used for signed 64bit */
 /*unsigned integer types*/
 typedef	unsigned char u8;/**< used for unsigned 8bit */
 typedef	unsigned short int u16;/**< used for unsigned 16bit */
-typedef	unsigned int u32;/**< used for unsigned 32bit */
+// typedef	unsigned int u32;/**< used for unsigned 32bit */
 typedef	unsigned long long int u64;/**< used for unsigned 64bit */
 
 /* If your machine support 64 bit

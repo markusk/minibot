@@ -45,7 +45,7 @@ uint8_t mag    = 0;
 
 
 
-Adafruit_BNO055 bno = Adafruit_BNO055(0X0C);
+Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 /**************************************************************************/
 /*

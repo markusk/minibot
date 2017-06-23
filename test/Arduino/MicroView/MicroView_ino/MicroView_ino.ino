@@ -38,14 +38,14 @@ const int fontHeight = 10;
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 
 // stores the callibration status data
-uint8_t system = 0;
+uint8_t systemCalib = 0;
 uint8_t gyro   = 0;
 uint8_t accel  = 0;
 uint8_t mag    = 0;
 
 
 
-Adafruit_BNO055 bno = Adafruit_BNO055(55);
+Adafruit_BNO055 bno = Adafruit_BNO055(0X0C);
 
 /**************************************************************************/
 /*
@@ -134,7 +134,7 @@ void getCalStatus(void)
   /* Get the four calibration values (0..3) */
   /* Any sensor data reporting 0 should be ignored, */
   /* 3 means 'fully calibrated" */
-  bno.getCalibration(&system, &gyro, &accel, &mag);
+  bno.getCalibration(&systemCalib, &gyro, &accel, &mag);
 }
 
 
@@ -151,7 +151,7 @@ void displayCalStatus(void)
   
   /* The data should be ignored until the system calibration is > 0 */
   //Serial.print("\t");
-  if (!system)
+  if (!systemCalib)
   {
     uView.clear(PAGE);
     uView.setCursor(0, 0*fontHeight);
@@ -169,7 +169,7 @@ void displayCalStatus(void)
   // Sys
   uView.setCursor(0, 1*fontHeight);
   uView.print("Sys:  ");
-  uView.print(system, DEC);
+  uView.print(systemCalib, DEC);
 
   // Gyrocope
   uView.setCursor(0, 2*fontHeight);
@@ -292,7 +292,7 @@ void loop(void)
 
   uView.setCursor(0, 4*fontHeight);
   uView.print("System: ");
-  uView.print(system);
+  uView.print(systemCalib);
 
   uView.display();
 

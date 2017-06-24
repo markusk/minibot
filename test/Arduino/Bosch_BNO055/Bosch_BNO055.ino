@@ -15,6 +15,10 @@
 
 // For I2C
 #include <Wire.h>
+#define BNO055_ADDRESS_A (0x28)
+#define BNO055_ADDRESS_B (0x29)
+#define BNO055_ID        (0xA0)
+
 
 
 // MicroView OLED
@@ -55,7 +59,16 @@ s8 BNO055_I2C_bus_write(u8 dev_addr, u8 reg_addr, u8 *reg_data, u8 cnt);
 /*
  * \Brief: I2C init routine
 */
-s8 I2C_routine(void);
+s8 I2C_routine(void)
+{
+  /* Enable I2C */
+  Wire.begin();
+
+  // BNO055 clock stretches for 500us or more!
+#ifdef ESP8266
+  Wire.setClockStretchLimit(1000); // Allow for 1000us of clock stretching
+#endif
+}
 #endif
 /********************End of I2C APIs declarations***********************/
 /*  Brief : The delay routine

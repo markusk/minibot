@@ -43,6 +43,9 @@ uint8_t gyro   = 0;
 uint8_t accel  = 0;
 uint8_t mag    = 0;
 
+// for the new x,y and z axes
+float x,y,z = 0;
+
 
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
@@ -249,6 +252,23 @@ void loop(void)
   bno.getEvent(&event);
 
 
+  /*
+   * "Fix" Adafruits Arduino library bug in version <=1.1.3
+   * 
+   * See https://forums.adafruit.com/viewtopic.php?f=50&t=119471&p=597457#p597112
+   * 
+   * 
+   * Beware Adafruit's BNO055 library mixes up the Euler axes.
+   * It reads the BNO's Euler registers consecutively into variables x,y,z,
+   * but it should read them into heading,roll,pitch which are axes z,y,x.
+   * 
+   * (By the way, I recommend avoiding the BNO's buggy Euler values.
+   * If you need Euler, read the quaternion and convert it to Euler yourself.)
+   */
+  x = event.orientation.z;
+  y = event.orientation.y;
+  z = event.orientation.x;
+
   /* Optional: Display calibration status * /
   displayCalStatus();
   delay(250);
@@ -263,46 +283,31 @@ void loop(void)
   //uView.setCursor(0, 1*fontHeight);
   //uView.print("----------");
 
-  /*
-   * "Fix" Adafruits Arduino library bug in version <=1.1.3
-   * 
-   * See https://forums.adafruit.com/viewtopic.php?f=50&t=119471&p=597457#p597112
-   * 
-   * 
-   * Beware Adafruit's BNO055 library mixes up the Euler axes.
-   * It reads the BNO's Euler registers consecutively into variables x,y,z,
-   * but it should read them into heading,roll,pitch which are axes z,y,x.
-   * 
-   * (By the way, I recommend avoiding the BNO's buggy Euler values.
-   * If you need Euler, read the quaternion and convert it to Euler yourself.)
-   */
 
-  /* Display the floating point data with "fixed" axes */
+  /* Display the floating point data aligned ath the seperator */
   uView.setCursor(0, 1*fontHeight);
-  /* "fixed bug" axes Z */
   uView.print("Z:");
-  if (event.orientation.x < 99)
+  if (z < 99)
     uView.print(" ");
-  if (event.orientation.x < 9)
+  if (z < 9)
     uView.print(" ");
-  uView.print(event.orientation.x, 4);
+  uView.print(z, 3);
 
   uView.setCursor(0, 2*fontHeight);
   uView.print("Y:");
-  if (event.orientation.y < 99)
+  if (y < 99)
     uView.print(" ");
-  if (event.orientation.y < 9)
+  if (y < 9)
     uView.print(" ");
-  uView.print(event.orientation.y, 4);
+  uView.print(y, 3);
 
   uView.setCursor(0, 3*fontHeight);
-  /* "fixed bug" axes X */
   uView.print("X:");
-  if (event.orientation.z < 99)
+  if (x < 99)
     uView.print(" ");
-  if (event.orientation.z < 9)
+  if (x < 9)
     uView.print(" ");
-  uView.print(event.orientation.z, 4);
+  uView.print(x, 3);
 
   // check callibration
   getCalStatus();

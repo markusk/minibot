@@ -263,8 +263,24 @@ void loop(void)
   //uView.setCursor(0, 1*fontHeight);
   //uView.print("----------");
 
+  /*
+   * "Fix" Adafruits Arduino library bug in version <=1.1.3
+   * 
+   * See https://forums.adafruit.com/viewtopic.php?f=50&t=119471&p=597457#p597112
+   * 
+   * 
+   * Beware Adafruit's BNO055 library mixes up the Euler axes.
+   * It reads the BNO's Euler registers consecutively into variables x,y,z,
+   * but it should read them into heading,roll,pitch which are axes z,y,x.
+   * 
+   * (By the way, I recommend avoiding the BNO's buggy Euler values.
+   * If you need Euler, read the quaternion and convert it to Euler yourself.)
+   */
+
+  /* Display the floating point data with "fixed" axes */
   uView.setCursor(0, 1*fontHeight);
-  uView.print("X:");
+  /* "fixed bug" axes Z */
+  uView.print("Z:");
   if (event.orientation.x < 99)
     uView.print(" ");
   if (event.orientation.x < 9)
@@ -280,7 +296,8 @@ void loop(void)
   uView.print(event.orientation.y, 4);
 
   uView.setCursor(0, 3*fontHeight);
-  uView.print("Z:");
+  /* "fixed bug" axes X */
+  uView.print("X:");
   if (event.orientation.z < 99)
     uView.print(" ");
   if (event.orientation.z < 9)

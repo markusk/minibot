@@ -247,6 +247,9 @@ void setup(void)
 
 void loop(void)
 {
+  char string_float[10]; // to store the float-to-string converted value
+
+
   /* Get a new sensor event */
   sensors_event_t event;
   bno.getEvent(&event);
@@ -284,30 +287,26 @@ void loop(void)
   //uView.print("----------");
 
 
-  /* Display the floating point data aligned ath the seperator */
+  /* Display the floating point data aligned at the seperator */
   uView.setCursor(0, 1*fontHeight);
   uView.print("Z:");
-  if (z < 99)
-    uView.print(" ");
-  if (z < 9)
-    uView.print(" ");
-  uView.print(z, 3);
+  // convert float to string with length of 8 and precision of 3 after decimal point
+  dtostrf(z, 8, 3, string_float);
+  uView.print(string_float);
 
   uView.setCursor(0, 2*fontHeight);
   uView.print("Y:");
-  if (y < 99)
-    uView.print(" ");
-  if (y < 9)
-    uView.print(" ");
-  uView.print(y, 3);
+  // float to string
+  dtostrf(y, 8, 3, string_float);
+  // print value
+  uView.print(string_float);
+
 
   uView.setCursor(0, 3*fontHeight);
   uView.print("X:");
-  if (x < 99)
-    uView.print(" ");
-  if (x < 9)
-    uView.print(" ");
-  uView.print(x, 3);
+  // float to string
+  dtostrf(x, 8, 3, string_float);
+  uView.print(string_float);
 
   // check callibration
   getCalStatus();

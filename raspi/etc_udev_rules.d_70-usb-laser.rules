@@ -1,0 +1,5 @@
+# Rechte dem User "pi" geben. Benutzerdefinierter (zusätzlicher) Pfad  (Symlink) für Device als /dev/ttyLaser
+#SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="15d1", ATTRS{idProduct}=="0000", SUBSYSTEMS=="usb" SYMLINK+="ttyLaser" OWNER="pi" GROUP "dialout" MODE="0660"
+
+# Benutzerdefinierter (zusätzlicher) Pfad  (Symlink) für Device als /dev/ttyLaser
+SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="15d1", ATTRS{idProduct}=="0000", SUBSYSTEMS=="usb" SYMLINK+="ttyLaser"

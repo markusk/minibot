@@ -25,13 +25,15 @@ def TeleopImu():
     rospy.Subscriber('imu/data', Imu, callback)
 
 
-def callBack(const sensor_msgs::Imu::ConstPtr& imu):
-	geometry_msgs::Twist vel;
-	tf::Quaternion bq(imu->orientation.x,imu->orientation.y,imu->orientation.z,imu->orientation.w);
-	double roll,pitch,yaw;
-	tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
-	vel.angular.z = roll;
-	vel.linear.x = pitch;
+def callBack(imu):
+	Twist vel;
+	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
+	# double roll,pitch,yaw;
+	# tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
+
+	# convert to twist message for turtle
+	vel.angular.z = imu.angular.z # roll
+	vel.linear.x  = imu.linear.x # pitch
 
 	# publish
 	pub.publish(vel);

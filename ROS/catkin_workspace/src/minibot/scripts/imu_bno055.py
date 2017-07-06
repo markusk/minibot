@@ -16,7 +16,7 @@ from sensr_msgs import Imu
 #using namespace std;
 
 
-def TeleopImu():
+def work():
 	# publish topic is cmd_vel
 #	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
 	pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
@@ -26,7 +26,7 @@ def TeleopImu():
 
 
 def callBack(imu):
-	Twist vel;
+	Twist vel
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
 	# double roll,pitch,yaw;
 	# tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
@@ -36,7 +36,7 @@ def callBack(imu):
 	vel.linear.x  = imu.linear.x # pitch
 
 	# publish
-	pub.publish(vel);
+	pub.publish(vel)
 
 
 def listener():
@@ -47,7 +47,8 @@ def listener():
     # Ready
     rospy.loginfo("Ready. Start Turtlesim and move sensor around to move the turtle.")
 
-	TeleopImu teleop_turtle;
+	# subscribe and publish
+	work()
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

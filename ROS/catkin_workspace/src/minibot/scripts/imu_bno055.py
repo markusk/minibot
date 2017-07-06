@@ -15,6 +15,10 @@ from sensr_msgs import Imu
 
 #using namespace std;
 
+# Service 'bno055_driver' from bno055_driver.py ready?
+rospy.loginfo("Waiting for service 'bno055_driver'")
+rospy.wait_for_service('bno055_driver')
+
 
 def work():
 	# publish topic is cmd_vel

@@ -30,12 +30,12 @@ def work():
 
 
 def callBack(imu):
-	Twist vel
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
 	# double roll,pitch,yaw;
 	# tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
 
 	# convert to twist message for turtle
+	vel = Twist()
 	vel.angular.z = imu.angular.z # roll
 	vel.linear.x  = imu.linear.x # pitch
 

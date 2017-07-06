@@ -7,7 +7,7 @@ import rospy
 from geometry_msgs.msg import Twist
 
 #include<sensor_msgs/Imu.h>
-from sensr_msgs import Imu
+from sensor_msgs.msg import Imu
 
 #include<iostream>
 #include<tf/LinearMath/Matrix3x3.h>

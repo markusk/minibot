@@ -19,10 +19,10 @@ from sensr_msgs import Imu
 def TeleopImu():
 	# publish topic is cmd_vel
 #	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
-	pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+	pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
 
 	# listen to IMU data
-    rospy.Subscriber("imu/data", Imu, callback)
+    rospy.Subscriber('imu/data', Imu, callback)
 
 
 def callBack(const sensor_msgs::Imu::ConstPtr& imu):
@@ -38,7 +38,6 @@ def callBack(const sensor_msgs::Imu::ConstPtr& imu):
 
 
 def listener():
-
     # In ROS, nodes are uniquely named. The anonymous=True flag
     # means that rospy will choose a unique name for this listener node
     rospy.init_node('teleopImu', anonymous=True)

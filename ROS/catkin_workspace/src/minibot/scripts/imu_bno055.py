@@ -26,7 +26,7 @@ def work():
 	pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
 
 	# listen to IMU data
-    rospy.Subscriber('imu/data', Imu, callback)
+	rospy.Subscriber('imu/data', Imu, callback)
 
 
 def callBack(imu):
@@ -51,8 +51,8 @@ def listener():
     # Ready
     rospy.loginfo("Ready. Start Turtlesim and move sensor around to move the turtle.")
 
-	# subscribe and publish
-	work()
+    # subscribe and publish
+    work()
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

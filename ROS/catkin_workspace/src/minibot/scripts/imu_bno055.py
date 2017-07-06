@@ -15,15 +15,14 @@ from sensr_msgs import Imu
 
 #using namespace std;
 
-# c variables
-ros::NodeHandle n;
-ros::Publisher pub;
-ros::Subscriber sub;
-
 
 def TeleopImu():
-	pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel",1);
-	sub = n.subscribe<sensor_msgs::Imu>("imu/data", 10, &TeleopImu::callBack, this);
+	# publish topic is cmd_vel
+#	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
+	pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+
+	# listen to IMU data
+    rospy.Subscriber("imu/data", Imu, callback)
 
 
 def callBack(const sensor_msgs::Imu::ConstPtr& imu):
@@ -33,6 +32,8 @@ def callBack(const sensor_msgs::Imu::ConstPtr& imu):
 	tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
 	vel.angular.z = roll;
 	vel.linear.x = pitch;
+
+	# publish
 	pub.publish(vel);
 
 

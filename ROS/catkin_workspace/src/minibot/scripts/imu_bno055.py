@@ -15,9 +15,6 @@ from sensor_msgs.msg import Imu
 
 #using namespace std;
 
-# sleep time for publish/refresh
-rate = rospy.Rate(1) # 1hz
-
 
 def callback(imu):
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
@@ -33,17 +30,20 @@ def callback(imu):
 	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
 	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 
-	# publish
-	pub.publish(vel)
-
 	# don't be too fast
         rate.sleep()
+
+	# publish
+	pub.publish(vel)
 
 
 def listener():
 	# In ROS, nodes are uniquely named. The anonymous=True flag
 	# means that rospy will choose a unique name for this listener node
 	rospy.init_node('teleopImu')
+
+	# sleep time for publish/refresh
+	rate = rospy.Rate(1) # 1hz
 
 	# publish topic is cmd_vel
 #	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)

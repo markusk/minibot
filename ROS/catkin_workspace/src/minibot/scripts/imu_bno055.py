@@ -46,6 +46,9 @@ def callback(imu):
 	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
 	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 
+	# sleep 0.5 seconds
+	rospy.sleep(0.5)
+
 	# publish
 	pub.publish(vel)
 
@@ -56,12 +59,6 @@ def listener():
 
 	# Ready
 	rospy.loginfo("Ready. Start Turtlesim and move sensor around to move the turtle.")
-
-	# sleep time for publish/refresh
-	rate = rospy.Rate(1) # 1hz
-
-	# don't be too fast
-	rate.sleep()
 
 	# spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()

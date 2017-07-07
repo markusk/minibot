@@ -23,8 +23,12 @@ def callBack(imu):
 
 	# convert to twist message for turtle
 	vel = Twist()
-	vel.angular.z = imu.angular.z # roll
 	vel.linear.x  = imu.linear.x # pitch
+	vel.angular.z = imu.angular.z # roll
+
+    # debug messages
+    rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
+    rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 
 	# publish
 	pub.publish(vel)

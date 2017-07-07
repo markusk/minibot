@@ -23,15 +23,17 @@ def callback(imu):
 
 	# convert to twist message for turtle
 	vel = Twist()
-	vel.linear.x  = imu.linear.x # pitch
-	vel.angular.z = imu.angular.z # roll
+	vel.linear.x  = imu.orientation.x # pitch
+	vel.angular.z = imu.orientation.z # roll
+
+	""" AttributeError: 'Imu' object has no attribute 'linear' """
 
 	# debug messages
 	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
 	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 
 	# don't be too fast
-        rate.sleep()
+    rate.sleep()
 
 	# publish
 	pub.publish(vel)

@@ -16,6 +16,20 @@ from sensor_msgs.msg import Imu
 #using namespace std;
 
 
+# In ROS, nodes are uniquely named. The anonymous=True flag
+# means that rospy will choose a unique name for this listener node
+rospy.init_node('teleopImu')
+
+# publish topic is cmd_vel
+#	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
+rospy.loginfo("Publishing 'turtle1/cmd_vel'")
+pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
+
+# Service 'bno055_driver' from bno055_driver.py ready?
+#	rospy.loginfo("Waiting for service 'bno055_driver'")
+#	rospy.wait_for_service('bno055_driver')
+
+
 def callback(imu):
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
 	# double roll,pitch,yaw;
@@ -32,35 +46,22 @@ def callback(imu):
 	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
 	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 
-	# don't be too fast
-    rate.sleep()
-
 	# publish
 	pub.publish(vel)
 
 
 def listener():
-	# In ROS, nodes are uniquely named. The anonymous=True flag
-	# means that rospy will choose a unique name for this listener node
-	rospy.init_node('teleopImu')
-
-	# sleep time for publish/refresh
-	rate = rospy.Rate(1) # 1hz
-
-	# publish topic is cmd_vel
-#	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
-	rospy.loginfo("Publishing 'turtle1/cmd_vel'")
-	pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
-
-	# Service 'bno055_driver' from bno055_driver.py ready?
-#	rospy.loginfo("Waiting for service 'bno055_driver'")
-#	rospy.wait_for_service('bno055_driver')
-
 	# subscribe (listen) to IMU data
 	rospy.Subscriber('imu/data', Imu, callback)
 
 	# Ready
 	rospy.loginfo("Ready. Start Turtlesim and move sensor around to move the turtle.")
+
+	# sleep time for publish/refresh
+	rate = rospy.Rate(1) # 1hz
+
+	# don't be too fast
+	rate.sleep()
 
 	# spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()

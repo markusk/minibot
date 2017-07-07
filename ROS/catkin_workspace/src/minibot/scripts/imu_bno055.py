@@ -15,8 +15,11 @@ from sensor_msgs.msg import Imu
 
 #using namespace std;
 
+# sleep time for publish/refresh
+rate = rospy.Rate(1) # 1hz
 
-def callBack(imu):
+
+def callback(imu):
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
 	# double roll,pitch,yaw;
 	# tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
@@ -33,11 +36,14 @@ def callBack(imu):
 	# publish
 	pub.publish(vel)
 
+	# don't be too fast
+        rate.sleep()
+
 
 def listener():
 	# In ROS, nodes are uniquely named. The anonymous=True flag
 	# means that rospy will choose a unique name for this listener node
-	rospy.init_node('teleopImu', anonymous=True)
+	rospy.init_node('teleopImu')
 
 	# publish topic is cmd_vel
 #	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
@@ -45,8 +51,8 @@ def listener():
 	pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
 
 	# Service 'bno055_driver' from bno055_driver.py ready?
-	rospy.loginfo("Waiting for service 'bno055_driver'")
-	rospy.wait_for_service('bno055_driver')
+#	rospy.loginfo("Waiting for service 'bno055_driver'")
+#	rospy.wait_for_service('bno055_driver')
 
 	# subscribe (listen) to IMU data
 	rospy.Subscriber('imu/data', Imu, callback)

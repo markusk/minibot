@@ -19,6 +19,13 @@ from sensor_msgs.msg import Imu
 #include<iostream>
 #include<tf/LinearMath/Matrix3x3.h>
 #include<tf/LinearMath/Quaternion.h>
+import math
+import tf
+
+# Euler stuff
+float64 roll
+float64 pitch
+float64 yaw
 
 #using namespace std;
 
@@ -42,12 +49,13 @@ def callback(imu):
 	# double roll,pitch,yaw;
 	# tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
 
+    # Convert quaternions to Euler angles. See: http://answers.ros.org/question/11545/plotprint-rpy-from-quaternion/
+	(roll, pitch, yaw) = tf.transformations.euler_from_quaternion([imu.orientation.x, imu.orientation.y, imu.orientation.z, imu.orientation.w])
+
 	# convert to twist message for turtle
 	vel = Twist()
-	vel.linear.x  = imu.orientation.x # pitch
-	vel.angular.z = imu.orientation.z # roll
-
-	""" AttributeError: 'Imu' object has no attribute 'linear' """
+	vel.linear.x  = pitch
+	vel.angular.z = roll
 
 	# debug messages
 	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)

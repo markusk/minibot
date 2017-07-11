@@ -80,6 +80,11 @@ class BNO055Driver(object):
         self.imu_msg.linear_acceleration.y = a[1]
         self.imu_msg.linear_acceleration.z = a[2]
 
+        rospy.loginfo(rospy.get_caller_id() + ' IMU x=%s', imu_msg.orientation.x)
+        rospy.loginfo(rospy.get_caller_id() + ' IMU y=%s', imu_msg.orientation.y)
+        rospy.loginfo(rospy.get_caller_id() + ' IMU z=%s', imu_msg.orientation.z)
+        rospy.loginfo(rospy.get_caller_id() + ' IMU w=%s', imu_msg.orientation.w)
+
         self.imu_pub.publish(self.imu_msg)
 
         self.temp_msg.header = h

@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+"""
+This node is for observing (subscribing) the robots IMU (Bosch BNO055) data.
+It than publishes a /turtle1/cmd_vel message to control the famous turtle sim.
+We use a publisher, since it is will be published non-stop. And is not critical
+if we might loose a message.
+"""
+
 #include<ros/ros.h>
 import rospy
 #include<geometry_msgs/Twist.h>

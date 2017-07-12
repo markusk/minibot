@@ -62,7 +62,6 @@ if status == 0x01:
 
 # Print BNO055 software revision and other diagnostic data.
 sw, bl, accel, mag, gyro = bno.get_revision()
-while True:
 rospy.loginfo('Software version:   {0}'.format(sw))
 rospy.loginfo('Bootloader version: {0}'.format(bl))
 rospy.loginfo('Accelerometer ID:   0x{0:02X}'.format(accel))
@@ -73,6 +72,7 @@ rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
 
+while not rospy.is_shutdown():
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
 
@@ -102,4 +102,4 @@ rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
     #x,y,z = bno.read_gravity()
 
     # Sleep for a second until the next reading.
-    time.sleep(1)
+	rospy.sleep(1)

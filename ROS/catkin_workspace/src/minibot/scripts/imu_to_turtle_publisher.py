@@ -33,10 +33,10 @@ yaw = 0
 def callback(imu):
 	# publish topic is cmd_vel
 	#	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
-	pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
+	pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
 
 	# Ready
-	rospy.loginfo("Publishing 'turtle1/cmd_vel'")
+	rospy.loginfo("Publishing '/turtle1/cmd_vel'")
 
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
 	# double roll,pitch,yaw;

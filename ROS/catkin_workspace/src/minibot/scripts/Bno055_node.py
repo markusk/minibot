@@ -32,8 +32,13 @@ import logging
 import sys
 import time
 
-from Adafruit_BNO055 import BNO055
+import rospy
+import math
 
+from std_msgs.msg import Header
+from sensor_msgs.msg import Imu, Temperature
+
+from Adafruit_BNO055 import BNO055
 
 # Create and configure the BNO sensor connection.  Make sure only ONE of the
 # below 'bno = ...' lines is uncommented:

@@ -35,7 +35,7 @@ import time
 import rospy
 import math
 
-from std_msgs.msg import Header
+from std_msgs.msg import Header, Float32
 from sensor_msgs.msg import Imu, Temperature
 
 from Adafruit_BNO055 import BNO055
@@ -43,6 +43,11 @@ from Adafruit_BNO055 import BNO055
 
 # initialise the node
 rospy.init_node('bno055_node')
+
+# Euler topics
+pubH = rospy.Publisher('heading', Float32, queue_size=1)
+pubR = rospy.Publisher('roll',    Float32, queue_size=1)
+pubP = rospy.Publisher('pitch',   Float32, queue_size=1)
 
 # Create and configure the BNO sensor connection.
 # Using I2C without a RST pin
@@ -82,6 +87,11 @@ while not rospy.is_shutdown():
 
     # Print everything out.
     rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
+
+    # publish Euler values
+    pubH.publish(heading)
+    pubR.publish(roll)
+    pubP.publish(pitch)
 
     # Other values you can optionally read:
     # Orientation as a quaternion:

@@ -60,14 +60,13 @@ def callback(imu):
 	#rospy.loginfo(rospy.get_caller_id() + ' p=%s', pitch)
 	#rospy.loginfo(rospy.get_caller_id() + ' y=%s', yaw)
 
+	# publish
 #	rospy.loginfo(rospy.get_caller_id() + ' Sending x=%s to turtle', vel.linear.x)
 #	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
+	pub.publish(vel)
 
 	# sleep 0.5 seconds
 	rospy.sleep(0.5)
-
-	# publish
-	pub.publish(vel)
 
 
 def listener():

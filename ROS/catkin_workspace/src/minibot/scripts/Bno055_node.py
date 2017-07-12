@@ -54,7 +54,7 @@ if not bno.begin():
 
 # Print system status and self test result.
 status, self_test, error = bno.get_system_status()
-rospy.loginfo('system status is {} '.format(status))
+rospy.loginfo('System status is {} '.format(status))
 rospy.loginfo('Self test result (0x0F is normal): 0x{0:02X}'.format(self_test))
 
 # Print out an error if system status is in error mode.

@@ -73,7 +73,6 @@ rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
 rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
-
 while not rospy.is_shutdown():
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
@@ -82,8 +81,7 @@ while not rospy.is_shutdown():
     sys, gyro, accel, mag = bno.get_calibration_status()
 
     # Print everything out.
-    rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(
-          heading, roll, pitch, sys, gyro, accel, mag))
+    rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
 
     # Other values you can optionally read:
     # Orientation as a quaternion:
@@ -104,4 +102,4 @@ while not rospy.is_shutdown():
     #x,y,z = bno.read_gravity()
 
     # Sleep for a second until the next reading.
-	rospy.sleep(1)
+    rospy.sleep(1)

@@ -40,18 +40,11 @@ from sensor_msgs.msg import Imu, Temperature
 
 from Adafruit_BNO055 import BNO055
 
-# Create and configure the BNO sensor connection.  Make sure only ONE of the
-# below 'bno = ...' lines is uncommented:
-# Raspberry Pi configuration with serial UART and RST connected to GPIO 18:
-bno = BNO055.BNO055(serial_port='/dev/ttyAMA0', rst=18)
-# BeagleBone Black configuration with default I2C connection (SCL=P9_19, SDA=P9_20),
-# and RST connected to pin P9_12:
-#bno = BNO055.BNO055(rst='P9_12')
 
 
-# Enable verbose debug logging if -v is passed as a parameter.
-if len(sys.argv) == 2 and sys.argv[1].lower() == '-v':
-    logging.basicConfig(level=logging.DEBUG)
+# Create and configure the BNO sensor connection.
+# Using I2C without a RST pin
+bno = BNO055.BNO055()
 
 # Initialize the BNO055 and stop if something went wrong.
 if not bno.begin():

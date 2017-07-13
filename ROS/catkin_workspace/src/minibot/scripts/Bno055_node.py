@@ -48,6 +48,12 @@ rospy.init_node('bno055_node')
 pubH = rospy.Publisher('heading', Float32, queue_size=1)
 pubR = rospy.Publisher('roll',    Float32, queue_size=1)
 pubP = rospy.Publisher('pitch',   Float32, queue_size=1)
+# Temperature
+pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
+
+# define temperature message
+temp_msg = Temperature()
+temp_msg.variance = 0
 
 # Create and configure the BNO sensor connection.
 # Using I2C without a RST pin
@@ -79,6 +85,13 @@ rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
 while not rospy.is_shutdown():
+    # define message header for some message formats (i.e. Temperature)
+    h = Header()
+    h.stamp = rospy.Time.now()
+    h.frame_id = self.frame_id
+    h.seq = self.seq
+    self.seq = self.seq + 1
+
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
 
@@ -93,11 +106,21 @@ while not rospy.is_shutdown():
     pubR.publish(roll)
     pubP.publish(pitch)
 
+
+    # Read sensor temperature in degrees Celsius:
+    temp = bno.read_temp()
+
+    # Print
+    rospy.loginfo('Temperature: {}°C'.format(temp))
+
+    # publish it
+    temp_msg.header = h
+    temp_msg.temperature = temp
+    temp_pub.publish(temp_msg)
+
     # Other values you can optionally read:
     # Orientation as a quaternion:
     #x,y,z,w = bno.read_quaterion()
-    # Sensor temperature in degrees Celsius:
-    #temp_c = bno.read_temp()
     # Magnetometer data (in micro-Teslas):
     #x,y,z = bno.read_magnetometer()
     # Gyroscope data (in degrees per second):

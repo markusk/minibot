@@ -2,14 +2,14 @@
 # coding=utf-8
 
 #
-# ROS node for publishing a /imu/data topic.
+# ROS node for publishing a /imu/data topic using the Adafruit BNO055 9DOF board.
 #
-# Based on the Simple Adafruit BNO055 sensor reading example.
-# Markus Knapp, 2017. https://direcs.de
+# Based on Adafruits simpletest.py example.
+# Author: Markus Knapp, 2017. https://direcs.de
 #
 #
 # Copyright (c) 2015 Adafruit Industries
-# Author: Tony DiCola
+# Original-Author: Tony DiCola
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal

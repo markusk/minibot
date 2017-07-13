@@ -86,11 +86,9 @@ rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
 while not rospy.is_shutdown():
     # define message header for some message formats (i.e. Temperature)
-    h = Header()
+    h = rospy.Header()
     h.stamp = rospy.Time.now()
-    h.frame_id = self.frame_id
-    h.seq = self.seq
-    self.seq = self.seq + 1
+    # h.frame_id = frame_id  NEEDED?!?
 
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
@@ -116,7 +114,7 @@ while not rospy.is_shutdown():
     # publish it
     temp_msg.header = h
     temp_msg.temperature = temp
-    temp_pub.publish(temp_msg)
+    pubTemp.publish(temp_msg)
 
     # Other values you can optionally read:
     # Orientation as a quaternion:

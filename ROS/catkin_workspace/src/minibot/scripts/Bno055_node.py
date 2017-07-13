@@ -106,6 +106,8 @@ while not rospy.is_shutdown():
     pubR.publish(roll)
     pubP.publish(pitch)
 
+    # Read orientation as a quaternion:
+    x,y,z,w = bno.read_quaterion()
 
     # Read sensor temperature in degrees Celsius:
     temp = bno.read_temp()
@@ -119,8 +121,6 @@ while not rospy.is_shutdown():
     temp_pub.publish(temp_msg)
 
     # Other values you can optionally read:
-    # Orientation as a quaternion:
-    #x,y,z,w = bno.read_quaterion()
     # Magnetometer data (in micro-Teslas):
     #x,y,z = bno.read_magnetometer()
     # Gyroscope data (in degrees per second):

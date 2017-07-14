@@ -43,16 +43,28 @@ from Adafruit_BNO055 import BNO055
 # initialise the node
 rospy.init_node('bno055_node')
 
+
 # Euler topics
 pubH = rospy.Publisher('heading', Float32, queue_size=1)
 pubR = rospy.Publisher('roll',    Float32, queue_size=1)
 pubP = rospy.Publisher('pitch',   Float32, queue_size=1)
 # Temperature
 pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
+# ROS IMU format messages
+pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
+
 
 # define temperature message
 temp_msg = Temperature()
 temp_msg.variance = 0
+
+# define IMU message
+imu_msg = Imu()
+# ignore the covariance data
+imu_msg.orientation_covariance[0] = -1
+imu_msg.angular_velocity_covariance[0] = -1
+imu_msg.linear_acceleration_covariance[0] = -1
+
 
 # Create and configure the BNO sensor connection.
 # Using I2C without a RST pin
@@ -108,6 +120,17 @@ while not rospy.is_shutdown():
     pubP.publish(pitch)
 
 
+    # Read orientation as a quaternion:
+    x,y,z,w = bno.read_quaterion()
+    imu_msg.orientation.x = x
+    imu_msg.orientation.y = y
+    imu_msg.orientation.z = z
+    imu_msg.orientation.w = w
+
+    # Print
+    rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
+
+
     # Read sensor temperature in degrees Celsius:
     temp = bno.read_temp()
 
@@ -120,8 +143,6 @@ while not rospy.is_shutdown():
     pubTemp.publish(temp_msg)
 
     # Other values you can optionally read:
-    # Orientation as a quaternion:
-    #x,y,z,w = bno.read_quaterion()
     # Magnetometer data (in micro-Teslas):
     #x,y,z = bno.read_magnetometer()
     # Gyroscope data (in degrees per second):

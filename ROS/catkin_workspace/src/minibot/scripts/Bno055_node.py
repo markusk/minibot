@@ -129,6 +129,8 @@ while not rospy.is_shutdown():
 
     # Print
     rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
+    # publish message
+    pubImu.publish(imu_msg)
 
 
     # Read sensor temperature in degrees Celsius:

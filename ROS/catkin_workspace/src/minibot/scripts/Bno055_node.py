@@ -121,7 +121,7 @@ while not rospy.is_shutdown():
 
 
     # Read orientation as a quaternion:
-    x,y,z,w = bno.read_quaterion()
+    x,y,z,w = bno.read_quaternion()
     imu_msg.orientation.x = x
     imu_msg.orientation.y = y
     imu_msg.orientation.z = z

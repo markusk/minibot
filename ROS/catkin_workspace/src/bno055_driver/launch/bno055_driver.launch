@@ -1,7 +1,0 @@
-<launch>
-    <arg name="frame_id" default="/imu"/>
-
-    <node pkg="bno055_driver" type="bno055_node.py" name="bno055_driver" output="screen" >
-        <param name="frame_id" value="$(arg frame_id)"/>
-    </node>
-</launch>

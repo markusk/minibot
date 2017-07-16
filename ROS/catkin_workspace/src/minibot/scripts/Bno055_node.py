@@ -39,6 +39,8 @@ from sensor_msgs.msg import Imu, Temperature
 
 from Adafruit_BNO055 import BNO055
 
+# sleep time for this node in seconds
+sleepTime = 0.5
 
 # initialise the node
 rospy.init_node('bno055_node')
@@ -159,4 +161,4 @@ while not rospy.is_shutdown():
     #x,y,z = bno.read_gravity()
 
     # Sleep for a second until the next reading.
-    rospy.sleep(1)
+    rospy.sleep(sleepTime)

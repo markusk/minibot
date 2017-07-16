@@ -39,8 +39,10 @@ from sensor_msgs.msg import Imu, Temperature
 
 from Adafruit_BNO055 import BNO055
 
+
 # sleep time for this node in seconds
-sleepTime = 0.5
+sleepTime = 0.25
+
 
 # initialise the node
 rospy.init_node('bno055_node')
@@ -114,7 +116,7 @@ while not rospy.is_shutdown():
     sys, gyro, accel, mag = bno.get_calibration_status()
 
     # Print everything out.
-    rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
+    # rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
 
     # publish Euler values
     pubH.publish(heading)
@@ -130,7 +132,7 @@ while not rospy.is_shutdown():
     imu_msg.orientation.w = w
 
     # Print
-    rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
+    # rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
     # publish message
     pubImu.publish(imu_msg)
 
@@ -139,7 +141,7 @@ while not rospy.is_shutdown():
     temp = bno.read_temp()
 
     # Print
-    rospy.loginfo('Temperature: {}°C'.format(temp))
+    # rospy.loginfo('Temperature: {}°C'.format(temp))
 
     # publish it
     temp_msg.header = h

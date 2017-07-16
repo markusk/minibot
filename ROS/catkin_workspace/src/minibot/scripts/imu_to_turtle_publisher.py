@@ -22,6 +22,11 @@ from sensor_msgs.msg import Imu
 import math
 import tf
 
+
+# sleep time for this node in seconds
+sleepTime = 0.25
+
+
 # Euler stuff
 roll = 0
 pitch = 0
@@ -35,14 +40,14 @@ def callback(imu):
 	#	pub = rospy.Publisher("/turtle1/cmd_vel", Twist, queue_size=10)
 	pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
 
-	# Ready
-	rospy.loginfo("Publishing '/turtle1/cmd_vel'")
+	# Debug line
+	# rospy.loginfo("Publishing '/turtle1/cmd_vel'")
 
 	# tf::Quaternion bq(imu->orientation.x, imu->orientation.y, imu->orientation.z, imu->orientation.w);
 	# double roll,pitch,yaw;
 	# tf::Matrix3x3(bq).getRPY(roll,pitch,yaw);
 
-    # Convert quaternions to Euler angles. See: http://answers.ros.org/question/11545/plotprint-rpy-from-quaternion/
+        # Convert quaternions to Euler angles. See: http://answers.ros.org/question/11545/plotprint-rpy-from-quaternion/
 	(roll, pitch, yaw) = tf.transformations.euler_from_quaternion([imu.orientation.x, imu.orientation.y, imu.orientation.z, imu.orientation.w])
 
 	# convert to twist message for turtle
@@ -65,8 +70,8 @@ def callback(imu):
 #	rospy.loginfo(rospy.get_caller_id() + ' Sending z=%s to turtle', vel.angular.z)
 	pub.publish(vel)
 
-	# sleep 0.5 seconds
-	rospy.sleep(0.5)
+	# sleep
+	rospy.sleep(sleepTime)
 
 
 def listener():

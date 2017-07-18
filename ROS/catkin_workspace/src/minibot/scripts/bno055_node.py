@@ -60,13 +60,14 @@ pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
 # define temperature message
 temp_msg = Temperature()
+# ignore the covariance data
 temp_msg.variance = 0
 
 # define IMU message
 imu_msg = Imu()
 # ignore the covariance data
-imu_msg.orientation_covariance[0] = -1
-imu_msg.angular_velocity_covariance[0] = -1
+imu_msg.orientation_covariance[0]         = -1
+imu_msg.angular_velocity_covariance[0]    = -1
 imu_msg.linear_acceleration_covariance[0] = -1
 
 

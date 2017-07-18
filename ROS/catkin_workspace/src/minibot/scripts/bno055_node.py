@@ -127,13 +127,29 @@ while not rospy.is_shutdown():
 
     # Read orientation as a quaternion:
     x,y,z,w = bno.read_quaternion()
-    imu_msg.orientation.x = x
+    imu_msg.orientation.x = x # is this the pose then?
     imu_msg.orientation.y = y
     imu_msg.orientation.z = z
     imu_msg.orientation.w = w
-
     # Print
     # rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
+
+    # Gyroscope data (in degrees per second):
+    xg,yg,zg = bno.read_gyroscope()
+    imu_msg.angular_velocity.x = xg;
+    imu_msg.angular_velocity.y = yg;
+    imu_msg.angular_velocity.z = zg;
+    # Print
+    rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, angular_velocity.z))
+
+    # Accelerometer data (in meters per second squared):
+    xa,ya,za = bno.read_accelerometer()
+    imu_msg.linear_acceleration.x = xa;
+    imu_msg.linear_acceleration.y = ya;
+    imu_msg.linear_acceleration.z = za;
+    # Print
+    rospy.loginfo('Accelerometer: x={} y={} z={}'.format(imu_msg.linear_acceleration.x, imu_msg.linear_acceleration.y, linear_acceleration.z))
+
     # publish message
     pubImu.publish(imu_msg)
 
@@ -152,10 +168,6 @@ while not rospy.is_shutdown():
     # Other values you can optionally read:
     # Magnetometer data (in micro-Teslas):
     #x,y,z = bno.read_magnetometer()
-    # Gyroscope data (in degrees per second):
-    #x,y,z = bno.read_gyroscope()
-    # Accelerometer data (in meters per second squared):
-    #x,y,z = bno.read_accelerometer()
     # Linear acceleration data (i.e. acceleration from movement, not gravity--
     # returned in meters per second squared):
     #x,y,z = bno.read_linear_acceleration()

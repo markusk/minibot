@@ -86,16 +86,16 @@ if not bno.begin():
 
 # Print system status
 status, self_test, error = bno.get_system_status()
-rospy.loginfo('System status is {} '.format(status))
+rospy.loginfo('System status:      0x{0:02X} '.format(status))
 
 # Print self test
-rospy.loginfo('Self test result (0x0F is normal): 0x{0:02X}'.format(self_test))
+rospy.loginfo('Self test result:   0x{0:02X}'.format(self_test))
 if self_test != 0x0F:
-    rospy.logwarn('WARNING: System status is 0x{0:02X} instead of 0x0F.'.format(self_test))
+    rospy.logwarn('WARNING: Self test result is 0x{0:02X} instead if 0x0F!'.format(self_test))
 
 # Print out an error if system status is in error mode.
 if status == 0x01:
-    rospy.logerr('System error: {0}'.format(error))
+    rospy.logerr('System error:    {0}'.format(error))
     rospy.loginfo('See datasheet section 4.3.59 for the meaning.')
 
 # Print BNO055 software revision and other diagnostic data.

@@ -112,8 +112,8 @@ while not rospy.is_shutdown():
     # define message header for IMU and temperature
     h = rospy.Header()
     h.stamp = rospy.Time.now()
-    h.frame_id = rospy.Frame_id
-    h.seq = rospy.seq
+    h.frame_id = rospy.Header.frame_id
+    h.seq = rospy.Header.seq
     # increase sequence
     seq = seq + 1
     # add header to IMU message

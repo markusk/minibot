@@ -57,6 +57,10 @@ pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
 # ROS IMU format messages
 pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
+# header frame stuff
+frame_id = rospy.get_param('~frame_id', '/base_imu')
+seq = 0
+
 
 # define temperature message
 temp_msg = Temperature()
@@ -105,10 +109,15 @@ rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
 while not rospy.is_shutdown():
-    # define message header for some message formats (i.e. Temperature)
+    # define message header for IMU and temperature
     h = rospy.Header()
     h.stamp = rospy.Time.now()
-    # h.frame_id = frame_id  NEEDED?!?
+    h.frame_id = rospy.Frame_id
+    h.seq = rospy.seq
+    # increase sequence
+    seq = seq + 1
+    # add header to IMU message
+    imu_msg.header = h
 
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
@@ -160,8 +169,9 @@ while not rospy.is_shutdown():
     # Print
     # rospy.loginfo('Temperature: {}°C'.format(temp))
 
-    # publish it
+    # add header to temperature message
     temp_msg.header = h
+    # publish message
     temp_msg.temperature = temp
     pubTemp.publish(temp_msg)
 

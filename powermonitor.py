@@ -16,14 +16,12 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # pins	    BCM   BOARD
 ledPin     = 18 # pin 12
 switchPin  = 23 # pin 16
-batteryPin = 24 # pin 18
 
 
 # setup
 print('setup...')
 GPIO.setup(ledPin,   GPIO.OUT)
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
-GPIO.setup(batteryPin, GPIO.IN)
 
 
 # switch detection by interrupt, falling edge, with debouncing
@@ -40,7 +38,7 @@ secs = 4
 #------
 # loop
 #------
-print('loop...')
+print('Press button now (4 secs)...!')
 
 # turn LED on
 GPIO.output(ledPin, GPIO.LOW)

@@ -58,7 +58,8 @@ pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
 pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
 # header frame stuff
-frame_id = rospy.get_param('~frame_id', '/base_imu')
+frame_id = 'odom'
+child_id = 'base_imu' # base_link? s.a. https://github.com/ros-planning/navigation_tutorials/blob/indigo-devel/odometry_publisher_tutorial/src/odometry_publisher.cpp
 seq = 0
 
 
@@ -112,8 +113,8 @@ while not rospy.is_shutdown():
     # define message header for IMU and temperature
     h = rospy.Header()
     h.stamp = rospy.Time.now()
-    h.frame_id = rospy.Header.frame_id
-    h.seq = rospy.Header.seq
+    h.frame_id = frame_id
+    h.seq = seq
     # increase sequence
     seq = seq + 1
     # add header to IMU message

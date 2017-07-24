@@ -149,7 +149,7 @@ while not rospy.is_shutdown():
     imu_msg.angular_velocity.y = yg;
     imu_msg.angular_velocity.z = zg;
     # Print
-    rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, angular_velocity.z))
+    rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, imu_msg.angular_velocity.z))
 
     # Accelerometer data (in meters per second squared):
     xa,ya,za = bno.read_accelerometer()
@@ -157,7 +157,7 @@ while not rospy.is_shutdown():
     imu_msg.linear_acceleration.y = ya;
     imu_msg.linear_acceleration.z = za;
     # Print
-    rospy.loginfo('Accelerometer: x={} y={} z={}'.format(imu_msg.linear_acceleration.x, imu_msg.linear_acceleration.y, linear_acceleration.z))
+    rospy.loginfo('Accelerometer: x={} y={} z={}'.format(imu_msg.linear_acceleration.x, imu_msg.linear_acceleration.y, imu_msg.linear_acceleration.z))
 
     # publish message
     pubImu.publish(imu_msg)

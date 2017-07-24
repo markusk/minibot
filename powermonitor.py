@@ -34,7 +34,8 @@ GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
-    global buttonPressed = buttonPressed + 1
+    global buttonPressed
+    buttonPressed += 1
     print 'Button on GPIO ' + str(answer) + ' pushed the ' + str(buttonPressed) + ' time.'
 
     # shutdown computer!!

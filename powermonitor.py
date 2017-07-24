@@ -34,11 +34,17 @@ GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
-    buttonPressed = buttonPressed + 1
+    global buttonPressed = buttonPressed + 1
     print 'Button on GPIO ' + str(answer) + ' pushed the ' + str(buttonPressed) + ' time.'
 
     # shutdown computer!!
-    if buttonPressed == 3
+    if buttonPressed == 3:
+	print '++++++++++++++++++++++++++++++++++'
+	print '+++ Shutting down in 3 seconds +++'
+	print '++++++++++++++++++++++++++++++++++'
+	# delay
+	time.sleep(3)
+
 	sys_bus = dbus.SystemBus()
 	ck_srv = sys_bus.get_object('org.freedesktop.ConsoleKit', '/org/freedesktop/ConsoleKit/Manager')
 	ck_iface = dbus.Interface(ck_srv, 'org.freedesktop.ConsoleKit.Manager')

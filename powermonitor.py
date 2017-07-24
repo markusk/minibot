@@ -8,6 +8,11 @@ except RuntimeError:
 # import time # for sleep
 import time # for sleep
 
+# for poweroff
+# see: https://stackoverflow.com/questions/23013274/shutting-down-computer-linux-using-python
+import dbus
+
+
 #------
 # init
 #------
@@ -16,6 +21,9 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # pins	    BCM   BOARD
 ledPin     = 18 # pin 12
 switchPin  = 23 # pin 16
+
+# buttonCounter
+buttonPressed = 0
 
 
 # setup
@@ -26,19 +34,30 @@ GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
-    print 'Button on GPIO ' + str(answer) + ' pushed!'
+    buttonPressed = buttonPressed + 1
+    print 'Button on GPIO ' + str(answer) + ' pushed the ' + str(buttonPressed) + ' time.'
 
+    # shutdown computer!!
+    if buttonPressed == 3
+	sys_bus = dbus.SystemBus()
+	ck_srv = sys_bus.get_object('org.freedesktop.ConsoleKit', '/org/freedesktop/ConsoleKit/Manager')
+	ck_iface = dbus.Interface(ck_srv, 'org.freedesktop.ConsoleKit.Manager')
+	stop_method = ck_iface.get_dbus_method("Stop")
+	stop_method()
+
+
+# add button pressed event detector
 GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=200)
 
 
 # timing
-secs = 4
+secs = 5
 
 
 #------
 # loop
 #------
-print('Press button now (4 secs)...!')
+print('Press button now (5 secs)...!')
 
 # turn LED on
 GPIO.output(ledPin, GPIO.LOW)

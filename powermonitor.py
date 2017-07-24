@@ -9,8 +9,7 @@ except RuntimeError:
 import time # for sleep
 
 # for poweroff
-# see: https://stackoverflow.com/questions/23013274/shutting-down-computer-linux-using-python
-import dbus
+from subprocess import call
 
 
 #------
@@ -46,11 +45,8 @@ def my_callback(answer):
 	# delay
 	time.sleep(3)
 
-	sys_bus = dbus.SystemBus()
-	ck_srv = sys_bus.get_object('org.freedesktop.ConsoleKit', '/org/freedesktop/ConsoleKit/Manager')
-	ck_iface = dbus.Interface(ck_srv, 'org.freedesktop.ConsoleKit.Manager')
-	stop_method = ck_iface.get_dbus_method("Stop")
-	stop_method()
+	# power off
+	call("sudo shutdown --poweroff", shell=True)
 
 
 # add button pressed event detector

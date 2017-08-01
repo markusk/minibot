@@ -88,7 +88,7 @@ while (True):
     # (it won't be at 0 Volt hopefully)
     if (voltage > 0):
         draw.text((0, size), ("Battery: %.2fV" % voltage), font=font, fill=255)
-    else
+    else:
         draw.text((0, size), ("Battery: --"), font=font, fill=255)
 
     # Display image.

@@ -14,25 +14,26 @@ case "$1" in
     start)
 	#Aktion wenn start uebergeben wird
         echo "Starting minibot-battery-check"
-	touch /home/pi/catkin_ws/minibot-battery-check_START
+	# touch /home/pi/catkin_ws/minibot-battery-check_START
+	/home/pi/minibot/test/battery_lcd.py
         ;;
 
     stop)
 	#Aktion wenn stop uebergeben wird
         echo "Stopping minibot-battery-check"
-	touch /home/pi/catkin_ws/minibot-battery-check_STOP
+	# touch /home/pi/catkin_ws/minibot-battery-check_STOP
         ;;
 
     restart)
 	#Aktion wenn restart uebergeben wird
         echo "Restarting minibot-battery-check"
-	touch /home/pi/catkin_ws/minibot-battery-check_RESTART
+	# touch /home/pi/catkin_ws/minibot-battery-check_RESTART
         ;;
 
     *)
 	#Standard Aktion wenn start|stop|restart nicht passen
 	echo "(start|stop|restart)"
-	touch /home/pi/catkin_ws/minibot-battery-check_REST
+	# touch /home/pi/catkin_ws/minibot-battery-check_REST
 	;;
 esac
 

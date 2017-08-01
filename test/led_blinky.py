@@ -8,8 +8,6 @@ try:
 except RuntimeError:
     print("Error importing RPi.GPIO!")
 
-# what to do when exiting this pgm
-import atexit
 # for sleep
 import time
 
@@ -26,18 +24,22 @@ print('GPIO setup...')
 GPIO.setup(ledPin, GPIO.OUT)
 
 
-##
-## what to do on exit pgm
-##
-def exitMinibot():
-  # GPIO cleanup
-  GPIO.cleanup()
+# for signal handling
+import signal
+import sys
 
+# my signal handler
+def sig_handler(_signo, _stack_frame):
+    # clear display
+    # GPIO cleanup
+    GPIO.cleanup()
+    print "led_blinky terminated clean."
+    sys.exit(0)
 
-##
-## what to do at program exit
-##
-atexit.register(exitMinibot)
+# signals to be handled
+signal.signal(signal.SIGINT,  sig_handler)
+signal.signal(signal.SIGHUP,  sig_handler)
+signal.signal(signal.SIGTERM, sig_handler)
 
 
 ######

@@ -68,7 +68,6 @@ switchPin  = 23 # pin 16
 
 # setup
 print('setup...')
-GPIO.setup(ledPin,   GPIO.OUT)
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 
 

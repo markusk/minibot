@@ -38,15 +38,15 @@ def my_callback(answer):
     print 'Button on GPIO ' + str(answer) + ' pushed the ' + str(buttonPressed) + ' time.'
 
     # shutdown computer!!
-    if buttonPressed == 3:
+    if buttonPressed == 5:
 	print '++++++++++++++++++++++++++++++++++'
-	print '+++ Shutting down in 3 seconds +++'
+	print '+++ Shutting down in 5 seconds +++'
 	print '++++++++++++++++++++++++++++++++++'
 	# delay
-	time.sleep(3)
+	time.sleep(5)
 
 	# power off
-	call("sudo shutdown --poweroff", shell=True)
+	call('sudo shutdown --poweroff "now"', shell=True)
 
 
 # add button pressed event detector

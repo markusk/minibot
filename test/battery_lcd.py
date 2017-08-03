@@ -82,14 +82,14 @@ def my_callback(answer):
     # show some shutdown text on OLED
 
     # shutdown computer!!
-	print '++++++++++++++++++++++++++++++++++'
-	print '+++ Shutting down in 5 seconds +++'
-	print '++++++++++++++++++++++++++++++++++'
-	# delay
-	time.sleep(5)
+    print '++++++++++++++++++++++++++++++++++'
+    print '+++ Shutting down in 5 seconds +++'
+    print '++++++++++++++++++++++++++++++++++'
+    # delay
+    time.sleep(5)
 
-	# power off
-	call('sudo shutdown --poweroff "now"', shell=True)
+    # power off
+    call('sudo shutdown --poweroff "now"', shell=True)
 
 
 # add button pressed event detector

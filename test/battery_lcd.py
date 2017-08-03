@@ -1,6 +1,14 @@
 #!/usr/bin/python
 # coding=utf-8
 
+"""
+This code reads the battery voltage via MCP3008 AD converter and shows the
+values on an OLED via SSD1306.
+
+It also checks a pushbotton state, connected to #23 (pin 16 on Raspberry Pi 3)
+via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
+"""
+
 # for time and sleep
 import time
 
@@ -22,12 +30,17 @@ disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
 disp.begin()
 
 
+# --------------------
 # for signal handling
+# --------------------
 import signal
 import sys
 
 # my signal handler
 def sig_handler(_signo, _stack_frame):
+    ## GPIO cleanup
+    GPIO.remove_event_detect(switchPin)
+    GPIO.cleanup()
     # clear display
     disp.clear()
     disp.display()
@@ -38,6 +51,49 @@ def sig_handler(_signo, _stack_frame):
 signal.signal(signal.SIGINT,  sig_handler)
 signal.signal(signal.SIGHUP,  sig_handler)
 signal.signal(signal.SIGTERM, sig_handler)
+
+
+# ----------------------
+# GPIO/pushbotton stuff
+# ----------------------
+import RPi.GPIO as GPIO
+# for poweroff
+from subprocess import call
+
+# init
+GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
+
+# pins	    BCM   BOARD
+ledPin     = 18 # pin 12
+
+# setup
+print('setup...')
+GPIO.setup(ledPin,   GPIO.OUT)
+GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
+
+
+# switch detection by interrupt, falling edge, with debouncing
+def my_callback(answer):
+    print 'Shutdown button on GPIO ' + str(answer) + ' pushed.'
+
+    # clear display
+    disp.clear()
+    disp.display()
+    # show some shutdown text on OLED
+
+    # shutdown computer!!
+	print '++++++++++++++++++++++++++++++++++'
+	print '+++ Shutting down in 5 seconds +++'
+	print '++++++++++++++++++++++++++++++++++'
+	# delay
+	time.sleep(5)
+
+	# power off
+	call('sudo shutdown --poweroff "now"', shell=True)
+
+
+# add button pressed event detector
+GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=200)
 
 
 

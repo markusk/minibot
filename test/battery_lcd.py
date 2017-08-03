@@ -83,7 +83,13 @@ while (True):
 
     # Write Text and Voltage
     draw.text((0, 0),    ("Time: %s" % timeString),  font=font, fill=255)
-    draw.text((0, size), ("Battery: %.2fV" % voltage),                   font=font, fill=255)
+
+    # show measured voltage or -- when no battery is connected
+    # (it won't be at 0 Volt hopefully)
+    if (voltage > 0):
+        draw.text((0, size), ("Battery: %.2fV" % voltage), font=font, fill=255)
+    else
+        draw.text((0, size), ("Battery: --"), font=font, fill=255)
 
     # Display image.
     disp.image(image)

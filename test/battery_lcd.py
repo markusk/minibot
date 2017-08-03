@@ -70,6 +70,8 @@ switchPin  = 23 # pin 16
 print('setup...')
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 
+# checker
+buttonPressed = False
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
@@ -92,6 +94,7 @@ def my_callback(answer):
 
 
 # add button pressed event detector
+print('registering event handler...')
 GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=200)
 
 
@@ -119,7 +122,7 @@ from MCP3008 import MCP3008 # for battery reading
 # the AD converter object
 adc = MCP3008()
 
-while (True):
+while (buttonPressed == False):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
@@ -150,5 +153,16 @@ while (True):
     disp.image(image)
     disp.display()
 
+    # check button here as well
+    if GPIO.input(switchPin) == GPIO.LOW:
+    	print('Button pressed (in while loop)!')
+        buttonPressed = True
+	# call the piushbutton event handler
+        my_callback()
+
     # wait 1 second
-    time.sleep(5)
+    time.sleep(0.5)
+
+
+# wtf?
+print('This line should never be reached')

@@ -65,12 +65,12 @@ seq = 0
 
 # define temperature message
 temp_msg = Temperature()
-# ignore the covariance data
+# ignore the covariance data, it is optional
 temp_msg.variance = 0
 
 # define IMU message
 imu_msg = Imu()
-# ignore the covariance data
+# ignore the covariance data, it is optional
 imu_msg.orientation_covariance[0]         = -1
 imu_msg.angular_velocity_covariance[0]    = -1
 imu_msg.linear_acceleration_covariance[0] = -1
@@ -113,7 +113,7 @@ while not rospy.is_shutdown():
     # define message header for IMU and temperature
     h = rospy.Header()
     h.stamp = rospy.Time.now()
-    h.frame_id = frame_id
+    h.frame_id = frame_id  # "odom"
     h.seq = seq
     # increase sequence
     seq = seq + 1

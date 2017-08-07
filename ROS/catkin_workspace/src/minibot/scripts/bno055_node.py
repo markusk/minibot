@@ -37,6 +37,11 @@ import math
 from std_msgs.msg import Header, Float32
 from sensor_msgs.msg import Imu, Temperature
 
+# see also http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom:
+# "The nav_msgs/Odometry message stores an estimate of the position
+#  and velocity of a robot in free space"
+from nav_msgs.msg import Odometry
+
 from Adafruit_BNO055 import BNO055
 
 
@@ -57,9 +62,9 @@ pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
 # ROS IMU format messages
 pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
-# header frame stuff
-frame_id = 'odom'
-child_id = 'base_imu' # base_link? s.a. https://github.com/ros-planning/navigation_tutorials/blob/indigo-devel/odometry_publisher_tutorial/src/odometry_publisher.cpp
+# header frame for odometry message
+frame_id = 'odom' #
+child_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
 seq = 0
 
 

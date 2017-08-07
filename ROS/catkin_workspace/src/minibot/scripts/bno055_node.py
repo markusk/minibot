@@ -121,10 +121,14 @@ rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
 rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
+# for header time stamps
+current_time = rospy.Time.now()
+
+
 while not rospy.is_shutdown():
     # define message header for IMU and temperature
     h = rospy.Header()
-    h.stamp = rospy.Time.now()
+    h.stamp = rospy.Time.now() # not current_time ?!??
     h.frame_id = frame_id  # "odom"
     h.seq = seq
     # increase sequence

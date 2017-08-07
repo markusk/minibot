@@ -41,6 +41,8 @@ from sensor_msgs.msg import Imu, Temperature
 # "The nav_msgs/Odometry message stores an estimate of the position
 #  and velocity of a robot in free space"
 from nav_msgs.msg import Odometry
+# for the tf broadcaster
+import tf
 
 from Adafruit_BNO055 import BNO055
 
@@ -52,6 +54,11 @@ sleepTime = 0.25
 # initialise the node
 rospy.init_node('bno055_node')
 
+# the odometry topic
+pubOdom = rospy.Publisher('odom', Odometry, queue_size=50)
+# the tf broadcaster
+# "any odometry source must publish information about the coordinate frame that it manages"
+odomBroadcaster = tf.TransformBroadcaster() # "br" in tf_broadcaster.py
 
 # Euler topics
 pubH = rospy.Publisher('heading', Float32, queue_size=1)

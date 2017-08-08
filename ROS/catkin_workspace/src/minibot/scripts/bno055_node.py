@@ -150,7 +150,8 @@ while not rospy.is_shutdown():
     # send the transform
     odom_broadcaster.sendTransform(odom_trans)
 
-    # define message header for IMU and temperature
+
+    """ IMU message header (for IMU and temperature) """
     h = rospy.Header()
     h.stamp = current_time
     h.frame_id = frame_id  # "odom"

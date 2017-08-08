@@ -135,7 +135,8 @@ while not rospy.is_shutdown():
     odom_quat = tf.createQuaternionMsgFromYaw(z)
 
     # first, we'll publish the transform over tf
-    geometry_msgs::TransformStamped odom_trans
+    # org: geometry_msgs::TransformStamped odom_trans
+    odom_trans = geometry_msgs.msg.TransformStamped()
 
     odom_trans.header.stamp = current_time
     odom_trans.header.frame_id = "odom"

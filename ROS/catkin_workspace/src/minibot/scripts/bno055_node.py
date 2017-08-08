@@ -121,11 +121,15 @@ rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
 rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
 
-# for header time stamps
-current_time = rospy.Time.now()
 
 
 while not rospy.is_shutdown():
+    # check for incoming messages
+    rospy.spinOnce()
+
+    # for header time stamps
+    current_time = rospy.Time.now()
+
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
     odom_quat = tf.createQuaternionMsgFromYaw(z)

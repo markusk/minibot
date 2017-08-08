@@ -130,26 +130,6 @@ while not rospy.is_shutdown():
     # for header time stamps
     current_time = rospy.Time.now()
 
-    # since all odometry is 6DOF we'll need a quaternion created from yaw
-    # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
-    odom_quat = tf.createQuaternionMsgFromYaw(z)
-
-    # first, we'll publish the transform over tf
-    # org: geometry_msgs::TransformStamped odom_trans
-    odom_trans = geometry_msgs.msg.TransformStamped()
-
-    odom_trans.header.stamp = current_time
-    odom_trans.header.frame_id = "odom"
-    odom_trans.child_frame_id = "base_link"
-
-    odom_trans.transform.translation.x = x
-    odom_trans.transform.translation.y = y
-    odom_trans.transform.translation.z = 0.0
-    odom_trans.transform.rotation = odom_quat
-
-    # send the transform
-    odom_broadcaster.sendTransform(odom_trans)
-
 
     """ IMU message header (for IMU and temperature) """
     h = rospy.Header()
@@ -203,7 +183,9 @@ while not rospy.is_shutdown():
     # Print
     rospy.loginfo('Accelerometer: x={} y={} z={}'.format(imu_msg.linear_acceleration.x, imu_msg.linear_acceleration.y, imu_msg.linear_acceleration.z))
 
+    #
     # publish message
+    #
     pubImu.publish(imu_msg)
 
 
@@ -215,10 +197,12 @@ while not rospy.is_shutdown():
 
     # add header to temperature message
     temp_msg.header = h
+
+    #
     # publish message
+    #
     temp_msg.temperature = temp
     pubTemp.publish(temp_msg)
-
 
 
     # Other values you can optionally read:
@@ -230,6 +214,29 @@ while not rospy.is_shutdown():
     # Gravity acceleration data (i.e. acceleration just from gravity--returned
     # in meters per second squared):
     #x,y,z = bno.read_gravity()
+
+
+    """ tf stuff """
+    # since all odometry is 6DOF we'll need a quaternion created from yaw
+    # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
+    odom_quat = tf.createQuaternionMsgFromYaw(z)
+
+    # first, we'll publish the transform over tf
+    # org: geometry_msgs::TransformStamped odom_trans
+    odom_trans = geometry_msgs.msg.TransformStamped()
+
+    odom_trans.header.stamp = current_time
+    odom_trans.header.frame_id = "odom"
+    odom_trans.child_frame_id = "base_link"
+
+    odom_trans.transform.translation.x = x
+    odom_trans.transform.translation.y = y
+    odom_trans.transform.translation.z = 0.0
+    odom_trans.transform.rotation = odom_quat
+
+    # send the transform
+    odom_broadcaster.sendTransform(odom_trans)
+
 
     # Sleep for a second until the next reading.
     rospy.sleep(sleepTime)

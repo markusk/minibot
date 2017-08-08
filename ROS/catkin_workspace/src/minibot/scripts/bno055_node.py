@@ -127,7 +127,8 @@ current_time = rospy.Time.now()
 
 while not rospy.is_shutdown():
     # since all odometry is 6DOF we'll need a quaternion created from yaw
-    geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th)
+    # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
+    odom_quat = tf.createQuaternionMsgFromYaw(z)
 
     # first, we'll publish the transform over tf
     geometry_msgs::TransformStamped odom_trans

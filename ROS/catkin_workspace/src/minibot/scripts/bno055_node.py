@@ -242,26 +242,31 @@ while not rospy.is_shutdown():
 
     """ odom stuff """
     # next, we'll publish the odometry message over ROS
-    nav_msgs::Odometry odom;
-    odom.header.stamp = current_time;
-    odom.header.frame_id = "odom";
+    # org: nav_msgs::Odometry odom;
+    odom = nav_msgs.msg.Odometry()
+
+    odom.header.stamp = current_time
+    odom.header.frame_id = "odom"
 
     # set the position
-    odom.pose.pose.position.x = x;
-    odom.pose.pose.position.y = y;
-    odom.pose.pose.position.z = 0.0;
-    odom.pose.pose.orientation = odom_quat;
+    odom.pose.pose.position.x = x
+    odom.pose.pose.position.y = y
+    odom.pose.pose.position.z = 0.0
+    odom.pose.pose.orientation = odom_quat
 
     # set the velocity
-    odom.child_frame_id = "base_link";
-    odom.twist.twist.linear.x = vx;
-    odom.twist.twist.linear.y = vy;
-    odom.twist.twist.angular.z = vth;
+    odom.child_frame_id = "base_link"
+    # linear acceleration from IMU (Accelerometer)
+    odom.twist.twist.linear.x = xa
+    odom.twist.twist.linear.y = ya
+    # angular velocity from IMU (Gyroscope)
+    odom.twist.twist.angular.z = zg
 
     #
     # publish the message
     #
     odom_pub.publish(odom);
+
 
     # Sleep for a second until the next reading.
     rospy.sleep(sleepTime)

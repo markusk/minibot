@@ -234,9 +234,34 @@ while not rospy.is_shutdown():
     odom_trans.transform.translation.z = 0.0
     odom_trans.transform.rotation = odom_quat
 
-    # send the transform
+    #
+    # publish/send the transform
+    #
     odom_broadcaster.sendTransform(odom_trans)
 
+
+    """ odom stuff """
+    # next, we'll publish the odometry message over ROS
+    nav_msgs::Odometry odom;
+    odom.header.stamp = current_time;
+    odom.header.frame_id = "odom";
+
+    # set the position
+    odom.pose.pose.position.x = x;
+    odom.pose.pose.position.y = y;
+    odom.pose.pose.position.z = 0.0;
+    odom.pose.pose.orientation = odom_quat;
+
+    # set the velocity
+    odom.child_frame_id = "base_link";
+    odom.twist.twist.linear.x = vx;
+    odom.twist.twist.linear.y = vy;
+    odom.twist.twist.angular.z = vth;
+
+    #
+    # publish the message
+    #
+    odom_pub.publish(odom);
 
     # Sleep for a second until the next reading.
     rospy.sleep(sleepTime)

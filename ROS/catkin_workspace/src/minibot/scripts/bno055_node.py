@@ -151,7 +151,7 @@ while not rospy.is_shutdown():
 
     # define message header for IMU and temperature
     h = rospy.Header()
-    h.stamp = rospy.Time.now() # not current_time ?!??
+    h.stamp = current_time
     h.frame_id = frame_id  # "odom"
     h.seq = seq
     # increase sequence

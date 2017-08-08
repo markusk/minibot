@@ -160,6 +160,8 @@ while not rospy.is_shutdown():
     # add header to IMU message
     imu_msg.header = h
 
+
+    """ IMU readings """
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
 
@@ -204,7 +206,7 @@ while not rospy.is_shutdown():
     pubImu.publish(imu_msg)
 
 
-    # Read sensor temperature in degrees Celsius:
+    """ Temperature in degrees Celsius """
     temp = bno.read_temp()
 
     # Print
@@ -215,6 +217,8 @@ while not rospy.is_shutdown():
     # publish message
     temp_msg.temperature = temp
     pubTemp.publish(temp_msg)
+
+
 
     # Other values you can optionally read:
     # Magnetometer data (in micro-Teslas):

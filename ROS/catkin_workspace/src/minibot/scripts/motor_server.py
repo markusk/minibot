@@ -1,7 +1,15 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# This is a service node (server)
+"""
+This is a service node (server) to control motors an the minibot
+(https://minibot.me). It controls the motors via I2C on a Raspberry Pi.
+I expects the messsages "FORWARD, BACKWARD, LEFT, RIGHT, STOP".
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
+
 
 # name of the package(!).srv
 from minibot.srv import *

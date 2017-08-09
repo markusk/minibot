@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# This is a client node
+"""
+This is a LED contol node (client). It receives intructions to switch a LED.
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
 
 import sys
 import rospy

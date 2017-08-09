@@ -23,6 +23,9 @@ Another Ubuntu machine:
    (sudo apt install ros-kinetic-joystick-drivers)
 6. Press button 1 on the joystick/gamepad and see the output. En-Joy! ;-)
 
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
 """
 
 import rospy

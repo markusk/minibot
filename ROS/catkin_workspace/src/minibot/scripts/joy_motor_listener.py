@@ -22,6 +22,9 @@ Another Ubuntu machine:
 5. Run this listener: rosrun minibot joy_motor_listener
 6. Use the D-Pad buttons on the joystick/gamepad to control the motors.
 
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
 """
 
 import rospy

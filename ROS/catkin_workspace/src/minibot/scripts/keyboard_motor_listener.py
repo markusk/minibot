@@ -1,11 +1,18 @@
 #!/usr/bin/env python
+# coding=utf-8
 
-## Simple keyboard_listener demo
-## that listens to geometry_msgs/Twist published by the 'cmd_vel' topic
-## of the teleop_twist_keyboard node
-#
-# Usage:
-# roslaunch minibot keyboard_motor_control.launch
+"""
+Simple keyboard_listener demo
+that listens to geometry_msgs/Twist published by the 'cmd_vel' topic
+of the teleop_twist_keyboard node
+
+Usage:
+roslaunch minibot keyboard_motor_control.launch
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
+
 
 import rospy
 from geometry_msgs.msg import Twist

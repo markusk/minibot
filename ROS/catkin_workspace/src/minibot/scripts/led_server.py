@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# This is a service node (server)
+"""
+This is a service node (server). It receives intructions to switch a LED.
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
 
 # name of the package(!).srv
 from minibot.srv import *

@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+# coding=utf-8
+
+"""
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
 
 import rospy
 from std_msgs.msg import Int32

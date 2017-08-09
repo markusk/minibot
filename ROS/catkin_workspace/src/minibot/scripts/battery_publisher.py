@@ -1,9 +1,15 @@
 #!/usr/bin/env python
+# coding=utf-8
 
-###
-### This publisher is for observing the robots battery and publishing the voltage as message
-### We use a publisher, since it is will be published non-stop. And is not critical if we might loose a message.
-###
+"""
+This publisher is for observing the robots battery
+and publishing the voltage as message
+We use a publisher, since it is will be published non-stop.
+And is not critical if we might loose a message.
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
 
 import rospy
 

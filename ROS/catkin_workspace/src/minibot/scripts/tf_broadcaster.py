@@ -4,6 +4,9 @@
 """
 This node does the transform tree setup for my robot 'minibot'.
 It also publishes these transforms into ROS.
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
 """
 
 import logging

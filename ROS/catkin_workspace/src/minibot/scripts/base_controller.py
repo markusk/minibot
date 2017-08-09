@@ -1,11 +1,24 @@
 #!/usr/bin/env python
+# coding=utf-8
 
-## Simple keyboard_listener demo
-## that listens to geometry_msgs/Twist published by the 'cmd_vel' topic
-## of the teleop_twist_keyboard node
-#
-# Usage:
-# roslaunch minibot keyboard_motor_control.launch
+"""
+This is the ROS node for the minibot (https://minibot.me).
+
+I expects "cmd_vel" geometry_msgs/Twist messages to control the robots motors.
+It will then publish messages like "FORWARD, BACKWARD, LEFT, RIGHT, STOP",
+which will be received by a "motor_server" node. The latter is responsible for
+controlling the motors with lowlevel I2C commands on a Raspberry Pi.
+
+This node can (also) be controlled via keyboard with the
+teleop_twist_keyboard node.
+
+Usage:
+roslaunch minibot keyboard_motor_control.launch
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
+
 
 import rospy
 from geometry_msgs.msg import Twist

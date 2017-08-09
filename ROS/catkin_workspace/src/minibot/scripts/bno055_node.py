@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# ROS node for publishing a /imu/data topic using the Adafruit BNO055 9DOF board.
+"""
+ROS node for publishing "/imu/data" and "odom" (nav_msgs/Odometry) topics,
+using the Adafruit BNO055 9DOF board.
+
+Author:  Markus Knapp, 2017
+Website: https://direcs.de
+"""
 #
-# Based on Adafruits simpletest.py example.
-# Author: Markus Knapp, 2017. https://direcs.de
-#
+# Adafruit BNO055 code:
 #
 # Copyright (c) 2015 Adafruit Industries
 # Original-Author: Tony DiCola

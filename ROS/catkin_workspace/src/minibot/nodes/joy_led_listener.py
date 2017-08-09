@@ -2,18 +2,19 @@
 # coding=utf-8
 
 
-""" This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
-    I also switches a LED on on my Raspberry (GPIO 18) when button 1 is pressed.
-    This needs the led_listener to be run on the Raspberry Pi. Like this:
+"""
+This is my listener for the ROS joy_node. It listens on the topic 'joy'
+and prints out some information.
 
-Usage
------
+I also switches a LED on on my Raspberry (GPIO 18) when button 1 is pressed.
+The latter needs the led_server.py node to be run on the Raspberry Pi. Like this:
 
-Raspberry Pi:
+Usage:
+A) Raspberry Pi
 1. Run: roscore
 2. Run the led server on the Pi: rosrun minibot led_server.py
 
-Another Ubuntu machine:
+B) Another Ubuntu machine:
 1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/
    i.E. export ROS_MASTER_URI=http://pi-desktop:11311/
 2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"

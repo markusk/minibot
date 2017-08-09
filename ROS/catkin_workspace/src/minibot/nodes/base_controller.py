@@ -57,31 +57,29 @@ def callback(data):
     # rospy.loginfo(rospy.get_caller_id() + ' received x=%s', data.linear.x)
     # rospy.loginfo(rospy.get_caller_id() + ' received z=%s', data.angular.z)
 
-    # which key / Speed was pressed?
-    # i key
+    # which command was received/key was pressed?
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("FORWARD key pressed.")
+      rospy.loginfo("FORWARD command.")
       drive("FORWARD")
     # k key
     elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("STOP key pressed.")
+      rospy.loginfo("STOP command.")
       drive("STOP")
     # , key
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("BACKWARD key pressed.")
+      rospy.loginfo("BACKWARD command.")
       drive("BACKWARD")
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
-      rospy.loginfo("LEFT key pressed.")
+      rospy.loginfo("LEFT command.")
       drive("LEFT")
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
-      rospy.loginfo("BACKWARD key pressed.")
+      rospy.loginfo("BACKWARD command.")
       drive("RIGHT")
 
 
 def listener():
-
     # In ROS, nodes are uniquely named. The anonymous=True flag
     # means that rospy will choose a unique name for this listener node
     rospy.init_node('keyboard_listener', anonymous=True)
@@ -90,7 +88,7 @@ def listener():
     rospy.Subscriber('cmd_vel', Twist, callback)
 
     # Ready
-    rospy.loginfo("Ready. Control me via keyboard now.")
+    rospy.loginfo("Ready. Control me via navigation stack/keyboard now.")
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

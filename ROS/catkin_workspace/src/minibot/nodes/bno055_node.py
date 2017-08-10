@@ -175,8 +175,13 @@ while not rospy.is_shutdown():
         # rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
     else:
         # test values only!
-        heading, roll, pitch  = 1.0
-        sys, gyro, accel, mag = 1.0
+        heading = 1.0
+        roll    = 1.0
+        pitch   = 1.0
+        sys     = 1.0
+        gyro    = 1.0
+        accel   = 1.0
+        mag     = 1.0
 
 
     # publish Euler values
@@ -191,7 +196,10 @@ while not rospy.is_shutdown():
         x,y,z,w = bno.read_quaternion()
     else:
         # test values only!
-        x,y,z,w = 1.0
+        x = 1.0
+        y = 1.0
+        z = 1.0
+        w = 1.0
 
     imu_msg.orientation.x = x # is this the pose then?
     imu_msg.orientation.y = y
@@ -206,7 +214,9 @@ while not rospy.is_shutdown():
         xg,yg,zg = bno.read_gyroscope()
     else:
         # test values only!
-        xg,yg,zg = 1.0
+        xg = 1.0
+        yg = 1.0
+        zg = 1.0
 
     imu_msg.angular_velocity.x = xg;
     imu_msg.angular_velocity.y = yg;
@@ -220,7 +230,9 @@ while not rospy.is_shutdown():
         xa,ya,za = bno.read_accelerometer()
     else:
         # test values only!
-        xa,ya,za = 1.0
+        xa = 1.0
+        ya = 1.0
+        za = 1.0
 
     imu_msg.linear_acceleration.x = xa;
     imu_msg.linear_acceleration.y = ya;

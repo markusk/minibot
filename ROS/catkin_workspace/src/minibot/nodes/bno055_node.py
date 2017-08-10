@@ -48,15 +48,19 @@ from nav_msgs.msg import Odometry
 # for the tf broadcaster
 import tf
 
-from Adafruit_BNO055 import BNO055
-
 
 # sleep time for this node in seconds
 sleepTime = 0.25
 
 
-# initialise the node
-rospy.init_node('bno055_node')
+# for getting the hostname of the underlying system
+import socket
+# showing hostname
+hostname = socket.gethostname()
+rospy.loginfo("Running on host %s.", hostname)
+if hostname != 'minibot':
+    rospy.logwarn("Test mode only due to other host. Skipping all I2C staff!")
+
 
 # the odometry topic
 pubOdom = rospy.Publisher('odom', Odometry, queue_size=50)
@@ -92,38 +96,48 @@ imu_msg.angular_velocity_covariance[0]    = -1
 imu_msg.linear_acceleration_covariance[0] = -1
 
 
-# Create and configure the BNO sensor connection.
-# Using I2C without a RST pin
-bno = BNO055.BNO055()
+# run some parts only on the real robot
+if hostname == 'minibot':
+    # load library
+    from Adafruit_BNO055 import BNO055
 
-# Initialize the BNO055 and stop if something went wrong.
-if not bno.begin():
-    rospy.logerr("Failed to initialize BNO055! Is the sensor connected?")
+    # initialise the node
+    rospy.init_node('bno055_node')
 
-# Print system status
-status, self_test, error = bno.get_system_status()
-rospy.loginfo('System status:      0x{0:02X} '.format(status))
+    # Create and configure the BNO sensor connection.
+    # Using I2C without a RST pin
+    bno = BNO055.BNO055()
 
-# Print self test
-rospy.loginfo('Self test result:   0x{0:02X}'.format(self_test))
-if self_test != 0x0F:
-    rospy.logwarn('WARNING: Self test result is 0x{0:02X} instead if 0x0F!'.format(self_test))
+    # Initialize the BNO055 and stop if something went wrong.
+    if not bno.begin():
+        rospy.logerr("Failed to initialize BNO055! Is the sensor connected?")
 
-# Print out an error if system status is in error mode.
-if status == 0x01:
-    rospy.logerr('System error:    {0}'.format(error))
-    rospy.loginfo('See datasheet section 4.3.59 for the meaning.')
+    # Print system status
+    status, self_test, error = bno.get_system_status()
+    rospy.loginfo('System status:      0x{0:02X} '.format(status))
 
-# Print BNO055 software revision and other diagnostic data.
-sw, bl, accel, mag, gyro = bno.get_revision()
-rospy.loginfo('Software version:   {0}'.format(sw))
-rospy.loginfo('Bootloader version: {0}'.format(bl))
-rospy.loginfo('Accelerometer ID:   0x{0:02X}'.format(accel))
-rospy.loginfo('Magnetometer ID:    0x{0:02X}'.format(mag))
-rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
+    # Print self test
+    rospy.loginfo('Self test result:   0x{0:02X}'.format(self_test))
+    if self_test != 0x0F:
+        rospy.logwarn('WARNING: Self test result is 0x{0:02X} instead if 0x0F!'.format(self_test))
+
+    # Print out an error if system status is in error mode.
+    if status == 0x01:
+        rospy.logerr('System error:    {0}'.format(error))
+        rospy.loginfo('See datasheet section 4.3.59 for the meaning.')
+
+    # Print BNO055 software revision and other diagnostic data.
+    sw, bl, accel, mag, gyro = bno.get_revision()
+    rospy.loginfo('Software version:   {0}'.format(sw))
+    rospy.loginfo('Bootloader version: {0}'.format(bl))
+    rospy.loginfo('Accelerometer ID:   0x{0:02X}'.format(accel))
+    rospy.loginfo('Magnetometer ID:    0x{0:02X}'.format(mag))
+    rospy.loginfo('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
 
-rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
+    rospy.loginfo('Reading BNO055 data, press Ctrl-C to quit...')
+else:
+    rospy.logwarn("Test mode only! BNO055 not initialised.")
 
 
 
@@ -148,14 +162,21 @@ while not rospy.is_shutdown():
 
 
     """ IMU readings """
-    # Read the Euler angles for heading, roll, pitch (all in degrees).
-    heading, roll, pitch = bno.read_euler()
+    # run some parts only on the real robot
+    if hostname == 'minibot':
+        # Read the Euler angles for heading, roll, pitch (all in degrees).
+        heading, roll, pitch = bno.read_euler()
 
-    # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
-    sys, gyro, accel, mag = bno.get_calibration_status()
+        # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
+        sys, gyro, accel, mag = bno.get_calibration_status()
 
-    # Print everything out.
-    # rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
+        # Print everything out.
+        # rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
+    else:
+        # test values only!
+        heading, roll, pitch  = 1.0
+        sys, gyro, accel, mag = 1.0
+
 
     # publish Euler values
     pubH.publish(heading)
@@ -163,8 +184,14 @@ while not rospy.is_shutdown():
     pubP.publish(pitch)
 
 
-    # Read orientation as a quaternion:
-    x,y,z,w = bno.read_quaternion()
+    # run some parts only on the real robot
+    if hostname == 'minibot':
+        # Read orientation as a quaternion:
+        x,y,z,w = bno.read_quaternion()
+    else:
+        # test values only!
+        x,y,z,w = 1.0
+
     imu_msg.orientation.x = x # is this the pose then?
     imu_msg.orientation.y = y
     imu_msg.orientation.z = z
@@ -172,16 +199,28 @@ while not rospy.is_shutdown():
     # Print
     # rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
 
-    # Gyroscope data (in degrees per second):
-    xg,yg,zg = bno.read_gyroscope()
+    # run some parts only on the real robot
+    if hostname == 'minibot':
+        # Gyroscope data (in degrees per second):
+        xg,yg,zg = bno.read_gyroscope()
+    else:
+        # test values only!
+        xg,yg,zg = 1.0
+
     imu_msg.angular_velocity.x = xg;
     imu_msg.angular_velocity.y = yg;
     imu_msg.angular_velocity.z = zg;
     # Print
     rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, imu_msg.angular_velocity.z))
 
-    # Accelerometer data (in meters per second squared):
-    xa,ya,za = bno.read_accelerometer()
+    # run some parts only on the real robot
+    if hostname == 'minibot':
+        # Accelerometer data (in meters per second squared):
+        xa,ya,za = bno.read_accelerometer()
+    else:
+        # test values only!
+        xa,ya,za = 1.0
+
     imu_msg.linear_acceleration.x = xa;
     imu_msg.linear_acceleration.y = ya;
     imu_msg.linear_acceleration.z = za;
@@ -195,7 +234,12 @@ while not rospy.is_shutdown():
 
 
     """ Temperature in degrees Celsius """
-    temp = bno.read_temp()
+    # run some parts only on the real robot
+    if hostname == 'minibot':
+        temp = bno.read_temp()
+    else:
+        # test values only!
+        temp = 1.0
 
     # Print
     # rospy.loginfo('Temperature: {}°C'.format(temp))

@@ -40,6 +40,7 @@ My little Raspberry Pi and ROS robot - with some python stuff
 <ol>
 <li>Install ROS on Raspberry Pi</li>
 <li>create a catkin workspace</li>
+<li>sudo apt-get install ros-kinetic-urg-node</li>
 <li>$ catkin_make</li>
 <li>delete the src folder</li>
 <li>create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository.</li>

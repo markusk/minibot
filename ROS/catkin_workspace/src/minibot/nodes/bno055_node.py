@@ -96,13 +96,14 @@ imu_msg.angular_velocity_covariance[0]    = -1
 imu_msg.linear_acceleration_covariance[0] = -1
 
 
+# initialise the ROS node
+rospy.init_node('bno055_node')
+
+
 # run some parts only on the real robot
 if hostname == 'minibot':
     # load library
     from Adafruit_BNO055 import BNO055
-
-    # initialise the node
-    rospy.init_node('bno055_node')
 
     # Create and configure the BNO sensor connection.
     # Using I2C without a RST pin

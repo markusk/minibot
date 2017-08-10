@@ -1,16 +1,20 @@
 <?xml version="1.0"?>
 <robot name="minibot">
+  <!-- The chassis. "base_link" is a more common name for a chassis in ROS -->
   <link name="base_link">
     <visual>
       <geometry>
+        <!-- A rectangle, sized in meters -->
         <box size="0.2 .3 .1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
+      <!-- The color in RGBA -->
+      <material name="silver">
+        <color rgba="0.75 0.75 0.75 1"/>
       </material>
     </visual>
   </link>
+  <!-- Wheel 1 -->
   <link name="wheel_1">
     <visual>
       <geometry>
@@ -22,6 +26,7 @@
       </material>
     </visual>
   </link>
+  <!-- Wheel 2 -->
   <link name="wheel_2">
     <visual>
       <geometry>
@@ -31,6 +36,7 @@
       <material name="black"/>
     </visual>
   </link>
+  <!-- Wheel 3 -->
   <link name="wheel_3">
     <visual>
       <geometry>
@@ -40,6 +46,7 @@
       <material name="black"/>
     </visual>
   </link>
+  <!-- Wheel 4 -->
   <link name="wheel_4">
     <visual>
       <geometry>
@@ -49,21 +56,25 @@
       <material name="black"/>
     </visual>
   </link>
+  <!-- Joint for wheel 1 -->
   <joint name="base_to_wheel1" type="fixed">
     <parent link="base_link"/>
     <child link="wheel_1"/>
     <origin xyz="0 0 0"/>
   </joint>
+  <!-- Joint for wheel 2 -->
   <joint name="base_to_wheel2" type="fixed">
     <parent link="base_link"/>
     <child link="wheel_2"/>
     <origin xyz="0 0 0"/>
   </joint>
+  <!-- Joint for wheel 3 -->
   <joint name="base_to_wheel3" type="fixed">
     <parent link="base_link"/>
     <child link="wheel_3"/>
     <origin xyz="0 0 0"/>
   </joint>
+  <!-- Joint for wheel 4 -->
   <joint name="base_to_wheel4" type="fixed">
     <parent link="base_link"/>
     <child link="wheel_4"/>

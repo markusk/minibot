@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Launch file for the Raspberry Pi plattform (my robot "minibot"). -->
+<launch>
+  <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
+  <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>
+
+  <!-- Publishing "odom" nav_msgs/Odometry for the local planner (navigation stack). -->
+  <node name="bno055_node" pkg="minibot" type="bno055_node.py" output="screen"/>
+
+  <!-- Controlling the motor on a hardware level (I2C) -->
+  <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>
+
+  <!-- Base controller listens to "cmd_vel" geometry_msgs/Twist messages and publishes motor control messages (for the I2C control node). -->
+  <node name="base_controller" pkg="minibot" type="base_controller.py" output="screen"/>
+
+  <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->
+  <node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaserscanner" output="screen"/>
+</launch>

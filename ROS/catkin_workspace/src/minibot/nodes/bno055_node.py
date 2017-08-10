@@ -146,7 +146,6 @@ while not rospy.is_shutdown():
     # check for incoming messages
     # rospy.spinOnce() >> this does not exist in rospy. Unneeded since we do not receive messages? Otherwise create a listener.
 
-
     # for header time stamps
     current_time = rospy.Time.now()
 
@@ -171,8 +170,6 @@ while not rospy.is_shutdown():
         # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
         sys, gyro, accel, mag = bno.get_calibration_status()
 
-        # Print everything out.
-        # rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
     else:
         # test values only!
         heading = 1.0
@@ -183,6 +180,8 @@ while not rospy.is_shutdown():
         accel   = 1.0
         mag     = 1.0
 
+    # Print everything out.
+    # rospy.loginfo('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(heading, roll, pitch, sys, gyro, accel, mag))
 
     # publish Euler values
     pubH.publish(heading)
@@ -238,7 +237,7 @@ while not rospy.is_shutdown():
     imu_msg.linear_acceleration.y = ya;
     imu_msg.linear_acceleration.z = za;
     # Print
-    rospy.loginfo('Accelerometer: x={} y={} z={}'.format(imu_msg.linear_acceleration.x, imu_msg.linear_acceleration.y, imu_msg.linear_acceleration.z))
+    # rospy.loginfo('Accelerometer: x={} y={} z={}'.format(imu_msg.linear_acceleration.x, imu_msg.linear_acceleration.y, imu_msg.linear_acceleration.z))
 
     #
     # publish message

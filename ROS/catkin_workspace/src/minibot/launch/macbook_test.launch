@@ -15,5 +15,5 @@
   <node name="base_controller" pkg="minibot" type="base_controller.py" output="screen"/>
 
   <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->
-  <node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaserscanner" output="screen"/>
+  <!-- node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaserscanner" output="screen"/-->
 </launch>

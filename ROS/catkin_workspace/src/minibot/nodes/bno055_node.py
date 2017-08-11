@@ -164,6 +164,7 @@ while not rospy.is_shutdown():
     """ IMU readings """
     # run some parts only on the real robot
     if hostname == 'minibot':
+        """ Euler """
         # Read the Euler angles for heading, roll, pitch (all in degrees).
         heading, roll, pitch = bno.read_euler()
 
@@ -191,6 +192,7 @@ while not rospy.is_shutdown():
 
     # run some parts only on the real robot
     if hostname == 'minibot':
+        """ Quaternion """
         # Read orientation as a quaternion:
         x,y,z,w = bno.read_quaternion()
     else:
@@ -280,7 +282,7 @@ while not rospy.is_shutdown():
     """ tf stuff """
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
-    odom_quat = tf.createQuaternionMsgFromYaw(z)
+    # not needed, since the BNO055 library delivres already a Quaternion with x,y,z,w.
 
     # first, we'll publish the transform over tf
     # org: geometry_msgs::TransformStamped odom_trans
@@ -292,8 +294,9 @@ while not rospy.is_shutdown():
 
     odom_trans.transform.translation.x = x
     odom_trans.transform.translation.y = y
-    odom_trans.transform.translation.z = 0.0
-    odom_trans.transform.rotation = odom_quat
+    odom_trans.transform.translation.z = z
+    # org: odom_trans.transform.rotation = odom_quat
+    odom_trans.transform.translation.w = w
 
     #
     # publish/send the transform

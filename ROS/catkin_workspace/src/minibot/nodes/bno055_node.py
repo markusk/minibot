@@ -47,6 +47,7 @@ from sensor_msgs.msg import Imu, Temperature
 from nav_msgs.msg import Odometry
 # for the tf broadcaster
 import tf
+import geometry_msgs.msg
 
 
 # sleep time for this node in seconds

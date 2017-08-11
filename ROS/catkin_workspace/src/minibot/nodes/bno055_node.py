@@ -283,7 +283,7 @@ while not rospy.is_shutdown():
     """ tf stuff """
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
-    # not needed, since the BNO055 library delivres already a Quaternion with x,y,z,w.
+    # MK: not needed, since the BNO055 library delivres already a Quaternion with x,y,z,w.
 
     # first, we'll publish the transform over tf
     # org: geometry_msgs::TransformStamped odom_trans
@@ -293,16 +293,21 @@ while not rospy.is_shutdown():
     odom_trans.header.frame_id = "odom"
     odom_trans.child_frame_id = "base_link"
 
-    odom_trans.transform.translation.x = x
-    odom_trans.transform.translation.y = y
-    odom_trans.transform.translation.z = z
+    # EULER:  ?!?
+    odom_trans.transform.translation.x = heading
+    odom_trans.transform.translation.y = roll
+    odom_trans.transform.translation.z = pitch
+    # quaternion:
     # org: odom_trans.transform.rotation = odom_quat
-    odom_trans.transform.translation.w = w
+    odom_trans.transform.rotation.x = x
+    odom_trans.transform.rotation.y = y
+    odom_trans.transform.rotation.z = z
+    odom_trans.transform.rotation.w = w
 
     #
     # publish/send the transform
     #
-    odom_broadcaster.sendTransform(odom_trans)
+    odomBroadcaster.sendTransform(odom_trans)
 
 
     """ odom stuff """
@@ -330,7 +335,7 @@ while not rospy.is_shutdown():
     #
     # publish the message
     #
-    odom_pub.publish(odom);
+    pubOdom.publish(odom);
 
 
     # Sleep for a second until the next reading.

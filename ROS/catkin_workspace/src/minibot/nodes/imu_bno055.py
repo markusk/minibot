@@ -55,6 +55,10 @@ import geometry_msgs.msg
 sleepTime = 0.25
 
 
+# initialise the ROS node
+rospy.init_node('bno055_node', anonymous=False)
+
+
 # for getting the hostname of the underlying system
 import socket
 # showing hostname
@@ -96,10 +100,6 @@ imu_msg = Imu()
 imu_msg.orientation_covariance[0]         = -1
 imu_msg.angular_velocity_covariance[0]    = -1
 imu_msg.linear_acceleration_covariance[0] = -1
-
-
-# initialise the ROS node
-rospy.init_node('bno055_node')
 
 
 # run some parts only on the real robot

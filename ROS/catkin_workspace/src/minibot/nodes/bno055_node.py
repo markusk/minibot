@@ -44,7 +44,7 @@ from sensor_msgs.msg import Imu, Temperature
 # see also http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom:
 # "The nav_msgs/Odometry message stores an estimate of the position
 #  and velocity of a robot in free space"
-from nav_msgs.msg import Odometry
+import nav_msgs.msg
 # for the tf broadcaster
 import tf
 import geometry_msgs.msg

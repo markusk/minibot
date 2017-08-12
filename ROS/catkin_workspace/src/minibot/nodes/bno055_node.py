@@ -307,6 +307,36 @@ while not rospy.is_shutdown():
     #
     # publish/send the transform
     #
+#    odomBroadcaster.sendTransform(odom_trans)
+    odomBroadcaster.sendTransform(
+    # 1
+    # Euler
+    (heading, roll, pitch),
+
+    # 2
+    # quaternion:
+    (x, y, z, w),
+
+    # 3
+    current_time,
+
+    # 4
+    "odom",
+
+    # 5
+    "base_link"
+
+    # 6
+    )
+
+    """
+    # netz beispiel aus http://wiki.ros.org/tf/Tutorials/Writing%20a%20tf%20broadcaster%20%28Python%29
+    br.sendTransform((msg.x, msg.y, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, msg.theta),
+                     rospy.Time.now(),
+                     turtlename,
+                     "world")
+    """
 
 
     """ odom stuff """

@@ -225,7 +225,7 @@ while not rospy.is_shutdown():
     imu_msg.angular_velocity.y = yg;
     imu_msg.angular_velocity.z = zg;
     # Print
-    rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, imu_msg.angular_velocity.z))
+    # rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, imu_msg.angular_velocity.z))
 
     # run some parts only on the real robot
     if hostname == 'minibot':
@@ -282,65 +282,23 @@ while not rospy.is_shutdown():
 
 
     """ tf stuff """
-    # since all odometry is 6DOF we'll need a quaternion created from yaw
-    # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(z)
-    # MK: not needed, since the BNO055 library delivres already a Quaternion with x,y,z,w.
-
-    # first, we'll publish the transform over tf
-    # org: geometry_msgs::TransformStamped odom_trans
-    odom_trans = geometry_msgs.msg.TransformStamped()
-
-    odom_trans.header.stamp = current_time
-    odom_trans.header.frame_id = "odom"
-    odom_trans.child_frame_id = "base_link"
-
-    # EULER:  ?!?
-    odom_trans.transform.translation.x = heading
-    odom_trans.transform.translation.y = roll
-    odom_trans.transform.translation.z = pitch
-    # quaternion:
-    # org: odom_trans.transform.rotation = odom_quat
-    odom_trans.transform.rotation.x = x
-    odom_trans.transform.rotation.y = y
-    odom_trans.transform.rotation.z = z
-    odom_trans.transform.rotation.w = w
-
-    #
-    # publish/send the transform
-    #
-#    odomBroadcaster.sendTransform(odom_trans)
+    # first we publish the transform over tf
     odomBroadcaster.sendTransform(
-    # 1
-    # Euler
-    (heading, roll, pitch),
-
-    # 2
-    # quaternion:
-    (x, y, z, w),
-
-    # 3
-    current_time,
-
-    # 4
-    "base_link",
-
-    # 5
-    "odom"
-    )
-
-    """
-    # netz beispiel aus http://wiki.ros.org/tf/Tutorials/Writing%20a%20tf%20broadcaster%20%28Python%29
-    br.sendTransform((msg.x, msg.y, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, msg.theta),
-                     rospy.Time.now(),
-                     turtlename,
-                     "world")
-    """
+                                    # Euler
+                                    (heading, roll, pitch),
+                                    # Quaternion
+                                    (x, y, z, w),
+                                    # time
+                                    current_time,
+                                    # child_frame_id
+                                    "base_link",
+                                    # frame_id
+                                    "odom"
+                                  )
 
 
     """ odom stuff """
     # next, we'll publish the odometry message over ROS
-    # org: nav_msgs::Odometry odom;
     odom = nav_msgs.msg.Odometry()
 
     odom.header.stamp = current_time
@@ -350,6 +308,7 @@ while not rospy.is_shutdown():
     odom.pose.pose.position.x = x
     odom.pose.pose.position.y = y
     odom.pose.pose.position.z = 0.0
+    # quaternion
     odom.pose.pose.orientation = (x, y, z, w)
 
     # set the velocity

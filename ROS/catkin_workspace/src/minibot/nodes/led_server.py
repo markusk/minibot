@@ -13,6 +13,10 @@ from minibot.srv import *
 import rospy
 
 
+# Service nodes have to be initialised
+rospy.init_node('led_server')
+
+
 # for getting the hostname of the underlying system
 import socket
 # showing hostname
@@ -94,9 +98,6 @@ def handle_led(req):
 
 
 def led_server():
-    # Service nodes have to be initialised
-    rospy.init_node('led_server')
-
     # This declares a new service named 'led'' with the 'Led' service type.
     # All requests are passed to the 'handle_led' function.
     # 'handle_led' is called with instances of LedRequest and returns instances of LedResponse

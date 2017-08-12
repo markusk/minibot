@@ -350,7 +350,7 @@ while not rospy.is_shutdown():
     odom.pose.pose.position.x = x
     odom.pose.pose.position.y = y
     odom.pose.pose.position.z = 0.0
-    odom.pose.pose.orientation = odom_quat
+    odom.pose.pose.orientation = (x, y, z, w)
 
     # set the velocity
     odom.child_frame_id = "base_link"

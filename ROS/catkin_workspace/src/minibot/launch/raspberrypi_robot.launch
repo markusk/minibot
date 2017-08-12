@@ -6,7 +6,7 @@
   <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>
 
   <!-- Publishing "odom" nav_msgs/Odometry for the local planner (navigation stack). -->
-  <node name="bno055_node" pkg="minibot" type="bno055_node.py" output="screen"/>
+  <node name="imu_bno055" pkg="minibot" type="imu_bno055.py" output="screen"/>
 
   <!-- Controlling the motor on a hardware level (I2C) -->
   <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>

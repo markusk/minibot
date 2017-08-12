@@ -29,6 +29,11 @@ from minibot.srv import *
 # set the motor speed (from 0 (off) to 255 (max speed))
 startSpeed = 100
 
+
+# node init
+rospy.init_node('keyboard_listener', anonymous=False)
+
+
 # Service 'motor' from motor_server.py ready?
 rospy.loginfo("Waiting for service 'motor'")
 rospy.wait_for_service('motor')
@@ -80,10 +85,6 @@ def callback(data):
 
 
 def listener():
-    # In ROS, nodes are uniquely named. The anonymous=True flag
-    # means that rospy will choose a unique name for this listener node
-    rospy.init_node('keyboard_listener', anonymous=True)
-
     # subscribe the message cmd_vel
     rospy.Subscriber('cmd_vel', Twist, callback)
 

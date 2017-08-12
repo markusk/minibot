@@ -45,6 +45,7 @@ from sensor_msgs.msg import Imu, Temperature
 # "The nav_msgs/Odometry message stores an estimate of the position
 #  and velocity of a robot in free space"
 import nav_msgs.msg
+from nav_msgs.msg import Odometry
 # for the tf broadcaster
 import tf
 import geometry_msgs.msg

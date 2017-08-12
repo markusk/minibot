@@ -23,11 +23,11 @@ if __name__ == '__main__':
     rate = rospy.Rate(10.0)
 
     while not rospy.is_shutdown():
-        # send laser_link transform
+        """ laser_link transform """
+        # Format: sendTransform(translation, rotation, time, child, parent)¶
         br.sendTransform((0.5, 0.1, 0.0), # @todo: check real laser position!
                          (0.0, 0.0, 0.0, 1.0),
                          rospy.Time.now(),
                          "laser_link", # child node
                          "base_link")   # parent node
-                         # @todo: what about IMU here?!?
         rate.sleep()

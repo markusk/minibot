@@ -322,12 +322,10 @@ while not rospy.is_shutdown():
     current_time,
 
     # 4
-    "odom",
+    "base_link",
 
     # 5
-    "base_link"
-
-    # 6
+    "odom"
     )
 
     """

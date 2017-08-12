@@ -307,7 +307,6 @@ while not rospy.is_shutdown():
     #
     # publish/send the transform
     #
-    odomBroadcaster.sendTransform(odom_trans)
 
 
     """ odom stuff """

@@ -15,7 +15,7 @@ import tf
 
 if __name__ == '__main__':
     # init node
-    rospy.init_node('robot_tf_broadcaster')
+    rospy.init_node('robot_tf_broadcaster', anonymous=False)
     rospy.loginfo("robot_tf_broadcaster started.")
 
     # the broacaster (publisher)

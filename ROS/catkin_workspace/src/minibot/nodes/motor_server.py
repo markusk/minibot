@@ -15,6 +15,10 @@ Website: https://direcs.de
 from minibot.srv import *
 import rospy
 
+# Service nodes have to be initialised
+rospy.init_node('motor_server', anonymous=False)
+
+
 # for getting the hostname of the underlying system
 import socket
 # showing hostname
@@ -115,9 +119,6 @@ def handle_motor(req):
 
 
 def motor_server():
-    # Service nodes have to be initialised
-    rospy.init_node('motor_server')
-
     # This declares a new service named 'motor with the Motor service type.
     # All requests are passed to the 'handle_motor' function.
     # 'handle_motor' is called with instances of MotorRequest and returns instances of MotorResponse

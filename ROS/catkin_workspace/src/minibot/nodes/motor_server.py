@@ -19,7 +19,10 @@ import rospy
 import socket
 # showing hostname
 hostname = socket.gethostname()
-rospy.loginfo("Running on host %s.", hostname)
+if hostname == 'minibot':
+    rospy.loginfo("Running on host %s.", hostname)
+else:
+    rospy.logwarn("Running on host %s!", hostname)
 
 
 ###############################
@@ -51,7 +54,7 @@ if hostname == 'minibot':
     myMotor1.setSpeed(startSpeed)
     myMotor2.setSpeed(startSpeed)
 else:
-    rospy.loginfo("Skipping I2C setup. This is not the robot.")
+    rospy.logwarn("Skipping I2C setup. This is not the robot.")
 
 
 # define a clean node exit
@@ -60,7 +63,7 @@ def my_exit():
   # run some parts only on the real robot
   if hostname == 'minibot':
       turnOffMotors();
-  rospy.loginfo("Done.")
+  rospy.loginfo("...shutting down motor service complete.")
 
 # call this method on node exit
 rospy.on_shutdown(my_exit)

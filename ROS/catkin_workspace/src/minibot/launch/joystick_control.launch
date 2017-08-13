@@ -6,12 +6,15 @@ This part has to be started on another computer, than the robot.
 The joystick/gamepas has to be connected to this computer, not the robot.
 -->
 <launch>
-  <!-- Controlling the motor on a hardware level -->
-  <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>
+  <!--
+  This nodes listens to joystick/gamepad input.
+  Use the D-Pad buttons on the joystick/gamepad to control the motors.
+  -->
+  <node name="joy_node" pkg="joy" type="joy" output="screen"/>
 
-  <!-- This nodes listens to keyboard input -->
-  <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
-
-  <!-- This nodes takes the keyboard input and sends out motor control messages -->
-  <node name="keyboard_motor_listener" pkg="minibot" type="keyboard_motor_listener.py" output="screen"/>
+  <!--
+  This nodes takes the joystick input and sends out motor control messages.
+  The motor control on a hardware level is started by 'roslaunch minibot motor_server'
+  -->
+  <node name="joy_motor_listener" pkg="minibot" type="joy_motor_listener.py" output="screen"/>
 </launch>

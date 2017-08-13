@@ -2,25 +2,22 @@
 # coding=utf-8
 
 
-""" This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
-    I then switches on motors on my Raspberry when the D-Pad is used on the joystick/gamepad.
-    This needs the motor_server to be run on the Raspberry Pi. Like this:
+"""
+This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
+I then switches on motors on my Raspberry when the D-Pad is used on the joystick/gamepad.
+This needs the motor_server to be run on the Raspberry Pi. Like this:
 
 Usage
 -----
-
 Raspberry Pi:
-1. Run: roscore
-2. Run the motor server on the Pi: rosrun minibot motor_server.py
+1. roslaunch minibot motor_server. (This starts also the roscore on this computer automatically).
 
 Another Ubuntu machine:
-1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/
-   i.E. export ROS_MASTER_URI=http://pi-desktop:11311/
-2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
-3. In the next terminal window repeat step 1. (export...)
-4. Run the joystick node: rosrun joy joy_node
-5. Run this listener: rosrun minibot joy_motor_listener
-6. Use the D-Pad buttons on the joystick/gamepad to control the motors.
+1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/ from the robot. I.E.:
+   export ROS_MASTER_URI=http://minibot:11311/
+2. Set joystick device (if different) to js0. I.E.:
+   rosparam set joy_node/dev "/dev/input/js2"
+3. roslaunch minibot joystick_control
 
 
 Author:  Markus Knapp, 2017

@@ -7,7 +7,7 @@
         <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
         <box size="0.19 0.13 0.06"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.05"/>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
       <!-- The color in RGBA -->
       <material name="silver">
         <color rgba="0.75 0.75 0.75 1"/>

@@ -3,26 +3,23 @@
 
 
 """
-This is my listener for the ROS joy_node. It listens on the topic 'joy'
-and prints out some information.
+This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
+I then switches a LED on my Raspberry when button 1 is used on the joystick/gamepad.
+This needs the led_server to be run on the Raspberry Pi. Like this:
 
-I also switches a LED on on my Raspberry (GPIO 18) when button 1 is pressed.
-The latter needs the led_server.py node to be run on the Raspberry Pi. Like this:
+Usage
+-----
+Raspberry Pi:
+1. roslaunch minibot led_server
+   (This starts also the roscore on this computer automatically).
 
-Usage:
-A) Raspberry Pi
-1. Run: roscore
-2. Run the led server on the Pi: rosrun minibot led_server.py
-
-B) Another Ubuntu machine:
-1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/
-   i.E. export ROS_MASTER_URI=http://pi-desktop:11311/
-2. Set joystick device if different to js0: rosparam set joy_node/dev "/dev/input/js2"
-3. In the next terminal window repeat step 1. (export...)
-4. Run the joystick node: rosrun joy joy_node
-5. Run this listener: rosrun minibot joy_led_listener
-   (sudo apt install ros-kinetic-joystick-drivers)
-6. Press button 1 on the joystick/gamepad and see the output. En-Joy! ;-)
+Another Ubuntu machine:
+1. export ROS_MASTER_URI=http://hostname-of-your-pi:11311/ from the robot. I.E.:
+   export ROS_MASTER_URI=http://minibot:11311/
+2. Set joystick device (if different) to js0. I.E.:
+   rosparam set joy_node/dev "/dev/input/js2"
+3. roslaunch minibot joystick_led
+4. Press button 1 on the joystick/gamepad and see the output (the LED turing ON or OFF).
 
 
 Author:  Markus Knapp, 2017

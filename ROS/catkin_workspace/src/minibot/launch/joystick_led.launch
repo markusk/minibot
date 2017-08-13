@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Listening to a joystick and control a LED directly (remote).
+This part has to be started on another computer, than the robot.
+The joystick/gamepas has to be connected to this computer, not the robot.
+-->
+<launch>
+  <!--
+  This nodes listens to joystick/gamepad input.
+  Use button 1 on the joystick/gamepad to control the LED.
+  -->
+  <node name="joy_node" pkg="joy" type="joy" output="screen"/>
+
+  <!--
+  This nodes takes the joystick input and sends out LED control messages.
+  The LED control on a hardware level is started by 'roslaunch minibot led_server' on the robot
+  -->
+  <node name="joy_led_listener" pkg="minibot" type="joy_led_listener.py" output="screen"/>
+</launch>

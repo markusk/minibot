@@ -4,8 +4,8 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <!-- A rectangle, sized in meters -->
-        <box size="0.2 .3 .1"/>
+        <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
+        <box size="0.19 0.13 0.06"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
       <!-- The color in RGBA -->

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+Listening to a joystick and controlling the robot directly (remote).
+This launch file is for the robot.
+-->
 <launch>
   <!-- Controlling the motor on a hardware level -->
   <node name="motor_server" pkg="minibot" type="motor_server" output="screen"/>

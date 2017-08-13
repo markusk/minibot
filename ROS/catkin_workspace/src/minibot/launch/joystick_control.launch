@@ -14,7 +14,7 @@ The joystick/gamepas has to be connected to this computer, not the robot.
 
   <!--
   This nodes takes the joystick input and sends out motor control messages.
-  The motor control on a hardware level is started by 'roslaunch minibot motor_server'
+  The motor control on a hardware level is started by 'roslaunch minibot motor_server' on the robot.
   -->
   <node name="joy_motor_listener" pkg="minibot" type="joy_motor_listener.py" output="screen"/>
 </launch>

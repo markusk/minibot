@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Listening to a teleop_twist_keyboard -->
+<!-- Listening to a keyboard and controlling the robot directly (remote) -->
 <launch>
   <!-- Controlling the motor on a hardware level -->
   <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>

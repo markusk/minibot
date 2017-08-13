@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Launch file for the Raspberry Pi plattform (my robot "minibot"). -->
+<!--
+Launch file for the Raspberry Pi plattform (my robot "minibot").
+This controls the whole roobot and has to run on the robot (Raspberry Pi).
+-->
 <launch>
   <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
   <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>

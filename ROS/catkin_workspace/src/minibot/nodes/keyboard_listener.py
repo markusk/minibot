@@ -4,7 +4,10 @@
 """
 Simple keyboard_listener demo
 that listens to geometry_msgs/Twist published by the 'cmd_vel' topic
-of the teleop_twist_keyboard node
+of the teleop_twist_keyboard node and prints out the received data/messsage.
+
+That's it.
+
 
 Usage:
 roslaunch minibot keyboard_control.launch

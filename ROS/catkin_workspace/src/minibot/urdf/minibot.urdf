@@ -7,7 +7,6 @@
         <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
         <box size="0.17 0.126 0.051"/>
       </geometry>
-      <!-- origin roll,pitch,yaw and x,y,z -->
 <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
       <!-- The color in RGBA -->
       <material name="silver">
@@ -21,7 +20,10 @@
       <geometry>
         <cylinder length="0.05" radius="0.05"/>
       </geometry>
-      <!-- we rotate the visual part PI/2 (= 1.5...) around the Y axis (pitch) -->
+      <!--
+      origin roll,pitch,yaw and x,y,z
+      we rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+      -->
       <origin rpy="0 1.5 0" xyz="0.1 0.1 0"/>
       <material name="black">
         <color rgba="0 0 0 1"/>

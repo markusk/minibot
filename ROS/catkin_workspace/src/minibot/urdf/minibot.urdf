@@ -8,7 +8,7 @@
         <box size="0.17 0.126 0.051"/>
       </geometry>
       <!-- origin roll,pitch,yaw and x,y,z -->
-      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+<!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
       <!-- The color in RGBA -->
       <material name="silver">
         <color rgba="0.75 0.75 0.75 1"/>

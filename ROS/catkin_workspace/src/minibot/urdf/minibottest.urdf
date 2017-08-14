@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot name="minibot">
+  <!-- The chassis. "base_link" is a more common name for a chassis in ROS -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
+        <!-- The grey box, without wheels for visualisation reasons. -->
+        <box size="0.17 0.079 0.051"/>
+      </geometry>
+<!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
+      <!-- The color in RGBA -->
+      <material name="silver">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Wheel 1 -->
+  <link name="wheel_1">
+    <visual>
+      <geometry>
+        <!-- wheel depth is 2.35 cm overall with rubber -->
+        <cylinder length="0.0235" radius="0.025"/>
+      </geometry>
+      <!--
+      origin roll,pitch,yaw and x,y,z
+      1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+      2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
+         and +3.95 cm (7.9cm/2) to the left of the center (+y)
+         and -0.65 cm (3cm - 2,35cm) down from the center (-z).
+      -->
+      <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint for wheel 1 -->
+  <joint name="base_to_wheel1" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_1"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+</robot>

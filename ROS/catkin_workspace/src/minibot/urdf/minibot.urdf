@@ -29,7 +29,7 @@
          and +3.95 cm (7.9cm/2) to the left of the center (+y)
          and -0.65 cm (3cm - 2,35cm) down from the center (-z).
       -->
-      <origin rpy="0 1.5 0" xyz="0.0565 0.0395 -0.0065"/>
+      <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
       <material name="black">
         <color rgba="0 0 0 1"/>
       </material>
@@ -41,7 +41,7 @@
       <geometry>
         <cylinder length="0.0235" radius="0.025"/>
       </geometry>
-      <origin rpy="0 1.5 0" xyz="-0.0565 0.0395 -0.0065"/>
+      <origin rpy="0 1.5 1.5" xyz="-0.0565 0.0395 -0.0065"/>
       <material name="black"/>
     </visual>
   </link>
@@ -51,7 +51,7 @@
       <geometry>
         <cylinder length="0.0235" radius="0.025"/>
       </geometry>
-      <origin rpy="0 1.5 0" xyz="0.0565 -0.0395 -0.0065"/>
+      <origin rpy="0 1.5 1.5" xyz="0.0565 -0.0395 -0.0065"/>
       <material name="black"/>
     </visual>
   </link>
@@ -61,7 +61,7 @@
       <geometry>
         <cylinder length="0.0235" radius="0.025"/>
       </geometry>
-      <origin rpy="0 1.5 0" xyz="-0.0565 -0.0395 -0.0065"/>
+      <origin rpy="0 1.5 1.5" xyz="-0.0565 -0.0395 -0.0065"/>
       <material name="black"/>
     </visual>
   </link>

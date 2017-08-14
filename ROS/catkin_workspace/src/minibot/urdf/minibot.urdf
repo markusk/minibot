@@ -5,7 +5,7 @@
     <visual>
       <geometry>
         <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
-        <box size="0.19 0.13 0.06"/>
+        <box size="0.17 0.126 0.051"/>
       </geometry>
       <!-- origin roll,pitch,yaw and x,y,z -->
       <origin rpy="0 0 0" xyz="0 0 0.03"/>

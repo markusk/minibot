@@ -24,9 +24,12 @@
       </geometry>
       <!--
       origin roll,pitch,yaw and x,y,z
-      we rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+      1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+      2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
+         and +3.95 cm (7.9cm/2) to the left of the center (+y)
+         and -0.65 cm (3cm - 2,35cm) down from the center (-z).
       -->
-      <origin rpy="0 1.5 0" xyz="0.1 0.1 0"/>
+      <origin rpy="0 1.5 0" xyz="0.0565 0.0395 -0.0065"/>
       <material name="black">
         <color rgba="0 0 0 1"/>
       </material>

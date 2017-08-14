@@ -5,7 +5,8 @@
     <visual>
       <geometry>
         <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
-        <box size="0.17 0.126 0.051"/>
+        <!-- The grey box, without wheels for visualisation reasons. -->
+        <box size="0.17 0.079 0.051"/>
       </geometry>
 <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
       <!-- The color in RGBA -->
@@ -18,7 +19,8 @@
   <link name="wheel_1">
     <visual>
       <geometry>
-        <cylinder length="0.05" radius="0.05"/>
+        <!-- wheel depth is 2.35 cm overall with rubber -->
+        <cylinder length="0.0235" radius="0.025"/>
       </geometry>
       <!--
       origin roll,pitch,yaw and x,y,z
@@ -34,7 +36,7 @@
   <link name="wheel_2">
     <visual>
       <geometry>
-        <cylinder length="0.05" radius="0.05"/>
+        <cylinder length="0.0235" radius="0.025"/>
       </geometry>
       <origin rpy="0 1.5 0" xyz="-0.1 0.1 0"/>
       <material name="black"/>
@@ -44,7 +46,7 @@
   <link name="wheel_3">
     <visual>
       <geometry>
-        <cylinder length="0.05" radius="0.05"/>
+        <cylinder length="0.0235" radius="0.025"/>
       </geometry>
       <origin rpy="0 1.5 0" xyz="0.1 -0.1 0"/>
       <material name="black"/>
@@ -54,7 +56,7 @@
   <link name="wheel_4">
     <visual>
       <geometry>
-        <cylinder length="0.05" radius="0.05"/>
+        <cylinder length="0.0235" radius="0.025"/>
       </geometry>
       <origin rpy="0 1.5 0" xyz="-0.1 -0.1 0"/>
       <material name="black"/>

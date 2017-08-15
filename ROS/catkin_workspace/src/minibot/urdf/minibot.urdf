@@ -33,7 +33,7 @@
      </collision>
      <inertial>
        <mass value="10"/>
-       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
      </inertial>
 </link>
 
@@ -61,7 +61,7 @@
      </collision>
      <inertial>
        <mass value="10"/>
-       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
      </inertial>
   </link>
   <!-- Wheel 2 -->
@@ -80,7 +80,7 @@
      </collision>
      <inertial>
        <mass value="10"/>
-       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
      </inertial>
   </link>
   <!-- Wheel 3 -->
@@ -99,7 +99,7 @@
      </collision>
      <inertial>
        <mass value="10"/>
-       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
      </inertial>
   </link>
   <!-- Wheel 4 -->
@@ -118,7 +118,7 @@
      </collision>
      <inertial>
        <mass value="10"/>
-       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
      </inertial>
   </link>
 

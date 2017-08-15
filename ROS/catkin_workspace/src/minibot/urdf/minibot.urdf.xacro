@@ -60,50 +60,52 @@ The chassis.
   <xacro:default_inertial mass="1"/>
 </link>
 
+<!-- Wheel 1 -->
+<link name="base_link">
+  <visual>
+    <geometry>
+      <cylinder radius="${width}" length="${bodylen}"/>
+    </geometry>
+    <material name="blue"/>
+  </visual>
+  <collision>
+    <geometry>
+      <cylinder radius="${width}" length="${bodylen}"/>
+    </geometry>
+  </collision>
+  <xacro:default_inertial mass="1"/>
+</link>
+<link name="wheel_1">
+  <visual>
+    <geometry>
+      <!-- wheel depth is 2.35 cm overall with rubber -->
+      <cylinder length="0.0235" radius="0.025"/>
+    </geometry>
+    <!--
+    origin roll,pitch,yaw and x,y,z
+    1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+    2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
+       and +3.95 cm (7.9cm/2) to the left of the center (+y)
+       and -0.65 cm (3cm - 2,35cm) down from the center (-z).
+    -->
+    <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
+    <material name="black"/>
+  </visual>
+  <collision>
+     <geometry>
+       <cylinder length="0.0235" radius="0.025"/>
+     </geometry>
+   </collision>
+   <inertial>
+     <mass value="10"/>
+     <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+   </inertial>
+</link>
+
+
 - - - old URDF:
 
 
-  <!-- Wheel 1 -->
-  <link name="base_link">
-    <visual>
-      <geometry>
-        <cylinder radius="${width}" length="${bodylen}"/>
-      </geometry>
-      <material name="blue"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder radius="${width}" length="${bodylen}"/>
-      </geometry>
-    </collision>
-    <xacro:default_inertial mass="10"/>
-  </link>
-  <link name="wheel_1">
-    <visual>
-      <geometry>
-        <!-- wheel depth is 2.35 cm overall with rubber -->
-        <cylinder length="0.0235" radius="0.025"/>
-      </geometry>
-      <!--
-      origin roll,pitch,yaw and x,y,z
-      1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
-      2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
-         and +3.95 cm (7.9cm/2) to the left of the center (+y)
-         and -0.65 cm (3cm - 2,35cm) down from the center (-z).
-      -->
-      <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
-      <material name="black"/>
-    </visual>
-    <collision>
-       <geometry>
-         <cylinder length="0.0235" radius="0.025"/>
-       </geometry>
-     </collision>
-     <inertial>
-       <mass value="10"/>
-       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-     </inertial>
-  </link>
   <!-- Wheel 2 -->
   <link name="wheel_2">
     <visual>

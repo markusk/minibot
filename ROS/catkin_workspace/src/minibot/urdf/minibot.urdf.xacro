@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="minibot">
+
+  <xacro:property name="width" value="0.2" />
+  <xacro:property name="leglen" value="0.6" />
+  <xacro:property name="polelen" value="0.2" />
+  <xacro:property name="bodylen" value="0.6" />
+  <xacro:property name="baselen" value="0.4" />
+  <xacro:property name="wheeldiam" value="0.07" />
+  <xacro:property name="pi" value="3.1415" />
+
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+</robot>
+
+
+- - - old URDF:
+
+
+<?xml version="1.0"?>
+<robot name="minibot">
+
+  <!-- Materials -->
+  <material name="silver">
+    <color rgba="0.75 0.75 0.75 1"/>
+  </material>
+  <material name="blue">
+      <color rgba="0 0 0.8 1"/>
+    </material>
+    <material name="black">
+      <color rgba="0 0 0 1"/>
+    </material>
+
+  <!--
+  The chassis.
+  "base_link" is a more common name for a chassis in ROS.
+  -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
+        <!-- The grey box, without wheels for visualisation reasons. -->
+        <box size="0.17 0.079 0.051"/>
+      </geometry>
+      <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
+    <material name="silver"/>
+    </visual>
+    <collision>
+       <geometry>
+         <box size="0.17 0.079 0.051"/>
+       </geometry>
+     </collision>
+     <inertial>
+       <mass value="10"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+     </inertial>
+</link>
+
+  <!-- Wheel 1 -->
+  <link name="wheel_1">
+    <visual>
+      <geometry>
+        <!-- wheel depth is 2.35 cm overall with rubber -->
+        <cylinder length="0.0235" radius="0.025"/>
+      </geometry>
+      <!--
+      origin roll,pitch,yaw and x,y,z
+      1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+      2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
+         and +3.95 cm (7.9cm/2) to the left of the center (+y)
+         and -0.65 cm (3cm - 2,35cm) down from the center (-z).
+      -->
+      <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+       <geometry>
+         <cylinder length="0.0235" radius="0.025"/>
+       </geometry>
+     </collision>
+     <inertial>
+       <mass value="10"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+     </inertial>
+  </link>
+  <!-- Wheel 2 -->
+  <link name="wheel_2">
+    <visual>
+      <geometry>
+        <cylinder length="0.0235" radius="0.025"/>
+      </geometry>
+      <origin rpy="0 1.5 1.5" xyz="-0.0565 0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+       <geometry>
+         <cylinder length="0.0235" radius="0.025"/>
+       </geometry>
+     </collision>
+     <inertial>
+       <mass value="10"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+     </inertial>
+  </link>
+  <!-- Wheel 3 -->
+  <link name="wheel_3">
+    <visual>
+      <geometry>
+        <cylinder length="0.0235" radius="0.025"/>
+      </geometry>
+      <origin rpy="0 1.5 1.5" xyz="0.0565 -0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+       <geometry>
+         <cylinder length="0.0235" radius="0.025"/>
+       </geometry>
+     </collision>
+     <inertial>
+       <mass value="10"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+     </inertial>
+  </link>
+  <!-- Wheel 4 -->
+  <link name="wheel_4">
+    <visual>
+      <geometry>
+        <cylinder length="0.0235" radius="0.025"/>
+      </geometry>
+      <origin rpy="0 1.5 1.5" xyz="-0.0565 -0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+       <geometry>
+         <cylinder length="0.0235" radius="0.025"/>
+       </geometry>
+     </collision>
+     <inertial>
+       <mass value="10"/>
+       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+     </inertial>
+  </link>
+
+  <!-- Joint for wheel 1 -->
+  <joint name="base_to_wheel1" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_1"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+  <!-- Joint for wheel 2 -->
+  <joint name="base_to_wheel2" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_2"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+  <!-- Joint for wheel 3 -->
+  <joint name="base_to_wheel3" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_3"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+  <!-- Joint for wheel 4 -->
+  <joint name="base_to_wheel4" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_4"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+</robot>

@@ -9,7 +9,16 @@
   <xacro:property name="wheeldiam" value="0.07" />
   <xacro:property name="pi" value="3.1415" />
 
-
+  <!-- Materials -->
+  <material name="silver">
+    <color rgba="0.75 0.75 0.75 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
   <material name="white">
     <color rgba="1 1 1 1"/>
   </material>
@@ -18,21 +27,6 @@
 
 
 - - - old URDF:
-
-
-<?xml version="1.0"?>
-<robot name="minibot">
-
-  <!-- Materials -->
-  <material name="silver">
-    <color rgba="0.75 0.75 0.75 1"/>
-  </material>
-  <material name="blue">
-      <color rgba="0 0 0.8 1"/>
-    </material>
-    <material name="black">
-      <color rgba="0 0 0 1"/>
-    </material>
 
   <!--
   The chassis.
@@ -168,4 +162,3 @@
     <child link="wheel_4"/>
     <origin xyz="0 0 0"/>
   </joint>
-</robot>

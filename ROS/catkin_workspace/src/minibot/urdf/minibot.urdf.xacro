@@ -61,20 +61,6 @@ The chassis.
 </link>
 
 <!-- Wheel 1 -->
-<link name="base_link">
-  <visual>
-    <geometry>
-      <cylinder radius="${width}" length="${bodylen}"/>
-    </geometry>
-    <material name="blue"/>
-  </visual>
-  <collision>
-    <geometry>
-      <cylinder radius="${width}" length="${bodylen}"/>
-    </geometry>
-  </collision>
-  <xacro:default_inertial mass="1"/>
-</link>
 <link name="wheel_1">
   <visual>
     <geometry>

@@ -66,25 +66,25 @@
     </visual>
   </link>
   <!-- Joint for wheel 1 -->
-  <joint name="base_to_wheel1" type="fixed">
+  <joint name="base_to_wheel1" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_1"/>
     <origin xyz="0 0 0"/>
   </joint>
   <!-- Joint for wheel 2 -->
-  <joint name="base_to_wheel2" type="fixed">
+  <joint name="base_to_wheel2" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_2"/>
     <origin xyz="0 0 0"/>
   </joint>
   <!-- Joint for wheel 3 -->
-  <joint name="base_to_wheel3" type="fixed">
+  <joint name="base_to_wheel3" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_3"/>
     <origin xyz="0 0 0"/>
   </joint>
   <!-- Joint for wheel 4 -->
-  <joint name="base_to_wheel4" type="fixed">
+  <joint name="base_to_wheel4" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_4"/>
     <origin xyz="0 0 0"/>

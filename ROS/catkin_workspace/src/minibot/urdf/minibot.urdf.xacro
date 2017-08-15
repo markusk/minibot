@@ -133,9 +133,6 @@ The chassis.
    <xacro:default_inertial mass="1"/>
 </link>
 
-
-- - - old URDF:
-
   <!-- Joint for wheel 1 -->
   <joint name="base_to_wheel1" type="continuous">
     <parent link="base_link"/>
@@ -160,3 +157,4 @@ The chassis.
     <child link="wheel_4"/>
     <origin xyz="0 0 0"/>
   </joint>
+</robot>

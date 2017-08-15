@@ -6,7 +6,11 @@
   <xacro:property name="width" value="0.079" />
   <xacro:property name="height" value="0.051" />
 
-  <xacro:property name="leglen" value="0.6" />
+  <!-- wheel depth is 2.35 cm overall with rubber -->
+  <xacro:property name="wheellength" value="0.0235" />
+  <xacro:property name="wheelradius" value="0.025" />
+
+
   <xacro:property name="polelen" value="0.2" />
   <xacro:property name="bodylen" value="0.6" />
   <xacro:property name="baselen" value="0.4" />
@@ -27,7 +31,7 @@
     <color rgba="1 1 1 1"/>
   </material>
 
-  <!-- Inertial -->
+  <!-- Default Inertial -->
   <xacro:macro name="default_inertial" params="mass">
     <inertial>
       <mass value="${mass}" />

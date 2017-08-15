@@ -1,6 +1,21 @@
 <?xml version="1.0"?>
 <robot name="minibot">
-  <!-- The chassis. "base_link" is a more common name for a chassis in ROS -->
+
+  <!-- Materials -->
+  <material name="silver">
+    <color rgba="0.75 0.75 0.75 1"/>
+  </material>
+  <material name="blue">
+      <color rgba="0 0 0.8 1"/>
+    </material>
+    <material name="black">
+      <color rgba="0 0 0 1"/>
+    </material>
+
+  <!--
+  The chassis.
+  "base_link" is a more common name for a chassis in ROS.
+  -->
   <link name="base_link">
     <visual>
       <geometry>
@@ -8,13 +23,11 @@
         <!-- The grey box, without wheels for visualisation reasons. -->
         <box size="0.17 0.079 0.051"/>
       </geometry>
-<!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
-      <!-- The color in RGBA -->
-      <material name="silver">
-        <color rgba="0.75 0.75 0.75 1"/>
-      </material>
+      <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
+      <material name="silver"/>
     </visual>
   </link>
+
   <!-- Wheel 1 -->
   <link name="wheel_1">
     <visual>
@@ -30,9 +43,7 @@
          and -0.65 cm (3cm - 2,35cm) down from the center (-z).
       -->
       <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
+      <material name="black"/>
     </visual>
   </link>
   <!-- Wheel 2 -->
@@ -65,6 +76,7 @@
       <material name="black"/>
     </visual>
   </link>
+
   <!-- Joint for wheel 1 -->
   <joint name="base_to_wheel1" type="continuous">
     <parent link="base_link"/>

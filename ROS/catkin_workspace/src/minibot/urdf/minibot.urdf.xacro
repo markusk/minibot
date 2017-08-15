@@ -9,8 +9,6 @@
   <!-- wheel depth is 2.35 cm overall with rubber -->
   <xacro:property name="wheellength" value="0.0235" />
   <xacro:property name="wheelradius" value="0.025" />
-  <!-- constant pi -->
-  <xacro:property name="pi" value="3.1415" />
 
   <!-- Materials -->
   <material name="silver">

@@ -64,8 +64,7 @@ The chassis.
 <link name="wheel_1">
   <visual>
     <geometry>
-      <!-- wheel depth is 2.35 cm overall with rubber -->
-      <cylinder length="0.0235" radius="0.025"/>
+      <cylinder length="${wheellength}" radius="${wheelradius}"/>
     </geometry>
     <!--
     origin roll,pitch,yaw and x,y,z
@@ -79,13 +78,10 @@ The chassis.
   </visual>
   <collision>
      <geometry>
-       <cylinder length="0.0235" radius="0.025"/>
+       <cylinder length="${wheellength}" radius="${wheelradius}"/>
      </geometry>
    </collision>
-   <inertial>
-     <mass value="10"/>
-     <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-   </inertial>
+   <xacro:default_inertial mass="1"/>
 </link>
 
 

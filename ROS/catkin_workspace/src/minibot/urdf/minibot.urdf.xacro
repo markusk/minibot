@@ -38,100 +38,101 @@
       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
     </inertial>
   </xacro:macro>
-</robot>
 
-<!--
-The chassis.
-"base_link" is a more common name for a chassis in ROS.
--->
-<link name="base_link">
-  <visual>
-    <geometry>
-      <box size="${length} ${width} ${height}"/>
-    </geometry>
-    <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
-    <material name="silver"/>
-  </visual>
-  <collision>
-    <geometry>
-      <box size="${length} ${width} ${height}"/>
-    </geometry>
-  </collision>
-  <xacro:default_inertial mass="1"/>
-</link>
+  <!--
+  The chassis.
+  "base_link" is a more common name for a chassis in ROS.
+  -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${length} ${width} ${height}"/>
+      </geometry>
+      <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${length} ${width} ${height}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
 
-<!-- Wheel 1 -->
-<link name="wheel_1">
-  <visual>
-    <geometry>
-      <cylinder length="${wheellength}" radius="${wheelradius}"/>
-    </geometry>
-    <!--
-    origin roll,pitch,yaw and x,y,z
-    1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
-    2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
-       and +3.95 cm (7.9cm/2) to the left of the center (+y)
-       and -0.65 cm (3cm - 2,35cm) down from the center (-z).
+  <!-- Wheel 1 -->
+  <link name="wheel_1">
+    <visual>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+      <!--
+      origin roll,pitch,yaw and x,y,z
+      1. We rotate the wheel by PI/2 (~1.5) around the Y axis (pitch)
+      2. We move the origin +5.65 cm (11.3 cm/2) to the front (+x)
+      and +3.95 cm (7.9cm/2) to the left of the center (+y)
+      and -0.65 cm (3cm - 2,35cm) down from the center (-z).
     -->
     <origin rpy="0 1.5 1.5" xyz="0.0565 0.0395 -0.0065"/>
     <material name="black"/>
   </visual>
   <collision>
-     <geometry>
-       <cylinder length="${wheellength}" radius="${wheelradius}"/>
-     </geometry>
-   </collision>
-   <xacro:default_inertial mass="1"/>
-</link>
+    <geometry>
+      <cylinder length="${wheellength}" radius="${wheelradius}"/>
+    </geometry>
+  </collision>
+  <xacro:default_inertial mass="1"/>
+  </link>
 
-<!-- Wheel 2 -->
-<link name="wheel_2">
-  <visual>
-    <geometry>
-      <cylinder length="${wheellength}" radius="${wheelradius}"/>
-    </geometry>
-    <origin rpy="0 1.5 1.5" xyz="-0.0565 0.0395 -0.0065"/>
-    <material name="black"/>
-  </visual>
-  <collision>
-     <geometry>
-       <cylinder length="${wheellength}" radius="${wheelradius}"/>
-     </geometry>
-   </collision>
-   <xacro:default_inertial mass="1"/>
-</link>
-<!-- Wheel 3 -->
-<link name="wheel_3">
-  <visual>
-    <geometry>
-      <cylinder length="${wheellength}" radius="${wheelradius}"/>
-    </geometry>
-    <origin rpy="0 1.5 1.5" xyz="0.0565 -0.0395 -0.0065"/>
-    <material name="black"/>
-  </visual>
-  <collision>
-     <geometry>
-       <cylinder length="${wheellength}" radius="${wheelradius}"/>
-     </geometry>
-   </collision>
-   <xacro:default_inertial mass="1"/>
-</link>
-<!-- Wheel 4 -->
-<link name="wheel_4">
-  <visual>
-    <geometry>
-      <cylinder length="${wheellength}" radius="${wheelradius}"/>
-    </geometry>
-    <origin rpy="0 1.5 1.5" xyz="-0.0565 -0.0395 -0.0065"/>
-    <material name="black"/>
-  </visual>
-  <collision>
-     <geometry>
-       <cylinder length="${wheellength}" radius="${wheelradius}"/>
-     </geometry>
-   </collision>
-   <xacro:default_inertial mass="1"/>
-</link>
+  <!-- Wheel 2 -->
+  <link name="wheel_2">
+    <visual>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+      <origin rpy="0 1.5 1.5" xyz="-0.0565 0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+  <!-- Wheel 3 -->
+  <link name="wheel_3">
+    <visual>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+      <origin rpy="0 1.5 1.5" xyz="0.0565 -0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+  <!-- Wheel 4 -->
+  <link name="wheel_4">
+    <visual>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+      <origin rpy="0 1.5 1.5" xyz="-0.0565 -0.0395 -0.0065"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheellength}" radius="${wheelradius}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
 
   <!-- Joint for wheel 1 -->
   <joint name="base_to_wheel1" type="continuous">

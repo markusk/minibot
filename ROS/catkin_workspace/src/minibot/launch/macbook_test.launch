@@ -7,6 +7,10 @@ This controls the whole roobot and has to run on the robot (Raspberry Pi).
 EXCEPT the laser range finder. This is for being able to test it on my MacBook
 -->
 <launch>
+  <!-- autogenerate URDF file from xacro file -->
+  <param name="robot_description"
+    command="$(find xacro)/xacro '$(find minibot)/urdf/minibot.urdf.xacro'" />
+
   <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
   <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>
 

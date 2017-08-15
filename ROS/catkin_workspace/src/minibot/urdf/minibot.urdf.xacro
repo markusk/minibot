@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="minibot">
 
-  <xacro:property name="width" value="0.2" />
+  <!-- chassis -->
+  <xacro:property name="length" value="0.17" />
+  <xacro:property name="width" value="0.079" />
+  <xacro:property name="height" value="0.051" />
+
   <xacro:property name="leglen" value="0.6" />
   <xacro:property name="polelen" value="0.2" />
   <xacro:property name="bodylen" value="0.6" />
@@ -32,35 +36,44 @@
   </xacro:macro>
 </robot>
 
+<!--
+The chassis.
+"base_link" is a more common name for a chassis in ROS.
+-->
+<link name="base_link">
+  <visual>
+    <geometry>
+      <box size="${length} ${width} ${height}"/>
+    </geometry>
+    <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="${length} ${width} ${height}"/>
+    </geometry>
+  </collision>
+  <xacro:default_inertial mass="1"/>
+</link>
 
 - - - old URDF:
 
-  <!--
-  The chassis.
-  "base_link" is a more common name for a chassis in ROS.
-  -->
+
+  <!-- Wheel 1 -->
   <link name="base_link">
     <visual>
       <geometry>
-        <!-- A rectangle, sized in meters. Measured on the Arexx RP5. -->
-        <!-- The grey box, without wheels for visualisation reasons. -->
-        <box size="0.17 0.079 0.051"/>
+        <cylinder radius="${width}" length="${bodylen}"/>
       </geometry>
-      <!-- ORIGIN OF THE BASE?!?     <origin rpy="0 0 0" xyz="0 0 0.03"/> -->
-    <material name="silver"/>
+      <material name="blue"/>
     </visual>
     <collision>
-       <geometry>
-         <box size="0.17 0.079 0.051"/>
-       </geometry>
-     </collision>
-     <inertial>
-       <mass value="10"/>
-       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-     </inertial>
-</link>
-
-  <!-- Wheel 1 -->
+      <geometry>
+        <cylinder radius="${width}" length="${bodylen}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="10"/>
+  </link>
   <link name="wheel_1">
     <visual>
       <geometry>

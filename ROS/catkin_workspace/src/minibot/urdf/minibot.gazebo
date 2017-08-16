@@ -1,0 +1,19 @@
+<gazebo reference="base_link">
+  <material>Gazebo/Orange</material>
+</gazebo>
+
+<gazebo reference="wheel_1">
+  <material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo reference="wheel_2">
+  <material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo reference="wheel_3">
+  <material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo reference="wheel_4">
+  <material>Gazebo/Black</material>
+</gazebo>

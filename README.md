@@ -39,12 +39,14 @@ My little Raspberry Pi and ROS robot - with some python stuff
 ## ROS Setup
 <ol>
 <li>Install ROS on Raspberry Pi</li>
-<li>create a catkin workspace</li>
-<li>sudo apt-get install ros-kinetic-urg-node</li>
-<li>$ catkin_make</li>
-<li>delete the src folder</li>
-<li>create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository.</li>
-<li>sudo apt-get install ros-kinetic-teleop-twist-keyboard</li>
+<li>sudo apt-get install ros-kinetic-urg-node ros-kinetic-teleop-twist-keyboard</li>
+<li>create a catkin workspace without 'src' folder:<br>
+$ mkdir catkin_ws<br>
+$ cd ~/catkin_ws
+</li>
+<li>create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository.<br>
+$ ln -s /home/$USERNAME/minibot/ROS/catkin_workspace/src/ src
+</li>
 <li>$ catkin_make</li>
 </ol>
 

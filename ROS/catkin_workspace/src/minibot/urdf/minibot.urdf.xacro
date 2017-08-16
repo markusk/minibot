@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="minibot">
 
+  <!-- Nice colors in Gazebo -->
+  <xacro:include filename="$(find minibot)/urdf/minibot.gazebo" />
+
   <!-- chassis -->
   <xacro:property name="length" value="0.17" />
   <xacro:property name="width" value="0.079" />

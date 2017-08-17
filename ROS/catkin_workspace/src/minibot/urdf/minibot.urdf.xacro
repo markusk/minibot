@@ -6,6 +6,29 @@
   <xacro:property name="width"  value="0.079" />
   <xacro:property name="height" value="0.051" />
 
+  <!-- main PCB board on top -->
+  <xacro:property name="PCBlength" value="0.17" />
+  <xacro:property name="PCBwidth"  value="0.126" />
+  <xacro:property name="PCBheight" value="0.004" />
+
+  <!-- IMU board BNO055 (mounted) -->
+  <xacro:property name="IMUlength" value="0.020" />
+  <xacro:property name="IMUwidth"  value="0.027" />
+  <xacro:property name="IMUheight" value="0.010" />
+
+  <!-- Raspberry Pi (mounted) -->
+  <xacro:property name="IMUlength" value="0.085" />
+  <xacro:property name="IMUwidth"  value="0.056" />
+  <xacro:property name="IMUheight" value="0.030" />
+
+  <!-- Hokuyo laser rangefinder - base -->
+  <xacro:property name="laserLength" value="0.05" />
+  <xacro:property name="laserWidth"  value="0.05" />
+  <xacro:property name="laserHeight" value="0.041" />
+  <!-- Hokuyo laser rangefinder - cylinder -->
+  <xacro:property name="laserCylLength" value="0.0265" />
+  <xacro:property name="laserCylRadius" value="0.0375" />
+
   <!-- wheel depth is 2.35 cm overall with rubber -->
   <xacro:property name="wheellength" value="0.0235" />
   <xacro:property name="wheelradius" value="0.025" />
@@ -22,6 +45,10 @@
   </material>
   <material name="white">
     <color rgba="1 1 1 1"/>
+  </material>
+  <!-- #B9 A7 76 = 185 167 118 -->
+  <material name="euroPCB">
+    <color rgba="0.73 0.65 0.46 1"/>
   </material>
 
   <!-- Default Inertial -->

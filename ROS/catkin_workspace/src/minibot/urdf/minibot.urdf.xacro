@@ -79,6 +79,42 @@
     <xacro:default_inertial mass="1"/>
   </link>
 
+  <!-- the main PCB on top of the chassis, where everything is mounted -->
+  <link name="mainPCB">
+    <visual>
+      <geometry>
+        <box size="${PCBlength} ${PCBwidth} ${PCBheight}"/>
+      </geometry>
+      <!-- Located on top of the base -->
+      <origin rpy="0 0 0" xyz="0 0 -${height/2}"/>
+      <material name="euroPCB"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${PCBlength} ${PCBwidth} ${PCBheight}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+  <!-- the IMU on the main PCB -->
+  <link name="IMU">
+    <visual>
+      <geometry>
+        <box size="${IMUlength} ${IMUwidth} ${IMUheight}"/>
+      </geometry>
+      <!-- Located on top of the base, on top of the PCB -->
+      <origin rpy="0 0 0" xyz="0 0 -${(height/2)+PCBwidth}"/>
+      <material name="Blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${IMUlength} ${IMUwidth} ${IMUheight}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
   <!-- Wheel 1 -->
   <link name="wheel_1">
     <visual>

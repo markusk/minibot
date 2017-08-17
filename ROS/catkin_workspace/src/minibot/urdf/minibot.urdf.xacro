@@ -30,7 +30,7 @@
   <xacro:property name="laserBaseHeight" value="0.041" />
   <!-- Hokuyo laser rangefinder - cylinder -->
   <xacro:property name="laserCylLength" value="0.0265" />
-  <xacro:property name="laserCylRadius" value="0.0375" />
+  <xacro:property name="laserCylRadius" value="0.01875" />
 
   <!-- wheel depth is 2.35 cm overall with rubber -->
   <xacro:property name="wheellength" value="0.0235" />

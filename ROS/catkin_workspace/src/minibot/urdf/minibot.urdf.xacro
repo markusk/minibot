@@ -214,4 +214,19 @@
     <child link="wheel_4"/>
     <origin xyz="0 0 0"/>
   </joint>
+
+  <!-- Joint for mainPCB -->
+  <joint name="base_to_mainPCB" type="fixed">
+    <parent link="base_link"/>
+    <child link="mainPCB"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <!-- Joint for IMU -->
+  <joint name="base_to_IMU" type="fixed">
+    <parent link="base_link"/>
+    <child link="IMU"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
 </robot>

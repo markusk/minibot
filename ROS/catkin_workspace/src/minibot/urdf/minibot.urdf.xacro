@@ -3,7 +3,7 @@
 
   <!-- chassis -->
   <xacro:property name="length" value="0.17" />
-  <xacro:property name="width" value="0.079" />
+  <xacro:property name="width"  value="0.079" />
   <xacro:property name="height" value="0.051" />
 
   <!-- wheel depth is 2.35 cm overall with rubber -->

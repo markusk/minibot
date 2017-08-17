@@ -118,23 +118,23 @@
     <xacro:default_inertial mass="1"/>
   </link>
 
-    <!-- the Laser base on the main PCB -->
-    <link name="laserBase">
-      <visual>
-        <geometry>
-          <box size="${laserBaseLength} ${laserBaseWidth} ${laserBaseHeight}"/>
-        </geometry>
-        <!-- Located on top of the base, on top of the PCB, to the front (x) -->
-        <origin rpy="0 0 0" xyz="${(length/2)-(laserBaseLength/2)} 0 ${(height/2)+PCBheight+(laserBaseHeight/2)}"/>
-        <material name="black"/>
-      </visual>
-      <collision>
-        <geometry>
-          <box size="${laserBaseLength} ${laserBaseWidth} ${laserBaseHeight}"/>
-        </geometry>
-      </collision>
-      <xacro:default_inertial mass="1"/>
-    </link>
+  <!-- the Laser base on the main PCB -->
+  <link name="laserBase">
+    <visual>
+      <geometry>
+        <box size="${laserBaseLength} ${laserBaseWidth} ${laserBaseHeight}"/>
+      </geometry>
+      <!-- Located on top of the base, on top of the PCB, to the front (x) -->
+      <origin rpy="0 0 0" xyz="${(length/2)-(laserBaseLength/2)} 0 ${(height/2)+PCBheight+(laserBaseHeight/2)}"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${laserBaseLength} ${laserBaseWidth} ${laserBaseHeight}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
 
   <!-- Wheel 1 -->
   <link name="wheel_1">

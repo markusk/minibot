@@ -89,7 +89,7 @@
         <box size="${PCBlength} ${PCBwidth} ${PCBheight}"/>
       </geometry>
       <!-- Located on top of the base -->
-      <origin rpy="0 0 0" xyz="0 0 -${height/2}"/>
+      <origin rpy="0 0 0" xyz="0 0 ${height/2}"/>
       <material name="euroPCB"/>
     </visual>
     <collision>
@@ -107,7 +107,7 @@
         <box size="${IMUlength} ${IMUwidth} ${IMUheight}"/>
       </geometry>
       <!-- Located on top of the base, on top of the PCB -->
-      <origin rpy="0 0 0" xyz="0 0 -${(height/2)+PCBwidth}"/>
+      <origin rpy="0 0 0" xyz="0 0 ${(height/2)+PCBheight}"/>
       <material name="Blue"/>
     </visual>
     <collision>

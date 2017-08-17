@@ -136,6 +136,24 @@
     <xacro:default_inertial mass="1"/>
   </link>
 
+    <!-- the Laser "head" (cylinder) on the lase base -->
+    <link name="laserHead">
+      <visual>
+        <geometry>
+          <cylinder length="${laserCylLength}" radius="${laserCylRadius}"/>
+        </geometry>
+        <!-- Located on top of the base, on top of the PCB, on top of the laser base, to the front (x) -->
+        <origin rpy="0 0 0" xyz="${(length/2)-(laserBaseLength/2)} 0 ${(height/2)+PCBheight+laserBaseHeight+(laserCylLength/2)}"/>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="${laserCylLength}" radius="${laserCylRadius}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="1"/>
+    </link>
+
   <!-- Wheel 1 -->
   <link name="wheel_1">
     <visual>
@@ -254,6 +272,13 @@
   <joint name="base_to_laserBase" type="fixed">
     <parent link="base_link"/>
     <child link="laserBase"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <!-- Joint for laser "head" (cylinder) -->
+  <joint name="base_to_laserHead" type="fixed">
+    <parent link="base_link"/>
+    <child link="laserHead"/>
     <origin xyz="0 0 0"/>
   </joint>
 

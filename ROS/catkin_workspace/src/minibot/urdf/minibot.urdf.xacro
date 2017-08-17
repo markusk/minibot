@@ -108,7 +108,7 @@
       </geometry>
       <!-- Located on top of the base, on top of the PCB -->
       <origin rpy="0 0 0" xyz="0 0 ${(height/2)+PCBheight}"/>
-      <material name="Blue"/>
+      <material name="blue"/>
     </visual>
     <collision>
       <geometry>

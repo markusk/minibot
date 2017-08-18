@@ -75,6 +75,9 @@ print('setup...')
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
 GPIO.setup(ledPin, GPIO.OUT)
 
+# LED OFF (low active!)
+GPIO.output(ledPin, GPIO.HIGH)
+
 # checker
 buttonPressed = False
 

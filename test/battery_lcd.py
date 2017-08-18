@@ -38,6 +38,8 @@ import sys
 
 # my signal handler
 def sig_handler(_signo, _stack_frame):
+    # LED OFF (low active!)
+    GPIO.output(ledPin, GPIO.HIGH)
     ## GPIO cleanup
     GPIO.remove_event_detect(switchPin)
     GPIO.cleanup()
@@ -63,8 +65,10 @@ from subprocess import call
 # init
 GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 
+# Raspberry Pi pin configuration:
 # pins	    BCM   BOARD
-switchPin  = 23 # pin 16
+switchPin  = 17 # pin 11
+ledPin     = 18 # pin 12
 
 # setup
 print('setup...')
@@ -75,6 +79,9 @@ buttonPressed = False
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
+    # LED ON (low active!)
+    GPIO.output(ledPin, GPIO.LOW)
+
     print 'Shutdown button on GPIO ' + str(answer) + ' pushed.'
 
     # clear display

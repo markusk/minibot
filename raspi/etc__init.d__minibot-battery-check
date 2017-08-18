@@ -15,7 +15,7 @@ case "$1" in
 	#Aktion wenn start uebergeben wird
         echo "Starting minibot-battery-check"
 	# touch /home/pi/catkin_ws/minibot-battery-check_START
-	/home/pi/minibot/test/battery_lcd.py
+	sudo python /home/pi/minibot/test/battery_lcd.py &
         ;;
 
     stop)

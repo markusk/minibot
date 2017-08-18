@@ -19,7 +19,7 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 
 # pins	    BCM   BOARD
 ledPin     = 18 # pin 12
-switchPin  = 23 # pin 16
+switchPin  = 17 # pin 11
 
 # buttonCounter
 buttonPressed = 0

@@ -16,14 +16,18 @@ iface enxb827eb42aad1 inet static
  address 192.168.1.142/24
  gateway 192.168.1.1
  dns-nameservers 192.168.1.1  # wichtig. ohne diesen klappte DNS nicht
+allow-hotplug enxb827eb42aad1
 
 #
 # WLAN
 #
 #iface wlan0 inet dhcp
+
+auto wlan0
 iface wlan0 inet static
- wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+# wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
  address 192.168.1.143/24
  gateway 192.168.1.1
  dns-nameservers 192.168.1.1
-auto wlan0
+ wpa-essid MEINE_SSID
+ wpa-psk MEIN_PSK

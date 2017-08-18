@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="minibot">
 
+  <!-- Nice colors in Gazebo -->
+  <xacro:include filename="$(find minibot)/urdf/minibot.gazebo" />
+
   <!-- chassis -->
   <xacro:property name="length" value="0.17" />
   <xacro:property name="width"  value="0.079" />
@@ -17,17 +20,17 @@
   <xacro:property name="IMUheight" value="0.010" />
 
   <!-- Raspberry Pi (mounted) -->
-  <xacro:property name="IMUlength" value="0.085" />
-  <xacro:property name="IMUwidth"  value="0.056" />
-  <xacro:property name="IMUheight" value="0.030" />
+  <xacro:property name="Raspilength" value="0.085" />
+  <xacro:property name="Raspiwidth"  value="0.056" />
+  <xacro:property name="Raspiheight" value="0.030" />
 
   <!-- Hokuyo laser rangefinder - base -->
-  <xacro:property name="laserLength" value="0.05" />
-  <xacro:property name="laserWidth"  value="0.05" />
-  <xacro:property name="laserHeight" value="0.041" />
+  <xacro:property name="laserBaseLength" value="0.05" />
+  <xacro:property name="laserBaseWidth"  value="0.05" />
+  <xacro:property name="laserBaseHeight" value="0.041" />
   <!-- Hokuyo laser rangefinder - cylinder -->
   <xacro:property name="laserCylLength" value="0.0265" />
-  <xacro:property name="laserCylRadius" value="0.0375" />
+  <xacro:property name="laserCylRadius" value="0.01875" />
 
   <!-- wheel depth is 2.35 cm overall with rubber -->
   <xacro:property name="wheellength" value="0.0235" />
@@ -78,6 +81,78 @@
     </collision>
     <xacro:default_inertial mass="1"/>
   </link>
+
+  <!-- the main PCB on top of the chassis, where everything is mounted -->
+  <link name="mainPCB">
+    <visual>
+      <geometry>
+        <box size="${PCBlength} ${PCBwidth} ${PCBheight}"/>
+      </geometry>
+      <!-- Located on top of the base -->
+      <origin rpy="0 0 0" xyz="0 0 ${height/2}"/>
+      <material name="euroPCB"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${PCBlength} ${PCBwidth} ${PCBheight}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+  <!-- the IMU on the main PCB -->
+  <link name="IMU">
+    <visual>
+      <geometry>
+        <box size="${IMUlength} ${IMUwidth} ${IMUheight}"/>
+      </geometry>
+      <!-- Located on top of the base, on top of the PCB -->
+      <origin rpy="0 0 0" xyz="0 0 ${(height/2)+PCBheight}"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${IMUlength} ${IMUwidth} ${IMUheight}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+  <!-- the Laser base on the main PCB -->
+  <link name="laserBase">
+    <visual>
+      <geometry>
+        <box size="${laserBaseLength} ${laserBaseWidth} ${laserBaseHeight}"/>
+      </geometry>
+      <!-- Located on top of the base, on top of the PCB, to the front (x) -->
+      <origin rpy="0 0 0" xyz="${(length/2)-(laserBaseLength/2)} 0 ${(height/2)+PCBheight+(laserBaseHeight/2)}"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${laserBaseLength} ${laserBaseWidth} ${laserBaseHeight}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+    <!-- the Laser "head" (cylinder) on the lase base -->
+    <link name="laserHead">
+      <visual>
+        <geometry>
+          <cylinder length="${laserCylLength}" radius="${laserCylRadius}"/>
+        </geometry>
+        <!-- Located on top of the base, on top of the PCB, on top of the laser base, to the front (x) -->
+        <origin rpy="0 0 0" xyz="${(length/2)-(laserBaseLength/2)} 0 ${(height/2)+PCBheight+laserBaseHeight+(laserCylLength/2)}"/>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="${laserCylLength}" radius="${laserCylRadius}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="1"/>
+    </link>
 
   <!-- Wheel 1 -->
   <link name="wheel_1">
@@ -178,4 +253,33 @@
     <child link="wheel_4"/>
     <origin xyz="0 0 0"/>
   </joint>
+
+  <!-- Joint for mainPCB -->
+  <joint name="base_to_mainPCB" type="fixed">
+    <parent link="base_link"/>
+    <child link="mainPCB"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <!-- Joint for IMU -->
+  <joint name="base_to_IMU" type="fixed">
+    <parent link="base_link"/>
+    <child link="IMU"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <!-- Joint for laser base -->
+  <joint name="base_to_laserBase" type="fixed">
+    <parent link="base_link"/>
+    <child link="laserBase"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <!-- Joint for laser "head" (cylinder) -->
+  <joint name="base_to_laserHead" type="fixed">
+    <parent link="base_link"/>
+    <child link="laserHead"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
 </robot>

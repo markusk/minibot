@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- materials -->
+  <gazebo reference="base_link">
+    <material>Gazebo/DarkGray</material>
+  </gazebo>
+
+ <gazebo reference="wheel_1">
+        <material>Gazebo/Black</material>
+ </gazebo>
+
+ <gazebo reference="wheel_2">
+        <material>Gazebo/Black</material>
+ </gazebo>
+
+ <gazebo reference="wheel_3">
+        <material>Gazebo/Black</material>
+ </gazebo>
+
+ <gazebo reference="wheel_4">
+        <material>Gazebo/Black</material>
+ </gazebo>
+
+ <gazebo reference="mainPCB">
+         <material>Gazebo/Gray</material>
+ </gazebo>
+
+ <gazebo reference="IMU">
+        <material>Gazebo/Blue</material>
+ </gazebo>
+
+ <gazebo reference="laserBase">
+         <material>Gazebo/FlatBlack</material>
+ </gazebo>
+
+ <gazebo reference="laserHead">
+        <material>Gazebo/FlatBlack</material>
+ </gazebo></robot>

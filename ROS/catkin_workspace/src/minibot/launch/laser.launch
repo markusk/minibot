@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+This jsut starts the urg_node for the laser range finder.
+It is just for convenience, to have only one ssh session open - for demo
+-->
+<launch>
+  <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->
+  <node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaser" output="screen"/>
+</launch>

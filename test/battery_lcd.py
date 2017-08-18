@@ -73,6 +73,7 @@ ledPin     = 18 # pin 12
 # setup
 print('setup...')
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
+GPIO.setup(ledPin, GPIO.OUT)
 
 # checker
 buttonPressed = False
@@ -162,13 +163,15 @@ while (buttonPressed == False):
 
     # check button here as well
     if GPIO.input(switchPin) == GPIO.LOW:
+    	# LED ON (low active!)
+    	GPIO.output(ledPin, GPIO.LOW)
     	print('Button pressed (in while loop)!')
         buttonPressed = True
 	# call the piushbutton event handler
         my_callback()
 
     # wait 1 second
-    time.sleep(0.5)
+    time.sleep(1)
 
 
 # wtf?

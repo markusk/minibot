@@ -63,6 +63,6 @@ while not rospy.is_shutdown():
     # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
     voltage = (value / 68.693182)
     # Print out voltage
-    rospy.loginfo("Battery: %.1f Volt" % voltage)
+    # rospy.loginfo("Battery: %.1f Volt" % voltage)
 
     rate.sleep()

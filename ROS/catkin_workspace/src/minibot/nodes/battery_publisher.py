@@ -13,15 +13,14 @@ Website: https://direcs.de
 
 import rospy
 
-# we need a data type to publish
-from std_msgs.msg import Int32
+# we need a data type to publish the voltage
+from std_msgs.msg import Float32
 
 # initialise the node
 rospy.init_node('battery_publisher')
 
 # name of topic is 'voltage'
-pub = rospy.Publisher('voltage', Int32, queue_size=10)
-
+pub = rospy.Publisher('voltage', Float32, queue_size=10)
 
 # BEGIN LOOP
 rate = rospy.Rate(2)

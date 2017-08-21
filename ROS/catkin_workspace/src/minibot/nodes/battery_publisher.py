@@ -22,8 +22,8 @@ rospy.init_node('battery_publisher')
 # name of topic is 'voltage'
 pub = rospy.Publisher('voltage', Float32, queue_size=10)
 
-# BEGIN LOOP
-rate = rospy.Rate(2)
+# Begin loop @ one Hz
+rate = rospy.Rate(1)
 
 voltage = 0
 while not rospy.is_shutdown():
@@ -33,4 +33,3 @@ while not rospy.is_shutdown():
     voltage += 1
 
     rate.sleep()
-# END LOOP

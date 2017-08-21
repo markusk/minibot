@@ -11,6 +11,12 @@ Author:  Markus Knapp, 2017
 Website: https://direcs.de
 """
 
+# for the AD converter (connected to Raspberry Pi via I2C)
+from MCP3008 import MCP3008
+adc = MCP3008()
+voltage = 0.0
+value = 0
+
 import rospy
 
 # we need a data type to publish the voltage
@@ -25,11 +31,15 @@ pub = rospy.Publisher('voltage', Float32, queue_size=10)
 # Begin loop @ one Hz
 rate = rospy.Rate(1)
 
-voltage = 0
 while not rospy.is_shutdown():
     pub.publish(voltage)
 
-    # @todo: read real battery voltage here
-    voltage += 1
+    # read AD converter (battery voltage)
+    # use channel 0 on IC
+    value = adc.read(channel = 0)
+    # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
+    voltage = (value / 68.693182)
+    # Print out voltage
+    rospy.loginfo("Battery: %.1f Volt" % voltage)
 
     rate.sleep()

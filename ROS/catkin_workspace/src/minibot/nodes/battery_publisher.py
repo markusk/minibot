@@ -11,12 +11,6 @@ Author:  Markus Knapp, 2017
 Website: https://direcs.de
 """
 
-# for the AD converter (connected to Raspberry Pi via I2C)
-from MCP3008 import MCP3008
-adc = MCP3008()
-voltage = 0.0
-value = 0
-
 import rospy
 
 # we need a data type to publish the voltage
@@ -30,6 +24,15 @@ pub = rospy.Publisher('voltage', Float32, queue_size=10)
 
 # Begin loop @ one Hz
 rate = rospy.Rate(1)
+
+#
+# for the AD converter (connected to Raspberry Pi via SPI)
+#
+from MCP3008 import MCP3008
+adc = MCP3008()
+voltage = 0.0
+value = 0
+
 
 while not rospy.is_shutdown():
     pub.publish(voltage)

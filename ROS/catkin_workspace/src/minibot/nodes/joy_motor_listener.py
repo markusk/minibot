@@ -17,7 +17,7 @@ Another Ubuntu machine:
    export ROS_MASTER_URI=http://minibot:11311/
 2. Set joystick device (if different) to js0. I.E.:
    rosparam set joy_node/dev "/dev/input/js2"
-3. roslaunch minibot joystick_control
+3. roslaunch minibot joystick_control.launch
 
 
 Author:  Markus Knapp, 2017

@@ -86,6 +86,8 @@ while not rospy.is_shutdown():
     else:
         # simulated value!
         voltage = demoVoltage
+        # use seconds as demo voltage
+#        voltage = voltage + current_time.secs
 
     # print out pure ADC voltage
     # rospy.loginfo("Battery: %.1f Volt" % voltage)

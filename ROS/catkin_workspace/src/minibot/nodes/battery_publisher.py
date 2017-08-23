@@ -7,14 +7,19 @@ and publishing the voltage as message
 We use a publisher, since it is will be published non-stop.
 And is not critical if we might loose a message.
 
+@todo: change format to sensor_msgs/BatteryState
+
 Author:  Markus Knapp, 2017
 Website: https://direcs.de
 """
 
 import rospy
+import time # for ROS message header timestamp
 
 # we need a data type to publish the voltage
-from std_msgs.msg import Float32
+from std_msgs.msg import Header, Float32
+# ros default battery messages
+from sensor_msgs.msg import BatteryState
 
 # initialise the node
 rospy.init_node('battery_publisher')
@@ -38,9 +43,13 @@ if hostname != 'minibot':
     rospy.logwarn("Using demo voltage of %.1f Volt" % demoVoltage)
 
 
-#
-# for the AD converter (connected to Raspberry Pi via SPI)
-#
+""" ROS message header """
+# define IMU message
+battery_msg = BatteryState()
+seq = 0
+
+
+""" for the AD converter (connected to Raspberry Pi via SPI) """
 # run some parts only on the real robot
 if hostname == 'minibot':
     from MCP3008 import MCP3008
@@ -51,6 +60,20 @@ value = 0
 
 
 while not rospy.is_shutdown():
+    """ message header """
+    # for header time stamps
+    current_time = rospy.Time.now()
+
+    h = rospy.Header()
+    h.stamp = current_time
+    h.frame_id = "battery"
+    h.seq = seq
+    # increase sequence
+    seq = seq + 1
+    # add header to IMU message
+    battery_msg.header = h
+
+
     # run some parts only on the real robot
     if hostname == 'minibot':
         # read AD converter (battery voltage)

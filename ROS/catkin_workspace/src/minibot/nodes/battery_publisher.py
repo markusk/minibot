@@ -34,6 +34,8 @@ hostname = socket.gethostname()
 rospy.loginfo("Running on host %s.", hostname)
 if hostname != 'minibot':
     rospy.logwarn("Test mode only due to other host. Skipping all SPI staff!")
+    demoVoltage = 11.11
+    rospy.logwarn("Using demo voltage of %.1f Volt" % demoVoltage)
 
 
 #
@@ -49,20 +51,22 @@ value = 0
 
 
 while not rospy.is_shutdown():
-    pub.publish(voltage)
-
     # run some parts only on the real robot
     if hostname == 'minibot':
         # read AD converter (battery voltage)
         # use channel 0 on IC
         value = adc.read(channel = 0)
+        # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
+        voltage = (value / 68.693182)
     else:
         # simulated value!
-        value = 0
+        voltage = demoVoltage
 
-    # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
-    voltage = (value / 68.693182)
-    # Print out voltage
+    # print out voltage
     # rospy.loginfo("Battery: %.1f Volt" % voltage)
+
+    # publish voltage
+    pub.publish(voltage)
+
 
     rate.sleep()

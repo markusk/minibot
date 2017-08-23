@@ -25,7 +25,8 @@ from sensor_msgs.msg import BatteryState
 rospy.init_node('battery_publisher')
 
 # name of topic is 'voltage'
-pub = rospy.Publisher('voltage', Float32, queue_size=10)
+pubBattery = rospy.Publisher('batteryState/voltage', BatteryState, queue_size=1)
+# pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
 # Begin loop @ one Hz
 rate = rospy.Rate(1)
@@ -88,8 +89,11 @@ while not rospy.is_shutdown():
     # print out voltage
     # rospy.loginfo("Battery: %.1f Volt" % voltage)
 
+    # completing the ROS message
+    battery_msg.voltage = voltage
+
     # publish voltage
-    pub.publish(voltage)
+    pubBattery.publish(battery_msg)
 
 
     rate.sleep()

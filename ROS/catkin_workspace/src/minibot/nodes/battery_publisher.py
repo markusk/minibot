@@ -94,8 +94,6 @@ while not rospy.is_shutdown():
     # rospy.loginfo("Battery: %.1f Volt" % voltage)
 
     # completing the ROS message
-    battery_msg.voltage = voltage
-
     """
     # Other battery state are not provided:
     battery_msg.current         = Float32('nan')
@@ -104,12 +102,24 @@ while not rospy.is_shutdown():
     battery_msg.capacity        = Float32('nan')
     battery_msg.design_capacity = Float32('nan')
     battery_msg.percentage      = Float32('nan')
+    battery_msg.current         = Float32('nan')
+    """
+    battery_msg.current         = 0
+    battery_msg.charge          = 0
+    battery_msg.capacity        = 0
+    battery_msg.design_capacity = 0
+    battery_msg.percentage      = 0
 
+    """
     battery_msg.power_supply_status = POWER_SUPPLY_STATUS_DISCHARGING
     battery_msg.power_supply_health = POWER_SUPPLY_HEALTH_GOOD
     battery_msg.power_supply_technology = POWER_SUPPLY_TECHNOLOGY_LIPO
     """
     battery_msg.present = True
+
+    # this is the battery voltage
+    # @TODO strange, this assignment as to be exacty here...
+    battery_msg.voltage = voltage
 
     # print out voltage message
     # rospy.loginfo("Battery: %.1f Volt" % battery_msg.voltage)

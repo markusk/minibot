@@ -145,9 +145,6 @@ else:
 
 
 while not rospy.is_shutdown():
-    # check for incoming messages
-    # rospy.spinOnce() >> this does not exist in rospy. Unneeded since we do not receive messages? Otherwise create a listener.
-
     # for header time stamps
     current_time = rospy.Time.now()
 

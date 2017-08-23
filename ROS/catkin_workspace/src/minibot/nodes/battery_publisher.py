@@ -26,7 +26,7 @@ from sensor_msgs.msg import BatteryState
 rospy.init_node('battery_publisher')
 
 # name of topic is 'voltage'
-pubBattery = rospy.Publisher('batteryState/voltage', BatteryState, queue_size=1)
+pubBattery = rospy.Publisher('voltage', BatteryState, queue_size=1)
 # pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
 # Begin loop @ one Hz

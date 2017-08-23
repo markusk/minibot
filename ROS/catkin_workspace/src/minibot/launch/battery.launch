@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Observing the battery voltage. Launch fiel for demo purposes only. -->
+  <node pkg="minibot" type="battery_publisher.py" name="battery_publisher"
+        output="screen"/>
+</launch>

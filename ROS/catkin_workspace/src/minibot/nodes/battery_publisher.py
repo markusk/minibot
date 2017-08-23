@@ -87,11 +87,13 @@ while not rospy.is_shutdown():
         # simulated value!
         voltage = demoVoltage
 
-    # print out voltage
+    # print out pure ADC voltage
     # rospy.loginfo("Battery: %.1f Volt" % voltage)
 
     # completing the ROS message
     battery_msg.voltage = voltage
+
+    """
     # Other battery state are not provided:
     battery_msg.current         = Float32('nan')
     battery_msg.current         = Float32('nan')
@@ -99,6 +101,10 @@ while not rospy.is_shutdown():
     battery_msg.capacity        = Float32('nan')
     battery_msg.design_capacity = Float32('nan')
     battery_msg.percentage      = Float32('nan')
+    """
+
+    # print out voltage message
+    rospy.loginfo("Battery: %.1f Volt" % battery_msg.voltage)
 
     # publish voltage
     pubBattery.publish(battery_msg)

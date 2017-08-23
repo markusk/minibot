@@ -16,6 +16,7 @@ Website: https://direcs.de
 import rospy
 import time # for ROS message header timestamp
 import math # for NaN values (Not a Number)
+# import power_supply.h
 
 # we need a data type to publish the voltage
 from std_msgs.msg import Header, Float32
@@ -103,10 +104,15 @@ while not rospy.is_shutdown():
     battery_msg.capacity        = Float32('nan')
     battery_msg.design_capacity = Float32('nan')
     battery_msg.percentage      = Float32('nan')
+
+    battery_msg.power_supply_status = POWER_SUPPLY_STATUS_DISCHARGING
+    battery_msg.power_supply_health = POWER_SUPPLY_HEALTH_GOOD
+    battery_msg.power_supply_technology = POWER_SUPPLY_TECHNOLOGY_LIPO
     """
+    battery_msg.present = True
 
     # print out voltage message
-    rospy.loginfo("Battery: %.1f Volt" % battery_msg.voltage)
+    # rospy.loginfo("Battery: %.1f Volt" % battery_msg.voltage)
 
     # publish voltage
     pubBattery.publish(battery_msg)

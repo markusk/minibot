@@ -15,6 +15,7 @@ Website: https://direcs.de
 
 import rospy
 import time # for ROS message header timestamp
+import math # for NaN values (Not a Number)
 
 # we need a data type to publish the voltage
 from std_msgs.msg import Header, Float32
@@ -91,6 +92,13 @@ while not rospy.is_shutdown():
 
     # completing the ROS message
     battery_msg.voltage = voltage
+    # Other battery state are not provided:
+    battery_msg.current         = Float32('nan')
+    battery_msg.current         = Float32('nan')
+    battery_msg.charge          = Float32('nan')
+    battery_msg.capacity        = Float32('nan')
+    battery_msg.design_capacity = Float32('nan')
+    battery_msg.percentage      = Float32('nan')
 
     # publish voltage
     pubBattery.publish(battery_msg)

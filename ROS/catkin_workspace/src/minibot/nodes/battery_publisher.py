@@ -51,8 +51,9 @@ if hostname != 'minibot':
 
 
 """ ROS message header """
-# define IMU message
+# define battery message
 battery_msg = BatteryState()
+frame_id = 'battery'
 seq = 0
 
 
@@ -70,7 +71,7 @@ while not rospy.is_shutdown():
 
     h = rospy.Header()
     h.stamp = current_time
-    h.frame_id = "battery"
+    h.frame_id = frame_id  # "battery"
     h.seq = seq
     # increase sequence
     seq = seq + 1

@@ -30,8 +30,14 @@ rospy.init_node('battery_publisher')
 pubBattery = rospy.Publisher('voltage', BatteryState, queue_size=1)
 # pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
-# Begin loop @ one Hz
-rate = rospy.Rate(1)
+# sleep time for this node in seconds
+sleepTime = 1
+
+
+# for reading the voltages
+voltage = 0.0
+value = 0
+demoVoltage = 11.11
 
 
 #
@@ -57,9 +63,6 @@ seq = 0
 if hostname == 'minibot':
     from MCP3008 import MCP3008
     adc = MCP3008()
-
-voltage = 0.0
-value = 0
 
 
 while not rospy.is_shutdown():
@@ -117,5 +120,5 @@ while not rospy.is_shutdown():
     # publish voltage
     pubBattery.publish(battery_msg)
 
-
-    rate.sleep()
+    # Sleep for a second until the next reading.
+    rospy.sleep(sleepTime)

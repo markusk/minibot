@@ -28,7 +28,6 @@ rospy.init_node('battery_publisher')
 
 # name of topic is 'voltage'
 pubBattery = rospy.Publisher('voltage', BatteryState, queue_size=1)
-# pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
 # sleep time for this node in seconds
 sleepTime = 1
@@ -47,8 +46,7 @@ import socket
 hostname = socket.gethostname()
 rospy.loginfo("Running on host %s.", hostname)
 if hostname != 'minibot':
-    rospy.logwarn("Test mode only due to other host. Skipping all SPI staff!")
-    demoVoltage = 11.11
+    rospy.logwarn("Test mode only due to other hostname. Skipping all SPI staff!")
     rospy.logwarn("Using demo voltage of %.1f Volt" % demoVoltage)
 
 
@@ -90,8 +88,6 @@ while not rospy.is_shutdown():
     else:
         # simulated value!
         voltage = demoVoltage
-        # use seconds as demo voltage
-#        voltage = voltage + current_time.secs
 
     # print out pure ADC voltage
     # rospy.loginfo("Battery: %.1f Volt" % voltage)

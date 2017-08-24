@@ -10,7 +10,7 @@ The joystick/gamepas has to be connected to this computer, not the robot.
   This nodes listens to joystick/gamepad input.
   Use the D-Pad buttons on the joystick/gamepad to control the motors.
   -->
-  <node name="joy_node" pkg="joy" type="joy" output="screen"/>
+  <node name="joy_node" pkg="joy" type="joy_node" output="screen"/>
 
   <!--
   This nodes takes the joystick input and sends out motor control messages.

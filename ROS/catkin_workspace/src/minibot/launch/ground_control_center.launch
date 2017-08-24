@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Launch file for controlling and observing the robots status remoteloy.
+-->
+<launch>
+  <!-- Battery surveilance. -->
+  <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" output="screen"/>
+
+  <!-- Joystick control -->
+  <include file="$(find minibot)/launch/joystick_control.launch" pass_all_args="true"/>
+
+  <!-- Camera live view (image viewer) -->
+  <node name="image_view" pkg="image_view" type="image_view" args="image:=/camera" output="screen"/>
+
+  <!-- Laser scanner livew view -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find minibot)/rviz/laserMK.rviz" output="screen"/>
+</launch>

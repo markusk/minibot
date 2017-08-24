@@ -11,7 +11,7 @@ My little Raspberry Pi and ROS robot - with some python stuff
 <li>sudo python setup.py install</li>
 </ol>
 
-### OLED LCD
+### OLED LCD (I2C)
 <ol>
 <li>cd ~</li>
 <li>sudo apt-get install build-essential python-dev python-pip</li>
@@ -22,7 +22,7 @@ My little Raspberry Pi and ROS robot - with some python stuff
 <li>sudo python setup.py install</li>
 </ol>
 
-### AD converter (MCP3008)
+### AD converter (MCP3008 via SPI)
 <ol>
 <li>cd ~</li>
 <li>git clone https://github.com/doceme/py-spidev/</li>

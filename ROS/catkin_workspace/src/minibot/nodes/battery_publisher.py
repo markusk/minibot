@@ -86,6 +86,9 @@ while not rospy.is_shutdown():
         value = adc.read(channel = 0)
         # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
         voltage = (value / 68.693182)
+
+        """ >>> CHEAT DUE TO SPI BUG ON MAKER FAIRE @TODO TO BE REMOVED ON 28.8.2017 <<< """
+        voltage = 11.42
     else:
         # simulated value!
         voltage = demoVoltage

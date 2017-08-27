@@ -6,5 +6,5 @@ This launch file is for the robot.
 -->
 <launch>
   <!-- Controlling the motor on a hardware level -->
-  <node name="motor_server" pkg="minibot" type="motor_server" output="screen"/>
+  <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>
 </launch>

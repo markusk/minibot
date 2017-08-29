@@ -64,7 +64,7 @@ import socket
 # showing hostname
 hostname = socket.gethostname()
 rospy.loginfo("Running on host %s.", hostname)
-if hostname != 'minibot':
+if (hostname != 'minibot') and (hostname != 'minibottest'):
     rospy.logwarn("Test mode only due to other host. Skipping all I2C staff!")
 
 
@@ -103,7 +103,7 @@ imu_msg.linear_acceleration_covariance[0] = -1
 
 
 # run some parts only on the real robot
-if hostname == 'minibot':
+if hostname == 'minibot' or hostname == 'minibottest':
     # load library
     from Adafruit_BNO055 import BNO055
 
@@ -162,7 +162,7 @@ while not rospy.is_shutdown():
 
     """ IMU readings """
     # run some parts only on the real robot
-    if hostname == 'minibot':
+    if hostname == 'minibot' or hostname == 'minibottest':
         """ Euler """
         # Read the Euler angles for heading, roll, pitch (all in degrees).
         heading, roll, pitch = bno.read_euler()
@@ -190,7 +190,7 @@ while not rospy.is_shutdown():
 
 
     # run some parts only on the real robot
-    if hostname == 'minibot':
+    if hostname == 'minibot' or hostname == 'minibottest':
         """ Quaternion """
         # Read orientation as a quaternion:
         x,y,z,w = bno.read_quaternion()
@@ -209,7 +209,7 @@ while not rospy.is_shutdown():
     # rospy.loginfo('Quaternion: x={} y={} z={} w={}'.format(imu_msg.orientation.x, imu_msg.orientation.y, imu_msg.orientation.z, imu_msg.orientation.w))
 
     # run some parts only on the real robot
-    if hostname == 'minibot':
+    if hostname == 'minibot' or hostname == 'minibottest':
         # Gyroscope data (in degrees per second):
         xg,yg,zg = bno.read_gyroscope()
     else:
@@ -225,7 +225,7 @@ while not rospy.is_shutdown():
     # rospy.loginfo('Gyroscope: x={} y={} z={}'.format(imu_msg.angular_velocity.x, imu_msg.angular_velocity.y, imu_msg.angular_velocity.z))
 
     # run some parts only on the real robot
-    if hostname == 'minibot':
+    if hostname == 'minibot' or hostname == 'minibottest':
         # Accelerometer data (in meters per second squared):
         xa,ya,za = bno.read_accelerometer()
     else:
@@ -248,7 +248,7 @@ while not rospy.is_shutdown():
 
     """ Temperature in degrees Celsius """
     # run some parts only on the real robot
-    if hostname == 'minibot':
+    if hostname == 'minibot' or hostname == 'minibottest':
         temp = bno.read_temp()
     else:
         # test values only!

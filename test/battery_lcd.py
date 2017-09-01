@@ -2,8 +2,8 @@
 # coding=utf-8
 
 """
-This code reads the battery voltage via MCP3008 AD converter and shows the
-values on an OLED via SSD1306.
+This code reads the battery voltage via Adafruits ADS1015 AD converter and shows
+the values on an OLED via SSD1306.
 
 It also checks a pushbotton state, connected to #23 (pin 16 on Raspberry Pi 3)
 via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
@@ -13,8 +13,7 @@ via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 import time
 
 # AD converter stuff
-import Adafruit_GPIO.SPI as SPI
-import Adafruit_SSD1306
+import Adafruit_ADS1x15
 
 from PIL import Image
 from PIL import ImageDraw
@@ -131,7 +130,8 @@ font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', siz
 from MCP3008 import MCP3008 # for battery reading
 
 # the AD converter object
-adc = MCP3008()
+adc = Adafruit_ADS1x15.ADS1015()
+GAIN = 1
 
 while (buttonPressed == False):
     # Draw a black filled box to clear the image.
@@ -141,9 +141,10 @@ while (buttonPressed == False):
 
     # read AD converter (battery voltage)
     # use channel 0 on IC
-    value = adc.read(channel = 0)
-    # 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
-    voltage = (value / 68.693182)
+    value = adc.read_adc(0, gain=GAIN)
+    # GAIN = 1  =  2047 = 4.096 Volt  -> 1849 = 3,7 Volt?
+    # 2.73 V = 12.32 V (measured) -> 1849 / 3.3 * 2.73 / 12.32 = 124,158057851239669
+    voltage = (value / 124.158057851239669)
     # print("Value: %d" % value)
     # print("Battery: %.1f Volt" % voltage)
 

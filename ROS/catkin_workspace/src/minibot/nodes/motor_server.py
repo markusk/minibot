@@ -54,7 +54,7 @@ if hostname == 'minibot':
     turnOffMotors();
 
     # set the speed (from 0 (off) to 255 (max speed))
-    startSpeed = 100
+    startSpeed = 150
     myMotor1.setSpeed(startSpeed)
     myMotor2.setSpeed(startSpeed)
 else:

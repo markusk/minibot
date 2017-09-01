@@ -12,8 +12,11 @@ via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 # for time and sleep
 import time
 
-# AD converter stuff
+# for AD converter
 import Adafruit_ADS1x15
+
+# for OLED
+import Adafruit_SSD1306
 
 from PIL import Image
 from PIL import ImageDraw

@@ -30,11 +30,6 @@ cd py-spidev
 sudo python setup.py install
 ```
 
-## Run/Test
-```
-cd ~/minibot/test
-./minibot
-```
 
 ## ROS Setup
 - Install ROS on Raspberry Pi
@@ -56,8 +51,12 @@ catkin_make
 
 
 ## Run/Test ROS
-- Run master on Raspi/other computer
-- On the corresponding other computer, the "ROS slave":
+On the robot (Raspberry Pi):
+```
+roslaunch minibot.launch
+```
+On another computer:
 ```
 export ROS_MASTER_URI=http://hostname:11311
+roslaunch ground_control.launch
 ```

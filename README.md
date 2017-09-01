@@ -22,11 +22,13 @@ cd Adafruit_Python_SSD1306
 sudo python setup.py install
 ```
 
-### AD converter (MCP3008 via SPI)
+
+### AD converter ~~(MCP3008 via SPI)~~ (ADS1015 via I2C)
 ```
 cd ~
-git clone https://github.com/doceme/py-spidev/
-cd py-spidev
+sudo apt-get install build-essential python-dev python-smbus
+git clone https://github.com/adafruit/Adafruit_Python_ADS1x15.git
+cd Adafruit_Python_ADS1x15
 sudo python setup.py install
 ```
 

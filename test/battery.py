@@ -1,8 +1,12 @@
 #!/usr/bin/python
 # coding=utf-8
+
 import Adafruit_ADS1x15
 
+# the Analog Digital converter object
 adc = Adafruit_ADS1x15.ADS1015()
+
+""" Gain 1 means, max a value of +4.096 Volt (+4,096 Volt in Europe) on the ADC channel, resulting in a 'value' of +2047. """
 GAIN = 1
 voltage = 0
 
@@ -10,10 +14,10 @@ voltage = 0
 # use channel 0 on IC
 value = adc.read_adc(0, gain=GAIN)
 
-# old: 2.73 V = 12.32 V (measured) > 1023 / 3.3 * 2.73 / 12.32 = 68.693182
+# 12.32 Volt battery voltage resulted in 2.66 Volt on the ADC channel with my circuit (Z-Diode and Resistor).
+# This resulted in a ADV 'value' of 1323.
+# The conversion factor for the battery voltage is then: 1323 / 12.32 = 107.3863636
 #
-# GAIN = 1  =  2047 = 4.096 Volt  -> 1849 = 3,7 Volt?
-# 2.73 V = 12.32 V (measured) -> 1849 / 3.3 * 2.73 / 12.32 = 124,158057851239669
-voltage = (value / 124.158057851239669)
-#print("Value: %d" % value)
+voltage = (value / 107.3863636)
+print("Value: %d" % value)
 print("Battery: %.1f Volt" % voltage)

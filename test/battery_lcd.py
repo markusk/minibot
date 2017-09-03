@@ -148,7 +148,7 @@ while (buttonPressed == False):
     value = adc.read_adc(0, gain=GAIN)
 
     # 13.3265 Volt battery voltage resulted in 3.17 Volt on the ADC channel with my circuit (voltage divider).
-    # This resulted in a ADV 'value' of 1582.
+    # This resulted in a ADC 'value' of 1582.
     # The conversion factor for the battery voltage is then: 1582 / 13.265 = 119.2612137
     #
     voltage = (value / 119.2612137)

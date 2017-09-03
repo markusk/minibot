@@ -46,9 +46,13 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 # voltage in percent
 percent = 100
 
+# the battery symbols
+fullBattery = unichr(0xf240)
+
 # Write lines of text.
+#
 # line 1, battery symbol
-draw.text((0, 0), unichr(0xf240), font=fontSymbol, fill=255)
+draw.text((0, 0), fullBattery, font=fontSymbol, fill=255)
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
 # line 2

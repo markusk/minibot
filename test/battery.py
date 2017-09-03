@@ -18,6 +18,8 @@ value = adc.read_adc(0, gain=GAIN)
 # This resulted in a ADV 'value' of 1323.
 # The conversion factor for the battery voltage is then: 1323 / 12.32 = 107.3863636
 #
-voltage = (value / 107.3863636)
+# 125,6862745
+#
+voltage = (value / 119.2612137)
 print("Value: %d" % value)
 print("Battery: %.1f Volt" % voltage)

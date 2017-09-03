@@ -42,15 +42,20 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 # voltage in percent
 percent = 100
 # min and max voltages
-minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt
-maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt
+minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
+maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
+
+#
+# test voltages
+#
+currentVoltage = 12.6
 
 # the battery symbols
-batteryFull          = unichr(0xf240)
-batteryThreeQuarters = unichr(0xf241)
-batteryHalf          = unichr(0xf242)
-batteryQuarter       = unichr(0xf243)
-batteryEmpty         = unichr(0xf244)
+batteryFull          = unichr(0xf240) # >75% = maxVoltage
+batteryThreeQuarters = unichr(0xf241) #  75%
+batteryHalf          = unichr(0xf242) #  50%
+batteryQuarter       = unichr(0xf243) #  25%
+batteryEmpty         = unichr(0xf244) # <25% = minVoltage
 
 # Write lines of text to display
 #

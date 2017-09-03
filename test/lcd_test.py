@@ -47,12 +47,16 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 percent = 100
 
 # the battery symbols
-fullBattery = unichr(0xf240)
+batteryFull          = unichr(0xf240)
+batteryThreeQuarters = unichr(0xf241)
+batteryHalf          = unichr(0xf242)
+batteryQuarter       = unichr(0xf243)
+batteryEmpty         = unichr(0xf244)
 
 # Write lines of text.
 #
 # line 1, battery symbol
-draw.text((0, 0), fullBattery, font=fontSymbol, fill=255)
+draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
 # line 2

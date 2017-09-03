@@ -33,10 +33,6 @@ fontText = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
 # install via sudo 'sudo apt install fonts-font-awesome'
 fontSymbol = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf', size)
 
-# see http://fontawesome.io/cheatsheet/
-# battery-full = '' + unichr(0xf240)
-# battery-full = unicode(u'0xf240')
-
 # Get drawing object to draw on image.
 draw = ImageDraw.Draw(image)
 

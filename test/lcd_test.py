@@ -26,7 +26,7 @@ image = Image.new('1', (width, height))
 
 # The fonts and sizes
 size = 15
-symbolWidth = 25
+symbolWidth = 28
 # text
 fontText = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', size)
 # https://fontawesome.io
@@ -43,13 +43,16 @@ draw = ImageDraw.Draw(image)
 # Draw a black filled box to clear the image.
 draw.rectangle((0,0,width,height), outline=0, fill=0)
 
+# voltage in percent
+percent = 100
+
 # Write lines of text.
 # line 1, battery symbol
 draw.text((0, 0), unichr(0xf240), font=fontSymbol, fill=255)
 # line 1, text after symbol
-draw.text((symbolWidth, 0), '100%', font=fontText, fill=255)
+draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
 # line 2
-draw.text((0, size), '12.0 Volt', font=fontText, fill=255)
+draw.text((0, size), '12.05 Volt', font=fontText, fill=255)
 
 # Display image.
 disp.image(image)

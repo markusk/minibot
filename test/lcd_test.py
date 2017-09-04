@@ -44,6 +44,12 @@ percent = 100
 # min and max voltages
 minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
+# for voltage check:
+# full         =  >threeQuarters
+threeQuarters  =  maxVoltage - ((maxVoltage-minVoltage) * 0.75)
+half           =  maxVoltage - ((maxVoltage-minVoltage) * 0.50)
+quarter        =  maxVoltage - ((maxVoltage-minVoltage) * 0.25)
+# empty        =  minVoltage
 
 #
 # test voltages
@@ -60,7 +66,17 @@ batteryEmpty         = unichr(0xf244) # <25% = minVoltage
 # Write lines of text to display
 #
 # line 1, battery symbol
-draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
+if currentVoltage > threeQuarters:
+    draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
+elif currentVoltage > half:
+    draw.text((0, 0), batteryThreeQuarters, font=fontSymbol, fill=255)
+elif currentVoltage quarter:
+    draw.text((0, 0), batteryHalf, font=fontSymbol, fill=255)
+elif minVoltage:
+    draw.text((0, 0), batteryQuarter, font=fontSymbol, fill=255)
+else:
+    draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
 # line 2

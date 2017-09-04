@@ -44,9 +44,9 @@ minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 # for voltage check:
 # full         =  >threeQuarters
-threeQuarters  =  maxVoltage - ((maxVoltage-minVoltage) * 0.75)
-half           =  maxVoltage - ((maxVoltage-minVoltage) * 0.50)
-quarter        =  maxVoltage - ((maxVoltage-minVoltage) * 0.25)
+threeQuarters  =  minVoltage + ((maxVoltage-minVoltage) * 0.75)
+half           =  minVoltage + ((maxVoltage-minVoltage) * 0.50)
+quarter        =  minVoltage + ((maxVoltage-minVoltage) * 0.25)
 # empty        =  minVoltage
 
 # voltage in percent
@@ -56,7 +56,7 @@ percent = 0
 #
 # test voltages
 #
-currentVoltage = 11.93
+currentVoltage = 9.8
 
 
 # the battery symbols

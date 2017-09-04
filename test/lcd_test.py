@@ -56,7 +56,7 @@ percent = 0
 #
 # test voltages
 #
-currentVoltage = 9.8
+currentVoltage = 9
 
 
 # the battery symbols
@@ -69,21 +69,21 @@ batteryEmpty         = unichr(0xf244) # <25% = minVoltage
 # Write lines of text to display
 #
 # line 1, battery symbol
-if currentVoltage > threeQuarters:
-    percent = 100
-    draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
-elif currentVoltage > half:
-    percent = 75
-    draw.text((0, 0), batteryThreeQuarters, font=fontSymbol, fill=255)
-elif currentVoltage > quarter:
-    percent = 50
-    draw.text((0, 0), batteryHalf, font=fontSymbol, fill=255)
-elif currentVoltage > minVoltage:
-    percent = 25
-    draw.text((0, 0), batteryQuarter, font=fontSymbol, fill=255)
-else:
+if currentVoltage < quarter:
     percent = 0
     draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+elif currentVoltage < half:
+    percent = 25
+    draw.text((0, 0), batteryQuarter, font=fontSymbol, fill=255)
+elif currentVoltage < threeQuarters:
+    percent = 50
+    draw.text((0, 0), batteryHalf, font=fontSymbol, fill=255)
+if currentVoltage < maxVoltage:
+    percent = 75
+    draw.text((0, 0), batteryThreeQuarters, font=fontSymbol, fill=255)
+else:
+    percent = 100
+    draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
 
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)

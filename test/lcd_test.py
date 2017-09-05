@@ -41,13 +41,17 @@ minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 
 
-#
-# test voltages
-#
-measuredVoltage = 12.4
-# percent
+# ------------
+# test voltage
+# ------------
+measuredVoltage = 11.25
+
+
+# percent calculation
 convertedVoltage = measuredVoltage - minVoltage
 percent = convertedVoltage / (maxVoltage-minVoltage) * 100
+if percent < 0:
+	percent = 0
 
 
 # the battery symbols
@@ -55,8 +59,9 @@ batteryEmpty = unichr(0xf244) # <25% = minVoltage
 
 
 # battery level (white rectangle in empty battery symbol
-rectLength=0
 maxRectLength = 16
+rectLength = round(percent * maxRectLength / 100, 0)
+
 
 # endless loop
 while (1):
@@ -79,17 +84,17 @@ while (1):
 	string = ("%.0f %%" % round(percent, 2))
 	draw.text((symbolWidth, 0), string, font=fontText, fill=255)
 	# line 2
-	draw.text((0, size), str(measuredVoltage) + ' Volt', font=fontText, fill=255)
+	draw.text((0, size), str("%.2f Volt" % measuredVoltage), font=fontText, fill=255)
 
 	# Display image.
 	disp.image(image)
 	disp.display()
 
 	# wait a bit
-	time.sleep(0.25)
+	time.sleep(0.5)
 
 	# next time in this loop
-	if rectLength < maxRectLength:
-		rectLength = rectLength + 1
-	else:
-		rectLength = 0
+#	if rectLength < maxRectLength:
+#		rectLength = rectLength + 1
+#	else:
+#		rectLength = 0

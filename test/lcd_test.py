@@ -57,15 +57,18 @@ quarter        =  maxVoltage - ((maxVoltage-minVoltage) * 0.25)
 currentVoltage = 12.6
 
 # the battery symbols
+"""
 batteryFull          = unichr(0xf240) # >75% = maxVoltage
 batteryThreeQuarters = unichr(0xf241) #  75%
 batteryHalf          = unichr(0xf242) #  50%
 batteryQuarter       = unichr(0xf243) #  25%
+"""
 batteryEmpty         = unichr(0xf244) # <25% = minVoltage
 
 # Write lines of text to display
 #
 # line 1, battery symbol
+"""
 if currentVoltage > threeQuarters:
     draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
 elif currentVoltage > half:
@@ -75,7 +78,11 @@ elif currentVoltage quarter:
 elif minVoltage:
     draw.text((0, 0), batteryQuarter, font=fontSymbol, fill=255)
 else:
-    draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+"""
+# draw empty battery symbol
+draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+# add filling level as filled rectangle
+draw.rectangle((1, 1, 1, 4), outline=0, fill=1)
 
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)

@@ -36,9 +36,6 @@ fontSymbol = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawes
 # Get drawing object to draw on image.
 draw = ImageDraw.Draw(image)
 
-# Draw a black filled box to clear the image.
-draw.rectangle((0,0,width,height), outline=0, fill=0)
-
 # min and max voltages
 minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
@@ -55,24 +52,42 @@ currentVoltage = maxVoltage
 # the battery symbols
 batteryEmpty         = unichr(0xf244) # <25% = minVoltage
 
-# Write lines of text to display
-#
-# line 1, battery symbol
 
-# draw empty battery symbol
-draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
-# add filling level as filled rectangle
+# battery level (white rectangle in empty battery symbol
+rectLength=0
+maxRectLength = 16
 
-# empty: draw.rectangle((1, 3,  1, 11), outline=255, fill=255)
-# full:  draw.rectangle((1, 3, 16, 11), outline=255, fill=255)
-rectLength=16
-draw.rectangle((1, 3, rectLength, 11), outline=255, fill=255)
+# endless loop
+while (1):
+	# Draw a black filled box to clear the image.
+	draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-# line 1, text after symbol
-draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
-# line 2
-draw.text((0, size), str(currentVoltage) + ' Volt', font=fontText, fill=255)
+	# Write lines of text to display
+	#
+	# line 1, battery symbol
 
-# Display image.
-disp.image(image)
-disp.display()
+	# draw empty battery symbol
+	draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+	# add filling level as filled rectangle
+
+	# empty: draw.rectangle((1, 3,  1, 11), outline=255, fill=255)
+	# full:  draw.rectangle((1, 3, 16, 11), outline=255, fill=255)
+	draw.rectangle((1, 3, rectLength, 11), outline=255, fill=255)
+
+	# line 1, text after symbol
+	draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
+	# line 2
+	draw.text((0, size), str(currentVoltage) + ' Volt', font=fontText, fill=255)
+
+	# Display image.
+	disp.image(image)
+	disp.display()
+
+	# wait a bit
+	time.sleep(0.25)
+
+	# next time in this loop
+	if rectLength < maxRectLength:
+		rectLength = rectLength + 1
+	else:
+		rectLength = 0

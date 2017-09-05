@@ -39,22 +39,25 @@ draw = ImageDraw.Draw(image)
 # Draw a black filled box to clear the image.
 draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-# voltage in percent
-percent = 100
 # min and max voltages
 minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 # for voltage check:
 # full         =  >threeQuarters
-threeQuarters  =  maxVoltage - ((maxVoltage-minVoltage) * 0.75)
-half           =  maxVoltage - ((maxVoltage-minVoltage) * 0.50)
-quarter        =  maxVoltage - ((maxVoltage-minVoltage) * 0.25)
+threeQuarters  =  minVoltage + ((maxVoltage-minVoltage) * 0.75)
+half           =  minVoltage + ((maxVoltage-minVoltage) * 0.50)
+quarter        =  minVoltage + ((maxVoltage-minVoltage) * 0.25)
 # empty        =  minVoltage
+
+# voltage in percent
+percent = 0
+
 
 #
 # test voltages
 #
-currentVoltage = 12.6
+currentVoltage = 9.8
+
 
 # the battery symbols
 """
@@ -70,24 +73,33 @@ batteryEmpty         = unichr(0xf244) # <25% = minVoltage
 # line 1, battery symbol
 """
 if currentVoltage > threeQuarters:
+    percent = 100
     draw.text((0, 0), batteryFull, font=fontSymbol, fill=255)
 elif currentVoltage > half:
+    percent = 75
     draw.text((0, 0), batteryThreeQuarters, font=fontSymbol, fill=255)
-elif currentVoltage quarter:
+elif currentVoltage > quarter:
+    percent = 50
     draw.text((0, 0), batteryHalf, font=fontSymbol, fill=255)
-elif minVoltage:
+elif currentVoltage > minVoltage:
+    percent = 25
     draw.text((0, 0), batteryQuarter, font=fontSymbol, fill=255)
 else:
+<<<<<<< HEAD
 """
 # draw empty battery symbol
 draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
 # add filling level as filled rectangle
 draw.rectangle((1, 1, 1, 4), outline=0, fill=1)
+=======
+    percent = 0
+    draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+>>>>>>> 5b18cff154ecaf45454d34158081221b37cccd7c
 
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
 # line 2
-draw.text((0, size), '12.05 Volt', font=fontText, fill=255)
+draw.text((0, size), str(currentVoltage) + ' Volt', font=fontText, fill=255)
 
 # Display image.
 disp.image(image)

@@ -43,12 +43,13 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 # for voltage check:
+"""
 # full         =  >threeQuarters
 threeQuarters  =  minVoltage + ((maxVoltage-minVoltage) * 0.75)
 half           =  minVoltage + ((maxVoltage-minVoltage) * 0.50)
 quarter        =  minVoltage + ((maxVoltage-minVoltage) * 0.25)
 # empty        =  minVoltage
-
+"""
 # voltage in percent
 percent = 0
 
@@ -85,16 +86,11 @@ elif currentVoltage > minVoltage:
     percent = 25
     draw.text((0, 0), batteryQuarter, font=fontSymbol, fill=255)
 else:
-<<<<<<< HEAD
 """
 # draw empty battery symbol
 draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
 # add filling level as filled rectangle
 draw.rectangle((1, 1, 1, 4), outline=0, fill=1)
-=======
-    percent = 0
-    draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
->>>>>>> 5b18cff154ecaf45454d34158081221b37cccd7c
 
 # line 1, text after symbol
 draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)

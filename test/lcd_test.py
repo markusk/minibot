@@ -40,17 +40,18 @@ draw = ImageDraw.Draw(image)
 minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
 maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 
-# voltage in percent
-percent = 0
-
 
 #
 # test voltages
 #
-currentVoltage = maxVoltage
+measuredVoltage = 12.4
+# percent
+convertedVoltage = measuredVoltage - minVoltage
+percent = convertedVoltage / (maxVoltage-minVoltage) * 100
+
 
 # the battery symbols
-batteryEmpty         = unichr(0xf244) # <25% = minVoltage
+batteryEmpty = unichr(0xf244) # <25% = minVoltage
 
 
 # battery level (white rectangle in empty battery symbol
@@ -75,9 +76,10 @@ while (1):
 	draw.rectangle((1, 3, rectLength, 11), outline=255, fill=255)
 
 	# line 1, text after symbol
-	draw.text((symbolWidth, 0), str(percent) + ' %', font=fontText, fill=255)
+	string = ("%.0f %%" % round(percent, 2))
+	draw.text((symbolWidth, 0), string, font=fontText, fill=255)
 	# line 2
-	draw.text((0, size), str(currentVoltage) + ' Volt', font=fontText, fill=255)
+	draw.text((0, size), str(measuredVoltage) + ' Volt', font=fontText, fill=255)
 
 	# Display image.
 	disp.image(image)

@@ -14,10 +14,10 @@ voltage = 0
 # use channel 0 on IC
 value = adc.read_adc(0, gain=GAIN)
 
-# 13.3265 Volt battery voltage resulted in 3.17 Volt on the ADC channel with my circuit (voltage divider).
-# This resulted in a ADC 'value' of 1582.
-# The conversion factor for the battery voltage is then: 1582 / 13.265 = 119.2612137
+# 13.435 Volt battery voltage resulted in 3.845(! wtf?) Volt on the ADC channel with my circuit (voltage divider).
+# This resulted in a ADC 'value' of 1896.
+# The conversion factor for the battery voltage is then: 1896 / 13.435 = 141,123930033494604
 #
-voltage = (value / 119.2612137)
+voltage = (value / 141,123930033494604)
 print("Value: %d" % value)
 print("Battery: %.1f Volt" % voltage)

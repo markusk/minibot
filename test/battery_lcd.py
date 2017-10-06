@@ -17,10 +17,7 @@ import Adafruit_ADS1x15
 
 # for OLED
 import Adafruit_SSD1306
-
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 # Raspberry Pi pin configuration:
 RST = 24
@@ -125,12 +122,21 @@ image = Image.new('1', (width, height))
 # Get drawing object to draw on image.
 draw = ImageDraw.Draw(image)
 
-# Load default font.
+# The fonts and sizes
 size = 15
-font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', size)
+symbolWidth = 28
+# text
+fontText = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', size)
+# https://fontawesome.io
+# install via sudo 'sudo apt install fonts-font-awesome'
+fontSymbol = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf', size)
 
 # read voltage
 from MCP3008 import MCP3008 # for battery reading
+
+# min and max voltages
+minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
+maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 
 # the AD converter object
 adc = Adafruit_ADS1x15.ADS1015()
@@ -159,14 +165,14 @@ while (buttonPressed == False):
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
     # Write Text and Voltage
-    draw.text((0, 0),    ("Time: %s" % timeString),  font=font, fill=255)
+    draw.text((0, 0),    ("Time: %s" % timeString),  font=fontText, fill=255)
 
     # show measured voltage or -- when no battery is connected
     # (it won't be at 0 Volt hopefully)
     if (voltage > 0):
-        draw.text((0, size), ("Battery: %.2fV" % voltage), font=font, fill=255)
+        draw.text((0, size), ("Battery: %.2fV" % voltage), font=fontText, fill=255)
     else:
-        draw.text((0, size), ("Battery: --"), font=font, fill=255)
+        draw.text((0, size), ("Battery: --"), font=fontText, fill=255)
 
     # Display image.
     disp.image(image)

@@ -160,6 +160,12 @@ while (buttonPressed == False):
     # print("Value: %d" % value)
     # print("Battery: %.1f Volt" % voltage)
 
+	# percent calculation
+	convertedVoltage = measuredVoltage - minVoltage
+	percent = convertedVoltage / (maxVoltage-minVoltage) * 100
+	if percent < 0:
+		percent = 0
+
     # get time
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 

@@ -169,15 +169,35 @@ while (buttonPressed == False):
     # get time
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
+"""
     # Write Text and Voltage
     draw.text((0, 0),    ("Time: %s" % timeString),  font=fontText, fill=255)
 
     # show measured voltage or -- when no battery is connected
     # (it won't be at 0 Volt hopefully)
-    if (voltage > 0):
-        draw.text((0, size), ("Battery: %.2fV" % voltage), font=fontText, fill=255)
+    if (measuredVoltage > 0):
+        draw.text((0, size), ("Battery: %.2fV" % measuredVoltage), font=fontText, fill=255)
     else:
         draw.text((0, size), ("Battery: --"), font=fontText, fill=255)
+"""
+	# Write lines of text to display
+	#
+	# line 1, battery symbol
+
+	# draw empty battery symbol
+	draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+	# add filling level as filled rectangle
+
+	# empty: draw.rectangle((1, 3,  1, 11), outline=255, fill=255)
+	# full:  draw.rectangle((1, 3, 16, 11), outline=255, fill=255)
+	draw.rectangle((1, 3, rectLength, 11), outline=255, fill=255)
+
+	# line 1, text after symbol
+	string = ("%.0f %%" % round(percent, 2))
+	draw.text((symbolWidth, 0), string, font=fontText, fill=255)
+	# line 2
+	draw.text((0, size), str("%.2f Volt" % measuredVoltage), font=fontText, fill=255)
+
 
     # Display image.
     disp.image(image)

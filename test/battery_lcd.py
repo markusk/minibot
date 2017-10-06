@@ -135,8 +135,9 @@ fontSymbol = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawes
 from MCP3008 import MCP3008 # for battery reading
 
 # min and max voltages
-minVoltage = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
-maxVoltage = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
+measuredVoltage = 0.0
+minVoltage      = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
+maxVoltage      = 3*4.2 # 3S LiPo-Battery with 3 x 4.2Volt = 12.6 Volt (full  battery)
 
 # the AD converter object
 adc = Adafruit_ADS1x15.ADS1015()
@@ -147,8 +148,6 @@ while (buttonPressed == False):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-    voltage = 0
-
     # read AD converter (battery voltage)
     # use channel 0 on IC
     value = adc.read_adc(0, gain=GAIN)
@@ -157,7 +156,7 @@ while (buttonPressed == False):
     # This resulted in a ADC 'value' of 1896.
     # The conversion factor for the battery voltage is then: 1896 / 13.435 = 141.123930033494604
     #
-    voltage = (value / 141.123930033494604)
+    measuredVoltage = (value / 141.123930033494604)
     # print("Value: %d" % value)
     # print("Battery: %.1f Volt" % voltage)
 

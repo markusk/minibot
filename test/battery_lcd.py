@@ -131,6 +131,13 @@ fontText = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
 # install via sudo 'sudo apt install fonts-font-awesome'
 fontSymbol = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf', size)
 
+# the battery symbols
+batteryEmpty = unichr(0xf244) # <25% = minVoltage
+
+# battery level (white rectangle in empty battery symbol
+maxRectLength = 16
+
+
 # read voltage
 from MCP3008 import MCP3008 # for battery reading
 
@@ -145,9 +152,6 @@ adc = Adafruit_ADS1x15.ADS1015()
 GAIN = 1
 
 while (buttonPressed == False):
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0,0,width,height), outline=0, fill=0)
-
     # read AD converter (battery voltage)
     # use channel 0 on IC
     value = adc.read_adc(0, gain=GAIN)
@@ -160,17 +164,21 @@ while (buttonPressed == False):
     # print("Value: %d" % value)
     # print("Battery: %.1f Volt" % voltage)
 
-	# percent calculation
-	convertedVoltage = measuredVoltage - minVoltage
-	percent = convertedVoltage / (maxVoltage-minVoltage) * 100
-	if percent < 0:
-		percent = 0
+    # percent calculation
+    convertedVoltage = measuredVoltage - minVoltage
+    percent = convertedVoltage / (maxVoltage-minVoltage) * 100
+    if percent < 0:
+        percent = 0
+    # rectangle in battery symbol
+    rectLength = round(percent * maxRectLength / 100, 0)
+
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0,0,width,height), outline=0, fill=0)
 
     # get time
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
-"""
-    # Write Text and Voltage
+    """ # Write Text and Voltage
     draw.text((0, 0),    ("Time: %s" % timeString),  font=fontText, fill=255)
 
     # show measured voltage or -- when no battery is connected
@@ -179,24 +187,25 @@ while (buttonPressed == False):
         draw.text((0, size), ("Battery: %.2fV" % measuredVoltage), font=fontText, fill=255)
     else:
         draw.text((0, size), ("Battery: --"), font=fontText, fill=255)
-"""
-	# Write lines of text to display
-	#
-	# line 1, battery symbol
+    """
 
-	# draw empty battery symbol
-	draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
-	# add filling level as filled rectangle
+    # Write lines of text to display
+    #
+    # line 1, battery symbol
 
-	# empty: draw.rectangle((1, 3,  1, 11), outline=255, fill=255)
-	# full:  draw.rectangle((1, 3, 16, 11), outline=255, fill=255)
-	draw.rectangle((1, 3, rectLength, 11), outline=255, fill=255)
+    # draw empty battery symbol
+    draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
+    # add filling level as filled rectangle
 
-	# line 1, text after symbol
-	string = ("%.0f %%" % round(percent, 2))
-	draw.text((symbolWidth, 0), string, font=fontText, fill=255)
-	# line 2
-	draw.text((0, size), str("%.2f Volt" % measuredVoltage), font=fontText, fill=255)
+    # empty: draw.rectangle((1, 3,  1, 11), outline=255, fill=255)
+    # full:  draw.rectangle((1, 3, 16, 11), outline=255, fill=255)
+    draw.rectangle((1, 3, rectLength, 11), outline=255, fill=255)
+
+    # line 1, text after symbol
+    string = ("%.0f %%" % round(percent, 2))
+    draw.text((symbolWidth, 0), string, font=fontText, fill=255)
+    # line 2
+    draw.text((0, size), str("%.2f Volt" % measuredVoltage), font=fontText, fill=255)
 
 
     # Display image.

@@ -1,17 +1,17 @@
 # Test-Files
 Several programs for my little robot "minibot"
 
-## battery_lcd.py
-Shows the battery voltage (on the OLED).
+## power_monitor.py
+Observes and shows the battery voltage (on the OLED).
 
 ## battery.py
-Shows the battery voltage (on the shell).
+Shows the battery voltage (in the shell).
 
 ## cpu_temp.py
-Shows the CPU temperature of the Raspberry Pi.
+Shows the CPU temperature of the Raspberry Pi in the shell.
 
 ## lcd_test.py
-Sends a default text to the OLED.
+Sends a default/text text to the OLED.
 
 ## lcd_text.py
 Sends text from the command line to the OLED. Usage:  

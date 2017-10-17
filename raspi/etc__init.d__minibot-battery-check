@@ -12,29 +12,25 @@
 #Switch case fuer den ersten Parameter
 case "$1" in
     start)
-	#Aktion wenn start uebergeben wird
-	# touch /home/pi/catkin_ws/minibot-battery-check_START
+        #Aktion wenn start uebergeben wird
         echo "Starting minibot power monitor"
         sudo python /home/pi/minibot/test/power_monitor.py &
         ;;
 
     stop)
-	#Aktion wenn stop uebergeben wird
-        echo "Stopping minibot-battery-check"
-	# touch /home/pi/catkin_ws/minibot-battery-check_STOP
+        #Aktion wenn stop uebergeben wird
+        echo "Stopping minibot power monitor"
         ;;
 
     restart)
-	#Aktion wenn restart uebergeben wird
-        echo "Restarting minibot-battery-check"
-	# touch /home/pi/catkin_ws/minibot-battery-check_RESTART
+        #Aktion wenn restart uebergeben wird
+        echo "Restarting minibot power monitor"
         ;;
 
     *)
-	#Standard Aktion wenn start|stop|restart nicht passen
-	echo "(start|stop|restart)"
-	# touch /home/pi/catkin_ws/minibot-battery-check_REST
-	;;
+      #Standard-Aktion wenn start|stop|restart nicht passen
+      echo "(start|stop|restart)"
+      ;;
 esac
 
 exit 0

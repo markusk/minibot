@@ -135,7 +135,6 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 
 # load my favorite TTF font
 fontText   = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
-fontSymbol = ImageFont.truetype('Digital Camera Symbols.ttf', 36)
 
 # Display image.
 disp.image(image)
@@ -166,9 +165,6 @@ while (True):
 
     # clear LCD
     draw.rectangle((0,0, width, height), outline=0, fill=0)
-    # LCD battery symbol
-    draw.text(( 0, 0), "d", font=fontSymbol, fill=255)
-    # draw.text((55, 4), "11.0 V", font=fontText, fill=255)
     # LCD voltage
     draw.text((55, 4), str("%.1f V" % voltage), font=fontText, fill=255)
     # go

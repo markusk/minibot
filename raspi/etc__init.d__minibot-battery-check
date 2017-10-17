@@ -6,16 +6,16 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Starts & Stops the minibot battery stataus
-# Description:       Displaying the battery status on the OLED display.
+# Description:       Observing and displaying the battery status on the OLED.
 ### END INIT INFO
 
 #Switch case fuer den ersten Parameter
 case "$1" in
     start)
 	#Aktion wenn start uebergeben wird
-        echo "Starting minibot-battery-check"
 	# touch /home/pi/catkin_ws/minibot-battery-check_START
-	sudo python /home/pi/minibot/test/battery_lcd.py &
+        echo "Starting minibot power monitor"
+        sudo python /home/pi/minibot/test/power_monitor.py &
         ;;
 
     stop)

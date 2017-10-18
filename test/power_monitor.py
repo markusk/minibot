@@ -168,7 +168,8 @@ GAIN = 1
 # ----------------------
 # the main lopp
 # ----------------------
-while (buttonPressed == False):
+#while (buttonPressed == False):
+while (1):
     # read AD converter (battery voltage)
     # use channel 0 on IC
     value = adc.read_adc(0, gain=GAIN)
@@ -229,7 +230,7 @@ while (buttonPressed == False):
     disp.image(image)
     disp.display()
 
-    # check button here as well
+"""    # check button here as well
     if GPIO.input(switchPin) == GPIO.LOW:
     	# LED ON (low active!)
     	GPIO.output(ledPin, GPIO.LOW)
@@ -237,7 +238,7 @@ while (buttonPressed == False):
         buttonPressed = True
 	# call the piushbutton event handler
         my_callback()
-
+"""
     # wait 1 second
     time.sleep(1)
 

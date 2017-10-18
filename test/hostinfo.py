@@ -6,15 +6,13 @@
 import socket
 import subprocess
 
-""" import fcntl
-import struct """
 
 # get hostname
 hostname = socket.gethostname()
 
-# get IP
+# get IP via shell
 ip = subprocess.check_output(['hostname', '-I'])
-# erstes leerzeichen finden und dort abschneiden
+# find first space and cut string at this index
 ip4 = ip[:ip.index(" ")]
 
 # show it

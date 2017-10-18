@@ -5,9 +5,14 @@
 This code reads the battery voltage via Adafruits ADS1015 AD converter and shows
 the values on an OLED via SSD1306 with a nice graphical battery level symbol.
 
+It also shows the hostname and the IP.
+
 It also checks a pushbotton state, connected to #23 (pin 16 on Raspberry Pi 3)
 via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 """
+
+# wait time in seconds between different display information
+waitTime = 1.5
 
 # for time and sleep
 import time
@@ -240,8 +245,8 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait 1 second
-    time.sleep(1)
+    # wait some seconds
+    time.sleep(waitTime)
 
 
     # ------------------
@@ -272,8 +277,8 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait 1 second
-    time.sleep(1)
+    # wait some seconds
+    time.sleep(waitTime)
 
 
 # wtf?

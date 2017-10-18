@@ -51,7 +51,7 @@ def sig_handler(_signo, _stack_frame):
     # clear display
     disp.clear()
     disp.display()
-    print "power_monitor terminated clean."
+    print "powermonitor terminated clean."
     sys.exit(0)
 
 # signals to be handled
@@ -306,7 +306,7 @@ while (1):
     # line 2, temp symbol
     draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)
     # line 2, text after symbol
-    draw.text((symbolWidth, size), str(getCpuTemperature()) + " " + u'\N{DEGREE SIGN}'  + "C", font=fontText, fill=255)
+    draw.text((symbolWidth, size), str(round(getCpuTemperature(), 1)) + " " + u'\N{DEGREE SIGN}'  + "C", font=fontText, fill=255)
 
     # Display image.
     disp.image(image)

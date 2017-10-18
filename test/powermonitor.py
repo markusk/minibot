@@ -6,9 +6,9 @@
 This code reads the battery voltage via Adafruits ADS1015 AD converter and shows
 the values on an OLED via SSD1306 with a nice graphical battery level symbol.
 
-It also shows the hostname and the IP.
+It also shows the hostname, the IP and the time and CPU temoerature.
 
-It also checks a pushbotton state, connected to #23 (pin 16 on Raspberry Pi 3)
+It also checks a pushbotton state, connected to #17 (pin 11 on Raspberry Pi 3)
 via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 """
 

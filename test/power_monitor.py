@@ -158,8 +158,21 @@ adc = Adafruit_ADS1x15.ADS1015()
 # Gain 1 means, max a value of +4.096 Volt (+4,096 Volt in Europe) on the ADC channel, resulting in a 'value' of +2047.
 GAIN = 1
 
+
+# ----------------------
+# network stuff
+# ----------------------
+# for getting the hostname and IP of the underlying system
+import socket
+import subprocess
+
+# the network symbol
+networkSymbol = unichr(0xf1eb) # fa-wifi
+
+
+
 # let's go
-print('ready when you are.')
+print('ready.')
 
 
 # --------------
@@ -226,6 +239,34 @@ while (1):
     # Display image.
     disp.image(image)
     disp.display()
+
+    # wait 1 second
+    time.sleep(1)
+
+
+    # ------------------
+    # Network data
+    # ------------------
+
+    # clear OLED
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0,0,width,height), outline=0, fill=0)
+
+    # get hostname
+    hostname = socket.gethostname()
+    # get IP via shell
+    ip = subprocess.check_output(['hostname', '-I'])
+    # find first space and cut string at this index
+    ip4 = ip[:ip.index(" ")]
+
+    # Write lines of text to display
+    # line 1, network symbol
+    draw.text((0, 0), networkSymbol, font=fontSymbol, fill=255)
+
+    # line 1, hostname, after symbol
+    draw.text((symbolWidth, 0), hostname, font=fontText, fill=255)
+    # line 2, IP
+    draw.text((0, size), ip4, font=fontText, fill=255)
 
     # wait 1 second
     time.sleep(1)

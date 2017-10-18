@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # coding=utf-8
 
+"""
+Playing around with the OLED.
+
+Currently implemented:
+- a graphical battery symbol with voltage and percent
+"""
+
 import time
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306

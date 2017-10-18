@@ -14,7 +14,7 @@ case "$1" in
     start)
         #Aktion wenn start uebergeben wird
         echo "Starting minibot power monitor"
-        sudo python /home/pi/minibot/test/power_monitor.py &
+        sudo python /home/pi/minibot/test/powermonitor.py &
         ;;
 
     stop)

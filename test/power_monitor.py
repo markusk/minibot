@@ -181,9 +181,9 @@ networkSymbol = unichr(0xf1eb) # fa-wifi
 import os
 
 # the time symbol
-timeSymbol = unichr(0xf017) #  fa-clock-o
+timeSymbol = unichr(0xf017) # fa-clock-o
 # the temperature symbol
-tempSymbol = unichr(0xf2c9) # fa-thermometer-half
+tempSymbol = unichr(0xf2db) # fa-microchip
 
 def getCpuTemperature():
 	tempFile = open( "/sys/class/thermal/thermal_zone0/temp" )

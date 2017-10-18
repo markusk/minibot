@@ -3,7 +3,7 @@
 
 """
 This code reads the battery voltage via Adafruits ADS1015 AD converter and shows
-the values on an OLED via SSD1306.
+the values on an OLED via SSD1306 with a nice graphical battery level symbol.
 
 It also checks a pushbotton state, connected to #23 (pin 16 on Raspberry Pi 3)
 via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
@@ -91,6 +91,9 @@ def my_callback(answer):
     disp.clear()
     disp.display()
     # show some shutdown text on OLED
+
+    # send message to all users
+    call('wall +++ Shutting down Pi in 5 seconds +++', shell=True)
 
     # shutdown computer!!
     print '++++++++++++++++++++++++++++++++++'

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
+# -*- coding: utf-8 -*-
 
 """
 This code reads the battery voltage via Adafruits ADS1015 AD converter and shows
@@ -183,7 +184,7 @@ import os
 # the time symbol
 timeSymbol = unichr(0xf017) # fa-clock-o
 # the temperature symbol
-tempSymbol = unichr(0xf2db) # fa-microchip
+tempSymbol = unichr(0xf21e) # fa-heartbeat  0xf2db
 
 def getCpuTemperature():
 	tempFile = open( "/sys/class/thermal/thermal_zone0/temp" )
@@ -220,7 +221,7 @@ while (1):
     # line 2, temp symbol
     draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)
     # line 2, text after symbol
-    draw.text((symbolWidth, size), str(getCpuTemperature()), font=fontText, fill=255)
+    draw.text((symbolWidth, size), str(getCpuTemperature()) + " " + u'\N{DEGREE SIGN}'  + "C", font=fontText, fill=255)
 
     # Display image.
     disp.image(image)

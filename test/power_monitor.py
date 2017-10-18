@@ -230,15 +230,15 @@ while (1):
     disp.image(image)
     disp.display()
 
-"""    # check button here as well
+    """    # check button here as well
     if GPIO.input(switchPin) == GPIO.LOW:
-    	# LED ON (low active!)
-    	GPIO.output(ledPin, GPIO.LOW)
-    	print('Button pressed (in while loop)!')
+        # LED ON (low active!)
+        GPIO.output(ledPin, GPIO.LOW)
+        print('Button pressed (in while loop)!')
         buttonPressed = True
-	# call the piushbutton event handler
+        # call the piushbutton event handler
         my_callback()
-"""
+    """
     # wait 1 second
     time.sleep(1)
 

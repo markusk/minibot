@@ -13,7 +13,7 @@ via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 """
 
 # wait time in seconds between different display information
-waitTime = 3
+waitTime = 2
 
 # for time and sleep
 import time
@@ -264,11 +264,6 @@ while (1):
     # rectangle in battery symbol
     rectLength = round(percent * maxRectLength / 100, 0)
 
-    # get time
-    timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
-    # cut timestring to hh:mm
-    timeString= timeString[:4]
-
     # Write lines of text to display
     # line 1, empty battery symbol
     draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
@@ -301,7 +296,7 @@ while (1):
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
     # get time
-    timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
+    timeString = time.strftime("%H:%M", time.localtime(time.time()) )
 
     # Write lines of text to display
     # line 1, time symbol

@@ -251,6 +251,8 @@ while (1):
     # The conversion factor for the battery voltage is then: 1896 / 13.435 = 141.123930033494604
     #
     measuredVoltage = (value / 141.123930033494604)
+    if measuredVoltage < 0:
+        measuredVoltage = 0
     # print("Value: %d" % value)
     # print("Battery: %.1f Volt" % voltage)
 

@@ -175,6 +175,23 @@ import subprocess
 networkSymbol = unichr(0xf1eb) # fa-wifi
 
 
+# -------------------------------
+# CPU temperature and time stuff
+# -------------------------------
+import os
+
+# the time symbol
+timeSymbol = unichr(0xf017) #  fa-clock-o
+# the temperature symbol
+tempSymbol = unichr(0xf2c9) # fa-thermometer-half
+
+def getCpuTemperature():
+	tempFile = open( "/sys/class/thermal/thermal_zone0/temp" )
+	cpu_temp = tempFile.read()
+	tempFile.close()
+	return float(cpu_temp)/1000
+
+
 
 # let's go
 print('ready.')
@@ -185,7 +202,36 @@ print('ready.')
 # --------------
 while (1):
     # --------------------------
-    # Time and Battery display
+    # Time and CPU temp display
+    # -------------------------
+
+    # clear OLED
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0,0,width,height), outline=0, fill=0)
+
+    # get time
+    timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
+
+    # Write lines of text to display
+    # line 1, time symbol
+    draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
+    # line 1, text after symbol
+    draw.text((symbolWidth, 0), timeString, font=fontText, fill=255)
+    # line 2, temp symbol
+    draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)
+    # line 2, text after symbol
+    draw.text((symbolWidth, size), str(getCpuTemperature()), font=fontText, fill=255)
+
+    # Display image.
+    disp.image(image)
+    disp.display()
+
+    # wait some seconds
+    time.sleep(waitTime)
+
+
+    # --------------------------
+    # Battery display
     # -------------------------
 
     # clear OLED

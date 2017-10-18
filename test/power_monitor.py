@@ -262,17 +262,6 @@ while (1):
     # get time
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
-    """ # Write Text and Voltage
-    draw.text((0, 0),    ("Time: %s" % timeString),  font=fontText, fill=255)
-
-    # show measured voltage or -- when no battery is connected
-    # (it won't be at 0 Volt hopefully)
-    if (measuredVoltage > 0):
-        draw.text((0, size), ("Battery: %.2fV" % measuredVoltage), font=fontText, fill=255)
-    else:
-        draw.text((0, size), ("Battery: --"), font=fontText, fill=255)
-    """
-
     # Write lines of text to display
     # line 1, empty battery symbol
     draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)

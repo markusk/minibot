@@ -12,7 +12,7 @@ via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 """
 
 # wait time in seconds between different display information
-waitTime = 1.5
+waitTime = 3
 
 # for time and sleep
 import time

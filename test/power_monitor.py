@@ -111,6 +111,9 @@ print('registering event handler...')
 GPIO.add_event_detect(switchPin, GPIO.FALLING, callback=my_callback, bouncetime=200)
 
 
+# ----------------------
+# OLED stuff
+# ----------------------
 
 # Clear display.
 disp.clear()
@@ -134,6 +137,11 @@ fontText = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
 # install via sudo 'sudo apt install fonts-font-awesome'
 fontSymbol = ImageFont.truetype('/usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf', size)
 
+
+# ----------------------
+# Voltage stuff
+# ----------------------
+
 # the battery symbols
 batteryEmpty = unichr(0xf244) # <25% = minVoltage
 
@@ -154,6 +162,12 @@ adc = Adafruit_ADS1x15.ADS1015()
 # Gain 1 means, max a value of +4.096 Volt (+4,096 Volt in Europe) on the ADC channel, resulting in a 'value' of +2047.
 GAIN = 1
 
+
+
+
+# ----------------------
+# the main lopp
+# ----------------------
 while (buttonPressed == False):
     # read AD converter (battery voltage)
     # use channel 0 on IC

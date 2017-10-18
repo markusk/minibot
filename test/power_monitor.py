@@ -45,7 +45,7 @@ def sig_handler(_signo, _stack_frame):
     # clear display
     disp.clear()
     disp.display()
-    print "battery_lcd terminated clean."
+    print "power_monitor terminated clean."
     sys.exit(0)
 
 # signals to be handled
@@ -95,10 +95,6 @@ def my_callback(answer):
     # send message to all users
     call('wall +++ Shutting down Pi in 5 seconds +++', shell=True)
 
-    # shutdown computer!!
-    print '++++++++++++++++++++++++++++++++++'
-    print '+++ Shutting down in 5 seconds +++'
-    print '++++++++++++++++++++++++++++++++++'
     # delay
     time.sleep(5)
 
@@ -162,13 +158,13 @@ adc = Adafruit_ADS1x15.ADS1015()
 # Gain 1 means, max a value of +4.096 Volt (+4,096 Volt in Europe) on the ADC channel, resulting in a 'value' of +2047.
 GAIN = 1
 
-
+# let's go
+print('ready when you are.')
 
 
 # ----------------------
 # the main lopp
 # ----------------------
-#while (buttonPressed == False):
 while (1):
     # read AD converter (battery voltage)
     # use channel 0 on IC
@@ -230,15 +226,6 @@ while (1):
     disp.image(image)
     disp.display()
 
-    """    # check button here as well
-    if GPIO.input(switchPin) == GPIO.LOW:
-        # LED ON (low active!)
-        GPIO.output(ledPin, GPIO.LOW)
-        print('Button pressed (in while loop)!')
-        buttonPressed = True
-        # call the piushbutton event handler
-        my_callback()
-    """
     # wait 1 second
     time.sleep(1)
 

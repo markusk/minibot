@@ -268,6 +268,10 @@ while (1):
     # line 2, IP
     draw.text((0, size), ip4, font=fontText, fill=255)
 
+    # Display image.
+    disp.image(image)
+    disp.display()
+
     # wait 1 second
     time.sleep(1)
 

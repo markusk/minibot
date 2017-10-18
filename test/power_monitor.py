@@ -202,26 +202,29 @@ print('ready.')
 # the main lopp
 # --------------
 while (1):
-    # --------------------------
-    # Time and CPU temp display
-    # -------------------------
+    # ------------------
+    # Network data
+    # ------------------
 
     # clear OLED
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-    # get time
-    timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
+    # get hostname
+    hostname = socket.gethostname()
+    # get IP via shell
+    ip = subprocess.check_output(['hostname', '-I'])
+    # find first space and cut string at this index
+    ip4 = ip[:ip.index(" ")]
 
     # Write lines of text to display
-    # line 1, time symbol
-    draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
-    # line 1, text after symbol
-    draw.text((symbolWidth, 0), timeString, font=fontText, fill=255)
-    # line 2, temp symbol
-    draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)
-    # line 2, text after symbol
-    draw.text((symbolWidth, size), str(getCpuTemperature()) + " " + u'\N{DEGREE SIGN}'  + "C", font=fontText, fill=255)
+    # line 1, network symbol
+    draw.text((0, 0), networkSymbol, font=fontSymbol, fill=255)
+
+    # line 1, hostname, after symbol
+    draw.text((symbolWidth, 0), hostname, font=fontText, fill=255)
+    # line 2, IP
+    draw.text((0, size), ip4, font=fontText, fill=255)
 
     # Display image.
     disp.image(image)
@@ -285,29 +288,26 @@ while (1):
     time.sleep(waitTime)
 
 
-    # ------------------
-    # Network data
-    # ------------------
+    # --------------------------
+    # Time and CPU temp display
+    # -------------------------
 
     # clear OLED
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-    # get hostname
-    hostname = socket.gethostname()
-    # get IP via shell
-    ip = subprocess.check_output(['hostname', '-I'])
-    # find first space and cut string at this index
-    ip4 = ip[:ip.index(" ")]
+    # get time
+    timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
     # Write lines of text to display
-    # line 1, network symbol
-    draw.text((0, 0), networkSymbol, font=fontSymbol, fill=255)
-
-    # line 1, hostname, after symbol
-    draw.text((symbolWidth, 0), hostname, font=fontText, fill=255)
-    # line 2, IP
-    draw.text((0, size), ip4, font=fontText, fill=255)
+    # line 1, time symbol
+    draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
+    # line 1, text after symbol
+    draw.text((symbolWidth, 0), timeString, font=fontText, fill=255)
+    # line 2, temp symbol
+    draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)
+    # line 2, text after symbol
+    draw.text((symbolWidth, size), str(getCpuTemperature()) + " " + u'\N{DEGREE SIGN}'  + "C", font=fontText, fill=255)
 
     # Display image.
     disp.image(image)

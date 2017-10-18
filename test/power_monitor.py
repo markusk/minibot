@@ -162,10 +162,18 @@ GAIN = 1
 print('ready when you are.')
 
 
-# ----------------------
+# --------------
 # the main lopp
-# ----------------------
+# --------------
 while (1):
+    # --------------------------
+    # Time and Battery display
+    # -------------------------
+
+    # clear OLED
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0,0,width,height), outline=0, fill=0)
+
     # read AD converter (battery voltage)
     # use channel 0 on IC
     value = adc.read_adc(0, gain=GAIN)
@@ -186,9 +194,6 @@ while (1):
     # rectangle in battery symbol
     rectLength = round(percent * maxRectLength / 100, 0)
 
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0,0,width,height), outline=0, fill=0)
-
     # get time
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
 
@@ -204,10 +209,7 @@ while (1):
     """
 
     # Write lines of text to display
-    #
-    # line 1, battery symbol
-
-    # draw empty battery symbol
+    # line 1, empty battery symbol
     draw.text((0, 0), batteryEmpty, font=fontSymbol, fill=255)
     # add filling level as filled rectangle
 
@@ -220,7 +222,6 @@ while (1):
     draw.text((symbolWidth, 0), string, font=fontText, fill=255)
     # line 2
     draw.text((0, size), str("%.2f Volt" % measuredVoltage), font=fontText, fill=255)
-
 
     # Display image.
     disp.image(image)

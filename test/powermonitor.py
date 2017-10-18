@@ -150,10 +150,6 @@ batteryEmpty = unichr(0xf244) # <25% = minVoltage
 # battery level (white rectangle in empty battery symbol
 maxRectLength = 16
 
-
-# read voltage
-from MCP3008 import MCP3008 # for battery reading
-
 # min and max voltages
 measuredVoltage = 0.0
 minVoltage      = 3*3.3 # 3S LiPo-Battery with 3 x 3.3Volt =  9.9 Volt (empty battery)
@@ -214,8 +210,12 @@ while (1):
     hostname = socket.gethostname()
     # get IP via shell
     ip = subprocess.check_output(['hostname', '-I'])
-    # find first space and cut string at this index
-    ip4 = ip[:ip.index(" ")]
+    # do we have an IP?
+    if len(ip) >= 7:
+        # find first space and cut string at this index
+        ip4string = ip[:ip.index(" ")]
+    else:
+        ip4string = "-"
 
     # Write lines of text to display
     # line 1, network symbol
@@ -224,7 +224,7 @@ while (1):
     # line 1, hostname, after symbol
     draw.text((symbolWidth, 0), hostname, font=fontText, fill=255)
     # line 2, IP
-    draw.text((0, size), ip4, font=fontText, fill=255)
+    draw.text((0, size), ip4string, font=fontText, fill=255)
 
     # Display image.
     disp.image(image)
@@ -266,6 +266,8 @@ while (1):
 
     # get time
     timeString = time.strftime("%H:%M:%S", time.localtime(time.time()) )
+    # cut timestring to hh:mm
+    timeString= timeString[:4]
 
     # Write lines of text to display
     # line 1, empty battery symbol

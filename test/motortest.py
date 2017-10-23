@@ -38,6 +38,9 @@ myMotor2.run(Adafruit_MotorHAT.RELEASE);
 startSpeed = 100
 maxSpeed   = 255 # max is 255!
 
+# test switch
+fullSpeedDuration = 3 # default 0
+
 myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)
 
@@ -83,8 +86,8 @@ while (True):
         time.sleep(0.01)
 
     # full speed for n seconds
-    # print("+++ full speed for n seconds +++")
-    # time.sleep(3)
+    print("+++ full speed for " + str(fullSpeedDuration) + " seconds +++")
+    time.sleep(fullSpeedDuration)
 
     print("\tSlow down...")
     for i in range(maxSpeed, startSpeed, -1):

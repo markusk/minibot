@@ -52,6 +52,17 @@ def exitMinibot():
 ##
 atexit.register(exitMinibot)
 
+#
+# Cowntdown
+#
+print("Starting in 3...")
+time.sleep(1)
+print("Starting in 2...")
+time.sleep(1)
+print("Starting in 1...")
+time.sleep(1)
+print("GO!\n")
+
 
 ######
 ###### forever - or until ctrl+c  :)

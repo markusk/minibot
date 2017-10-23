@@ -75,6 +75,9 @@ while (True):
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
+    # wait one second
+    time.sleep(1)
+
     print("Backward! ")
     myMotor1.run(Adafruit_MotorHAT.BACKWARD)
     myMotor2.run(Adafruit_MotorHAT.BACKWARD)
@@ -94,3 +97,6 @@ while (True):
     print("Release")
     myMotor1.run(Adafruit_MotorHAT.RELEASE)
     myMotor2.run(Adafruit_MotorHAT.RELEASE)
+
+    # wait one second
+    time.sleep(1)

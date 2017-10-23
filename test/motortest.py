@@ -82,6 +82,10 @@ while (True):
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
+    # full speed for n seconds
+    # print("+++ full speed for n seconds +++")
+    # time.sleep(3)
+
     print("\tSlow down...")
     for i in range(maxSpeed, startSpeed, -1):
         myMotor1.setSpeed(i)

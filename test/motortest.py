@@ -36,7 +36,7 @@ myMotor2.run(Adafruit_MotorHAT.RELEASE);
 
 # set the speed (from 0 (off) to 255 (max speed))
 startSpeed = 100
-maxSpeed = 200 # max is 255!
+maxSpeed   = 255 # max is 255!
 
 myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)

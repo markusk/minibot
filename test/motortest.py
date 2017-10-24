@@ -36,6 +36,11 @@ myMotor2.run(Adafruit_MotorHAT.RELEASE);
 
 # set the speed (from 0 (off) to 255 (max speed))
 startSpeed = 100
+maxSpeed   = 255 # max is 255!
+
+# test switch
+fullSpeedDuration = 3 # default 0
+
 myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)
 
@@ -52,6 +57,17 @@ def exitMinibot():
 ##
 atexit.register(exitMinibot)
 
+#
+# Cowntdown
+#
+print("Starting in 3...")
+time.sleep(1)
+print("Starting in 2...")
+time.sleep(1)
+print("Starting in 1...")
+time.sleep(1)
+print("GO!\n")
+
 
 ######
 ###### forever - or until ctrl+c  :)
@@ -64,29 +80,36 @@ while (True):
     myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
     print("\tSpeed up...")
-    for i in range(startSpeed, 255):
+    for i in range(startSpeed, maxSpeed):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
+    # full speed for n seconds
+    print("+++ full speed for " + str(fullSpeedDuration) + " seconds +++")
+    time.sleep(fullSpeedDuration)
+
     print("\tSlow down...")
-    for i in range(255, startSpeed, -1):
+    for i in range(maxSpeed, startSpeed, -1):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
+
+    # wait one second
+    time.sleep(1)
 
     print("Backward! ")
     myMotor1.run(Adafruit_MotorHAT.BACKWARD)
     myMotor2.run(Adafruit_MotorHAT.BACKWARD)
 
     print("\tSpeed up...")
-    for i in range(startSpeed, 255):
+    for i in range(startSpeed, maxSpeed):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
     print("\tSlow down...")
-    for i in range(255, startSpeed, -1):
+    for i in range(maxSpeed, startSpeed, -1):
         myMotor1.setSpeed(i)
         myMotor2.setSpeed(i)
         time.sleep(0.01)
@@ -94,3 +117,6 @@ while (True):
     print("Release")
     myMotor1.run(Adafruit_MotorHAT.RELEASE)
     myMotor2.run(Adafruit_MotorHAT.RELEASE)
+
+    # wait one second
+    time.sleep(1)

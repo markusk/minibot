@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP Adafruit_ADS1015
+D Connector 01x10 - Adafruit ADS1015
+K ADS1015
+$ENDCMP
+#
+#End Doc Library

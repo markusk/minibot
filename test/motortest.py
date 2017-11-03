@@ -9,15 +9,6 @@ import atexit
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 
-###### LCD stuff
-import Adafruit_GPIO.SPI as SPI
-import Adafruit_SSD1306
-
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-
-
 # create a default motor object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT(addr=0x60)
 

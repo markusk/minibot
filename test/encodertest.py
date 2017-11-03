@@ -27,11 +27,6 @@ print('setup...')
 GPIO.setup(leftEncoderGPIO,  GPIO.IN)
 GPIO.setup(rightEncoderGPIO, GPIO.IN)
 
-# LED OFF (low active!)
-GPIO.output(ledPin, GPIO.HIGH)
-
-# checker
-buttonPressed = False
 
 # encoder pulse detection by interrupt
 def leftEncoderCallback(answer):
@@ -105,8 +100,8 @@ while (True):
     ### drive
     # drive
     print("Forward! ")
-"""
-    myMotor1.run(Adafruit_MotorHAT.FORWARD)
+
+    """ myMotor1.run(Adafruit_MotorHAT.FORWARD)
     myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
     print("\tSpeed up...")
@@ -147,6 +142,7 @@ while (True):
     print("Release")
     myMotor1.run(Adafruit_MotorHAT.RELEASE)
     myMotor2.run(Adafruit_MotorHAT.RELEASE)
-"""
+    """
+
     # wait one second
     time.sleep(1)

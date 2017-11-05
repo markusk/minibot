@@ -146,5 +146,5 @@ while (True):
     myMotor2.run(Adafruit_MotorHAT.RELEASE)
     """
 
-    # wait one second
-    time.sleep(1)
+    # wait some time
+    time.sleep(0.25)

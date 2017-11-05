@@ -10,7 +10,7 @@ from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 
 # ----------------------
-# GPIO/pushbotton stuff
+# Encoder stuff
 # ----------------------
 import RPi.GPIO as GPIO
 
@@ -36,7 +36,7 @@ def rightEncoderCallback(answer):
     print 'Right Encoder.'
 
 
-# add button pressed event detector
+# add GPIO event detectors
 print('registering event handlers...')
 GPIO.add_event_detect(leftEncoderGPIO,  GPIO.RISING, callback=leftEncoderCallback)
 GPIO.add_event_detect(rightEncoderGPIO, GPIO.RISING, callback=leftEncoderCallback)
@@ -69,17 +69,14 @@ myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)
 
 
-##
+## -----------------------
 ## what to do on exit pgm
-##
+## -----------------------
 def exitMinibot():
     turnOffMotors();
 
-
-##
-## what to do at program exit
-##
 atexit.register(exitMinibot)
+
 
 #
 # Cowntdown

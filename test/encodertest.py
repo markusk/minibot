@@ -35,7 +35,7 @@ def rightEncoderCallback(answer):
 # add GPIO event detectors
 print('registering event handlers...')
 GPIO.add_event_detect(leftEncoderGPIO,  GPIO.RISING, callback=leftEncoderCallback)
-GPIO.add_event_detect(rightEncoderGPIO, GPIO.RISING, callback=leftEncoderCallback)
+GPIO.add_event_detect(rightEncoderGPIO, GPIO.RISING, callback=rightEncoderCallback)
 
 
 # ----------------------

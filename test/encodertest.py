@@ -5,10 +5,6 @@ import time
 import atexit
 
 
-###### motor stuff
-from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
-
-
 # ----------------------
 # Encoder stuff
 # ----------------------
@@ -42,6 +38,11 @@ GPIO.add_event_detect(leftEncoderGPIO,  GPIO.RISING, callback=leftEncoderCallbac
 GPIO.add_event_detect(rightEncoderGPIO, GPIO.RISING, callback=leftEncoderCallback)
 
 
+# ----------------------
+# Motor stuff
+# ----------------------
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
+
 # create a default motor object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT(addr=0x60)
 
@@ -74,6 +75,10 @@ myMotor2.setSpeed(startSpeed)
 ## -----------------------
 def exitMinibot():
     turnOffMotors();
+    ## GPIO cleanup
+    GPIO.remove_event_detect(leftEncoderGPIO)
+    GPIO.remove_event_detect(rightEncoderGPIO)
+    GPIO.cleanup()
 
 atexit.register(exitMinibot)
 

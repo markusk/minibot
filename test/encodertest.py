@@ -23,7 +23,6 @@ print('setup...')
 GPIO.setup(leftEncoderGPIO,  GPIO.IN)
 GPIO.setup(rightEncoderGPIO, GPIO.IN)
 
-
 # encoder pulse detection by interrupt
 def leftEncoderCallback(answer):
     print 'Left Encoder.'
@@ -31,11 +30,18 @@ def leftEncoderCallback(answer):
 def rightEncoderCallback(answer):
     print 'Right Encoder.'
 
-
 # add GPIO event detectors
 print('registering event handlers...')
-GPIO.add_event_detect(leftEncoderGPIO,  GPIO.FALLING, callback=leftEncoderCallback)
-GPIO.add_event_detect(rightEncoderGPIO, GPIO.FALLING, callback=rightEncoderCallback)
+
+# enabling event handlers (if needed only)
+def enableEncoderTracking():
+    GPIO.add_event_detect(leftEncoderGPIO,  GPIO.FALLING, callback=leftEncoderCallback)
+    GPIO.add_event_detect(rightEncoderGPIO, GPIO.FALLING, callback=rightEncoderCallback)
+
+# disabling event handlers
+def disableEncoderTracking():
+    GPIO.remove_event_detect(leftEncoderGPIO)
+    GPIO.remove_event_detect(rightEncoderGPIO)
 
 
 # ----------------------
@@ -64,7 +70,7 @@ startSpeed = 100
 maxSpeed   = 255 # max is 255!
 
 # test switch
-fullSpeedDuration = 3 # default 0
+fullSpeedDuration = 0 # default 0
 
 myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)
@@ -101,7 +107,9 @@ print("GO!\n")
 while (True):
     ### drive
     # drive
-    """ print("Forward! ")
+    print("Forward! ")
+    # enable Odometrie
+    enableEncoderTracking()
 
     myMotor1.run(Adafruit_MotorHAT.FORWARD)
     myMotor2.run(Adafruit_MotorHAT.FORWARD)
@@ -122,10 +130,13 @@ while (True):
         myMotor2.setSpeed(i)
         time.sleep(0.01)
 
+    # disable Odometrie
+    disableEncoderTracking()
+
     # wait one second
     time.sleep(1)
 
-    print("Backward! ")
+    """ print("Backward! ")
     myMotor1.run(Adafruit_MotorHAT.BACKWARD)
     myMotor2.run(Adafruit_MotorHAT.BACKWARD)
 

@@ -4,6 +4,10 @@
 import time
 import atexit
 
+# for signal handling
+import signal
+import sys
+
 
 # ----------------------
 # Encoder stuff
@@ -23,12 +27,20 @@ print('setup...')
 GPIO.setup(leftEncoderGPIO,  GPIO.IN)
 GPIO.setup(rightEncoderGPIO, GPIO.IN)
 
+# for counting encoder steps
+leftSteps  = 0
+rightSteps = 0
+
 # encoder pulse detection by interrupt
 def leftEncoderCallback(answer):
-    print 'Left Encoder.'
+    global leftSteps
+    leftSteps = leftSteps +1
+    # print 'Left Encoder.'
 
 def rightEncoderCallback(answer):
-    print 'Right Encoder.'
+    global rightSteps
+    rightSteps = rightSteps +1
+    # print 'Right Encoder.'
 
 # add GPIO event detectors
 print('registering event handlers...')
@@ -76,17 +88,22 @@ myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)
 
 
-## -----------------------
-## what to do on exit pgm
-## -----------------------
-def exitMinibot():
+# ------------------
+# my signal handler
+# ------------------
+def sig_handler(_signo, _stack_frame):
     turnOffMotors();
     ## GPIO cleanup
     GPIO.remove_event_detect(leftEncoderGPIO)
     GPIO.remove_event_detect(rightEncoderGPIO)
     GPIO.cleanup()
+    print(leftSteps, "left steps driven.")
+    sys.exit(0)
 
-atexit.register(exitMinibot)
+# signals to be handled
+signal.signal(signal.SIGINT,  sig_handler)
+signal.signal(signal.SIGHUP,  sig_handler)
+signal.signal(signal.SIGTERM, sig_handler)
 
 
 #

@@ -30,16 +30,24 @@ GPIO.setup(rightEncoderGPIO, GPIO.IN)
 # for counting encoder steps
 leftSteps  = 0
 rightSteps = 0
+# driven distance in cm
+leftDistance  = 0
+rightDistance = 0
 
 # encoder pulse detection by interrupt
 def leftEncoderCallback(answer):
     global leftSteps
     leftSteps = leftSteps +1
+    # measure distance
+    global leftDistance
+    leftDistance = leftDistance + 0.24
     # print 'Left Encoder.'
 
 def rightEncoderCallback(answer):
     global rightSteps
     rightSteps = rightSteps +1
+    global rightDistance
+    rightDistance = rightDistance + 0.24
     # print 'Right Encoder.'
 
 # add GPIO event detectors
@@ -97,7 +105,8 @@ def sig_handler(_signo, _stack_frame):
     GPIO.remove_event_detect(leftEncoderGPIO)
     GPIO.remove_event_detect(rightEncoderGPIO)
     GPIO.cleanup()
-    print(leftSteps, "left steps driven.")
+    print(leftSteps, "left steps and", leftDistance, "cm driven.")
+    print(rightSteps, "right steps and", rightDistance, "cm driven.")
     sys.exit(0)
 
 # signals to be handled

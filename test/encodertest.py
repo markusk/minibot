@@ -34,8 +34,8 @@ def rightEncoderCallback(answer):
 
 # add GPIO event detectors
 print('registering event handlers...')
-GPIO.add_event_detect(leftEncoderGPIO,  GPIO.RISING, callback=leftEncoderCallback)
-GPIO.add_event_detect(rightEncoderGPIO, GPIO.RISING, callback=rightEncoderCallback)
+GPIO.add_event_detect(leftEncoderGPIO,  GPIO.FALLING, callback=leftEncoderCallback)
+GPIO.add_event_detect(rightEncoderGPIO, GPIO.FALLING, callback=rightEncoderCallback)
 
 
 # ----------------------
@@ -101,9 +101,9 @@ print("GO!\n")
 while (True):
     ### drive
     # drive
-    print("Forward! ")
+    """ print("Forward! ")
 
-    """ myMotor1.run(Adafruit_MotorHAT.FORWARD)
+    myMotor1.run(Adafruit_MotorHAT.FORWARD)
     myMotor2.run(Adafruit_MotorHAT.FORWARD)
 
     print("\tSpeed up...")

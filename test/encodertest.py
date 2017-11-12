@@ -23,7 +23,7 @@ leftEncoderGPIO  = 27 # pin
 rightEncoderGPIO = 22 # pin
 
 # setup
-print('setup...')
+print("setup...")
 GPIO.setup(leftEncoderGPIO,  GPIO.IN)
 GPIO.setup(rightEncoderGPIO, GPIO.IN)
 
@@ -41,17 +41,17 @@ def leftEncoderCallback(answer):
     # measure distance
     global leftDistance
     leftDistance = leftDistance + 0.24
-    # print 'Left Encoder.'
+    print("Left Encoder.")
 
 def rightEncoderCallback(answer):
     global rightSteps
     rightSteps = rightSteps +1
     global rightDistance
     rightDistance = rightDistance + 0.24
-    # print 'Right Encoder.'
+    print("Right Encoder.")
 
 # add GPIO event detectors
-print('registering event handlers...')
+print("registering event handlers...")
 
 # enabling event handlers (if needed only)
 def enableEncoderTracking():
@@ -105,8 +105,9 @@ def sig_handler(_signo, _stack_frame):
     GPIO.remove_event_detect(leftEncoderGPIO)
     GPIO.remove_event_detect(rightEncoderGPIO)
     GPIO.cleanup()
-    print(leftSteps, "left steps and", leftDistance, "cm driven.")
-    print(rightSteps, "right steps and", rightDistance, "cm driven.")
+    print("\n")
+    print(str(leftSteps)  + " left steps are " + str(leftDistance) + " cm driven.")
+    print(str(rightSteps) + " right steps are " + str(rightDistance) + " cm driven.\n")
     sys.exit(0)
 
 # signals to be handled
@@ -118,13 +119,13 @@ signal.signal(signal.SIGTERM, sig_handler)
 #
 # Cowntdown
 #
-print("Starting in 3...")
+print('Starting in 3...')
 time.sleep(1)
-print("Starting in 2...")
+print('Starting in 2...')
 time.sleep(1)
-print("Starting in 1...")
+print('Starting in 1...')
 time.sleep(1)
-print("GO!\n")
+print('GO!\n')
 
 
 ######

@@ -85,7 +85,7 @@ pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
 # header frame for odometry message
 frame_id = 'odom' #
-child_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
+child_frame_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
 seq = 0
 
 

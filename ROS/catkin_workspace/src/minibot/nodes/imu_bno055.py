@@ -72,7 +72,7 @@ if (hostname != 'minibot') and (hostname != 'minibottest'):
 pubOdom = rospy.Publisher('odom', Odometry, queue_size=50)
 # the tf broadcaster
 # "any odometry source must publish information about the coordinate frame that it manages"
-odomBroadcaster = tf.TransformBroadcaster() # "br" in tf_broadcaster.py
+odomBroadcaster = tf.TransformBroadcaster()
 
 # Euler topics
 pubH = rospy.Publisher('heading', Float32, queue_size=1)

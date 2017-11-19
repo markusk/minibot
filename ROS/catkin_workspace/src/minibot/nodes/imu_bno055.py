@@ -325,7 +325,8 @@ while not rospy.is_shutdown():
 
     """ ------------------ ROS odom stuff ---------------------------------- """
     # next, we'll publish the odometry message over ROS
-    odom = nav_msgs.msg.Odometry()
+    # alt:    odom = nav_msgs.msg.Odometry()
+    odom = Odometry()
 
     odom.header.stamp = current_time
     odom.header.frame_id = "odom"

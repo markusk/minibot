@@ -86,15 +86,31 @@ pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
 # ROS IMU format messages
 pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
+# for IMU readings
+heading = 0.0
+roll    = 0.0
+pitch   = 0.0
+sys     = 0.0
+gyro    = 0.0
+accel   = 0.0
+mag     = 0.0
+# Temperature in degrees Celsius
+temp = 0.0
+# Gyroscope data (in degrees per second):
+xg = 0.0
+yg = 0.0
+zg = 0.0
+# Accelerometer data (in meters per second squared)
+xa = 0.0
+ya = 0.0
+za = 0.0
 # the robot starts at the origin of the "odom" coordinate frame initially
+# this will become a quaternion
 x = 0.0
 y = 0.0
-th = 0.0
+z = 0.0
+w = 0.0
 
-# This will more or less cause our fake robot to drive in a circle.
-# vx = 0.1
-# vy = -0.1
-# vth = 0.1
 
 # header frame for odometry message
 frame_id = 'odom' #
@@ -291,7 +307,7 @@ while not rospy.is_shutdown():
     #x,y,z = bno.read_gravity()
 
 
-    """ tf stuff """
+    """ ------------------ ROS tf stuff ------------------------------------ """
     # first we publish the transform over tf
     odomBroadcaster.sendTransform(
                                     # Euler
@@ -307,7 +323,7 @@ while not rospy.is_shutdown():
                                   )
 
 
-    """ odom stuff """
+    """ ------------------ ROS odom stuff ---------------------------------- """
     # next, we'll publish the odometry message over ROS
     odom = nav_msgs.msg.Odometry()
 

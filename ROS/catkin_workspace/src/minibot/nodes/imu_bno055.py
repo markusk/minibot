@@ -44,11 +44,14 @@ from sensor_msgs.msg import Imu, Temperature
 # see also http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom:
 # "The nav_msgs/Odometry message stores an estimate of the position
 #  and velocity of a robot in free space"
+
+# see also ROS Odometry Python example
+# https://gist.github.com/atotto/f2754f75bedb6ea56e3e0264ec405dcf
 import nav_msgs.msg
 from nav_msgs.msg import Odometry
 # for the tf broadcaster
 import tf
-import geometry_msgs.msg
+from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 
 
 # sleep time for this node in seconds
@@ -82,6 +85,16 @@ pubP = rospy.Publisher('pitch',   Float32, queue_size=1)
 pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
 # ROS IMU format messages
 pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
+
+# the robot starts at the origin of the "odom" coordinate frame initially
+x = 0.0
+y = 0.0
+th = 0.0
+
+# This will more or less cause our fake robot to drive in a circle.
+# vx = 0.1
+# vy = -0.1
+# vth = 0.1
 
 # header frame for odometry message
 frame_id = 'odom' #

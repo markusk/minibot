@@ -44,11 +44,14 @@ from sensor_msgs.msg import Imu, Temperature
 # see also http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom:
 # "The nav_msgs/Odometry message stores an estimate of the position
 #  and velocity of a robot in free space"
+
+# see also ROS Odometry Python example
+# https://gist.github.com/atotto/f2754f75bedb6ea56e3e0264ec405dcf
 import nav_msgs.msg
 from nav_msgs.msg import Odometry
 # for the tf broadcaster
 import tf
-import geometry_msgs.msg
+from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 
 
 # sleep time for this node in seconds
@@ -72,7 +75,7 @@ if (hostname != 'minibot') and (hostname != 'minibottest'):
 pubOdom = rospy.Publisher('odom', Odometry, queue_size=50)
 # the tf broadcaster
 # "any odometry source must publish information about the coordinate frame that it manages"
-odomBroadcaster = tf.TransformBroadcaster() # "br" in tf_broadcaster.py
+odomBroadcaster = tf.TransformBroadcaster()
 
 # Euler topics
 pubH = rospy.Publisher('heading', Float32, queue_size=1)
@@ -83,9 +86,35 @@ pubTemp = rospy.Publisher('temperature',   Temperature, queue_size=1)
 # ROS IMU format messages
 pubImu  = rospy.Publisher('imu/data', Imu, queue_size=1)
 
+# for IMU readings
+heading = 0.0
+roll    = 0.0
+pitch   = 0.0
+sys     = 0.0
+gyro    = 0.0
+accel   = 0.0
+mag     = 0.0
+# Temperature in degrees Celsius
+temp = 0.0
+# Gyroscope data (in degrees per second):
+xg = 0.0
+yg = 0.0
+zg = 0.0
+# Accelerometer data (in meters per second squared)
+xa = 0.0
+ya = 0.0
+za = 0.0
+# the robot starts at the origin of the "odom" coordinate frame initially
+# this will become a quaternion
+x = 0.0
+y = 0.0
+z = 0.0
+w = 0.0
+
+
 # header frame for odometry message
 frame_id = 'odom' #
-child_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
+child_frame_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
 seq = 0
 
 
@@ -278,7 +307,7 @@ while not rospy.is_shutdown():
     #x,y,z = bno.read_gravity()
 
 
-    """ tf stuff """
+    """ ------------------ ROS tf stuff ------------------------------------ """
     # first we publish the transform over tf
     odomBroadcaster.sendTransform(
                                     # Euler
@@ -294,9 +323,10 @@ while not rospy.is_shutdown():
                                   )
 
 
-    """ odom stuff """
+    """ ------------------ ROS odom stuff ---------------------------------- """
     # next, we'll publish the odometry message over ROS
-    odom = nav_msgs.msg.Odometry()
+    # alt:    odom = nav_msgs.msg.Odometry()
+    odom = Odometry()
 
     odom.header.stamp = current_time
     odom.header.frame_id = "odom"

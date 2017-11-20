@@ -51,7 +51,7 @@ def sig_handler(_signo, _stack_frame):
     # clear display
     disp.clear()
     disp.display()
-    print "powermonitor terminated clean."
+    print("powermonitor terminated clean.")
     sys.exit(0)
 
 # signals to be handled
@@ -91,7 +91,7 @@ def my_callback(answer):
     # LED ON (low active!)
     GPIO.output(ledPin, GPIO.LOW)
 
-    print 'Shutdown button on GPIO ' + str(answer) + ' pushed.'
+    print("Shutdown button on GPIO " + str(answer) + " pushed.")
 
     # clear display
     disp.clear()
@@ -183,10 +183,10 @@ timeSymbol = unichr(0xf017) # fa-clock-o
 tempSymbol = unichr(0xf21e) # fa-heartbeat  0xf2db
 
 def getCpuTemperature():
-	tempFile = open( "/sys/class/thermal/thermal_zone0/temp" )
-	cpu_temp = tempFile.read()
-	tempFile.close()
-	return float(cpu_temp)/1000
+    tempFile = open("/sys/class/thermal/thermal_zone0/temp")
+    cpu_temp = tempFile.read()
+    tempFile.close()
+    return float(cpu_temp)/1000
 
 
 

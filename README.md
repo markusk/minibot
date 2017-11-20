@@ -51,6 +51,13 @@ ln -s /home/$USERNAME/minibot/ROS/catkin_workspace/src/ src
 catkin_make
 ```
 
+## Other helpful stuff
+- joystick/gamepad driver/test programm
+```
+sudo apt-get install joystick
+```
+
+
 
 ## Run/Test ROS
 On the robot (Raspberry Pi):

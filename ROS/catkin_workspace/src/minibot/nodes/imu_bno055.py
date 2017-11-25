@@ -308,12 +308,17 @@ while not rospy.is_shutdown():
 
 
     """ ------------------ ROS tf stuff ------------------------------------ """
+    # since all odometry is 6DOF we'll need a quaternion created from yaw
+    odom_quat = tf.transformations.quaternion_from_euler(x, y, z) #   z vs. th ?!??
+
     # first we publish the transform over tf
     odomBroadcaster.sendTransform(
                                     # Euler
-                                    (heading, roll, pitch),
+#                                    (heading, roll, pitch),
+                                    (x, y, 0.0),
                                     # Quaternion
-                                    (x, y, z, w),
+#                                    (x, y, z, w),
+                                    (odom_quat),
                                     # time
                                     current_time,
                                     # child_frame_id
@@ -336,7 +341,8 @@ while not rospy.is_shutdown():
     odom.pose.pose.position.y = y
     odom.pose.pose.position.z = 0.0
     # quaternion
-    odom.pose.pose.orientation = (x, y, z, w)
+#    odom.pose.pose.orientation = (x, y, z, w)
+    odom.pose.pose.orientation = (odom_quat)
 
     # set the velocity
     odom.child_frame_id = "base_link"

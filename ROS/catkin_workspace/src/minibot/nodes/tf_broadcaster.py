@@ -24,17 +24,16 @@ if __name__ == '__main__':
 
     while not rospy.is_shutdown():
         """ laser_link transform (the laser rangefinder) """
-        # Format: sendTransform(translation, rotation, time, child, parent)
-        br.sendTransform((0.06, 0.0, 0.0615),
-                         (0.0,  0.0, 0.0, 1.0),
-                         rospy.Time.now(),
-                         "laser_link", # child node
-                         "base_link")   # parent node
+        br.sendTransform((0.06, 0.0, 0.0615),   # translation
+                         (0.0,  0.0, 0.0, 1.0), # rotation
+                         rospy.Time.now(),      # time
+                         "laser_link",          # child node
+                         "base_link")           # parent node
 
         """ odom_link transform (the IMU) """
-        br.sendTransform((0.0, 0.0, 0.0395),
-                         (0.0, 0.0, 0.0, 1.0),
-                         rospy.Time.now(),
-                         "odom_link", # child node
-                         "base_link")   # parent node
+        br.sendTransform((0.0, 0.0, 0.0395),    # translation
+                         (0.0, 0.0, 0.0, 1.0),  # rotation
+                         rospy.Time.now(),      # time
+                         "odom_link",           # child node
+                         "base_link")           # parent node
         rate.sleep()

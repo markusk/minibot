@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Launch file for the Raspberry Pi plattform (my robot "minibot").
+This controls the whole roobot and has to run on the robot (Raspberry Pi).
+except the camera!
+-->
+<launch>
+  <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
+  <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>
+  
+  <!-- Publishing the battery voltage as Float32. -->
+  <node name="battery_publisher" pkg="minibot" type="battery_publisher.py" output="screen"/>
+
+  <!-- Publishing "odom" nav_msgs/Odometry for the local planner (navigation stack). -->
+  <node name="imu_bno055" pkg="minibot" type="imu_bno055.py" output="screen"/>
+
+  <!-- Controlling the motor on a hardware level (I2C) -->
+  <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>
+
+  <!-- Base controller listens to "cmd_vel" geometry_msgs/Twist messages and publishes motor control messages (for the I2C control node). -->
+  <node name="base_controller" pkg="minibot" type="base_controller.py" output="screen"/>
+
+  <!-- Camera support -->
+  <!-- disabled to save some energy -->
+
+  <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->
+  <node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaser" output="screen"/>
+</launch>

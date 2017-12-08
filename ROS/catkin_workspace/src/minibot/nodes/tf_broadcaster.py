@@ -34,6 +34,10 @@ if __name__ == '__main__':
         br.sendTransform((0.0, 0.0, 0.0395),    # translation
                          (0.0, 0.0, 0.0, 1.0),  # rotation
                          rospy.Time.now(),      # time
-                         "odom_link",           # child node
-                         "base_link")           # parent node
+                         "base_link",           # child node
+                         "odom_link")           # parent node
+
+        # parent > child relation. earth > map > odom > base_link > laser_link
+        # see also http://www.ros.org/reps/rep-0105.html#relationship-between-frames
+
         rate.sleep()

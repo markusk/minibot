@@ -5,6 +5,9 @@
 Testing a piezo buzzer.
 """
 
+# wait time in seconds
+waitTime = 0.1
+
 
 # for GPIO pin usage
 try:
@@ -22,10 +25,12 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # Raspberry Pi pin configuration:
 # pins	    BCM   BOARD
 ledPin    = 18 # pin 12
+piezoPin  = 25 # pin
 
 # GPIO setup
 print('GPIO setup...')
-GPIO.setup(ledPin, GPIO.OUT)
+GPIO.setup(ledPin,   GPIO.OUT)
+GPIO.setup(piezoPin, GPIO.OUT)
 
 
 # for signal handling
@@ -34,10 +39,9 @@ import sys
 
 # my signal handler
 def sig_handler(_signo, _stack_frame):
-    # clear display
     # GPIO cleanup
     GPIO.cleanup()
-    print "led_blinky terminated clean."
+    print "piezo terminated clean."
     sys.exit(0)
 
 # signals to be handled
@@ -49,16 +53,20 @@ signal.signal(signal.SIGTERM, sig_handler)
 ######
 ###### forever - or until ctrl+c  :)
 ######
-print('Blinking...')
+print('Beeping...')
 while (True):
     # LED ON (low active!)
     GPIO.output(ledPin, GPIO.LOW)
+    # Piezo ON (low active!)
+    GPIO.output(piezoPin, GPIO.LOW)
 
-    # wait 1 second
-    time.sleep(1)
+    # "wait" (generate a square wave for the piezo)
+    time.sleep(waitTime)
 
     # LED OFF
     GPIO.output(ledPin, GPIO.HIGH)
+    # Piezo OFF
+    GPIO.output(piezoPin, GPIO.HIGH)
 
-    # wait 1 second
-    time.sleep(1)
+    # wait
+    time.sleep(waitTime)

@@ -25,3 +25,6 @@ Turns a LED, connected to the Raspberry Pi GPIO #18 on and off.
 
 ## motor_test.py
 Starts the robot to drive. It will always turn left and right for one second.
+
+## piezo.py
+Lets a piezo beep, connected to the Raspberry Pi GPIO #25. Also turns a LED, connected to GPIO #18 on and off with the same frequency.

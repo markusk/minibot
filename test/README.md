@@ -1,8 +1,5 @@
-# Test-Files
+# Low level test files
 Several programs for my little robot "minibot"
-
-## power_monitor.py
-Observes and shows the battery voltage (on the OLED).
 
 ## battery.py
 Shows the battery voltage (in the shell).
@@ -28,3 +25,6 @@ Starts the robot to drive. It will always turn left and right for one second.
 
 ## piezo.py
 Lets a piezo beep, connected to the Raspberry Pi GPIO #25. Also turns a LED, connected to GPIO #18 on and off with the same frequency.
+
+## power_monitor.py
+Observes and shows the battery voltage (on the OLED).

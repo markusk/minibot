@@ -6,7 +6,7 @@ Testing a piezo buzzer.
 """
 
 # wait time in seconds
-waitTime = 0.1
+waitTime = 0.2
 
 
 # for GPIO pin usage

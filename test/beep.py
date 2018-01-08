@@ -2,11 +2,22 @@
 # coding=utf-8
 
 """
-Testing a piezo buzzer.
+Sends n beeps to a piezo buzzer.
+Usage for 5 beeps: beep.py 5
 """
 
 # wait time in seconds
 waitTime = 0.2
+
+# for getting arguments
+import sys
+
+# check arguments
+if len(sys.argv) != 2:
+#    print "1. argument: " + sys.argv[1]
+#    print "2. argument: " + sys.argv[2]
+    print "ERROR. Correct usage for three beeps is: " + sys.argv[0] + " 3"
+    sys.exit(-1)
 
 
 # for GPIO pin usage
@@ -24,12 +35,10 @@ import time
 GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # Raspberry Pi pin configuration:
 # pins	    BCM   BOARD
-ledPin    = 18 # pin 12
 piezoPin  = 25 # pin
 
 # GPIO setup
 print('GPIO setup...')
-GPIO.setup(ledPin,   GPIO.OUT)
 GPIO.setup(piezoPin, GPIO.OUT)
 
 
@@ -51,22 +60,15 @@ signal.signal(signal.SIGTERM, sig_handler)
 
 
 ######
-###### forever - or until ctrl+c  :)
+###### Beeping
 ######
-print('Beeping...')
-while (True):
-    # LED ON (low active!)
-    GPIO.output(ledPin, GPIO.LOW)
+for x in range(0, int(sys.argv[0])):
     # Piezo ON (low active!)
     GPIO.output(piezoPin, GPIO.LOW)
-
     # "wait" (generate a square wave for the piezo)
     time.sleep(waitTime)
 
-    # LED OFF
-    GPIO.output(ledPin, GPIO.HIGH)
     # Piezo OFF
     GPIO.output(piezoPin, GPIO.HIGH)
-
     # wait
     time.sleep(waitTime)

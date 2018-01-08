@@ -14,6 +14,9 @@ via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 
 # wait time in seconds between different display information
 waitTime = 2
+# wait time for a piezo beep
+waitTimePiezo = 0.2
+
 
 # for time and sleep
 import time
@@ -74,6 +77,8 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # pins	    BCM   BOARD
 switchPin  = 17 # pin 11
 ledPin     = 18 # pin 12
+piezoPin   = 25 # pin
+
 
 # setup
 print('setup...')
@@ -85,6 +90,21 @@ GPIO.output(ledPin, GPIO.HIGH)
 
 # checker
 buttonPressed = False
+
+
+# piezo beep function
+def beep(numberBeeps)
+    for x in range(0, numberBeeps):
+        # Piezo OFF
+        GPIO.output(piezoPin, GPIO.HIGH)
+        # wait
+        time.sleep(waitTimePiezo)
+
+        # Piezo ON (low active!)
+        GPIO.output(piezoPin, GPIO.LOW)
+        # "wait" (generate a square wave for the piezo)
+        time.sleep(waitTimePiezo)
+
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):

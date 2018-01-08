@@ -89,7 +89,8 @@ piezoPin   = 25 # pin
 # setup
 print('setup...')
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
-GPIO.setup(ledPin, GPIO.OUT)
+GPIO.setup(ledPin,    GPIO.OUT)
+GPIO.setup(piezoPin,  GPIO.OUT)
 
 # LED OFF (low active!)
 GPIO.output(ledPin, GPIO.HIGH)
@@ -256,8 +257,13 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait some seconds
-    time.sleep(waitTime)
+    # wait some seconds and/or beep
+    if batteryIsEmpty is True:
+        # print('BATTERY is EMPTY.')
+        # beep n times
+        beep(5)
+    else:
+        time.sleep(waitTime)
 
 
     # --------------------------
@@ -318,8 +324,13 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait some seconds
-    time.sleep(waitTime)
+    # wait some seconds and/or beep
+    if batteryIsEmpty is True:
+        # print('BATTERY is EMPTY.')
+        # beep n times
+        beep(5)
+    else:
+        time.sleep(waitTime)
 
 
     # --------------------------
@@ -347,8 +358,13 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait some seconds
-    time.sleep(waitTime)
+    # wait some seconds and/or beep
+    if batteryIsEmpty is True:
+        # print('BATTERY is EMPTY.')
+        # beep n times
+        beep(5)
+    else:
+        time.sleep(waitTime)
 
 
 # wtf?

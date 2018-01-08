@@ -4,6 +4,9 @@ Several programs for my little robot "minibot"
 ## battery.py
 Shows the battery voltage (in the shell).
 
+## beep.py
+Sends n beeps to a piezo buzzer.
+
 ## buttontest.py
 Checks almost any input GPIO for a LOW signal.
 

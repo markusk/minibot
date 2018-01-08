@@ -12,6 +12,12 @@ It also checks a pushbotton state, connected to #17 (pin 11 on Raspberry Pi 3)
 via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 """
 
+
+# for battery empty alarm
+batteryEmptyLevel = 50  # below 50% means it is empty
+batteryIsEmpty = False
+
+
 # wait time in seconds between different display information
 waitTime = 2
 # wait time for a piezo beep
@@ -93,7 +99,7 @@ buttonPressed = False
 
 
 # piezo beep function
-def beep(numberBeeps)
+def beep(numberBeeps):
     for x in range(0, numberBeeps):
         # Piezo OFF
         GPIO.output(piezoPin, GPIO.HIGH)
@@ -281,6 +287,15 @@ while (1):
     percent = convertedVoltage / (maxVoltage-minVoltage) * 100
     if percent < 0:
         percent = 0
+
+    # --------------------------------------
+    # this is for the battery alarn / piezo
+    # --------------------------------------
+    if percent < batteryEmptyLevel:
+        batteryIsEmpty = True
+    else:
+        batteryIsEmpty = False
+
     # rectangle in battery symbol
     rectLength = round(percent * maxRectLength / 100, 0)
 

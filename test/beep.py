@@ -7,7 +7,7 @@ Usage for 5 beeps: beep.py 5
 """
 
 # wait time in seconds
-waitTime = 0.2
+waitTime = 0.3
 
 # for getting arguments
 import sys
@@ -38,7 +38,6 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 piezoPin  = 25 # pin
 
 # GPIO setup
-print('GPIO setup...')
 GPIO.setup(piezoPin, GPIO.OUT)
 
 
@@ -62,13 +61,13 @@ signal.signal(signal.SIGTERM, sig_handler)
 ######
 ###### Beeping
 ######
-for x in range(0, int(sys.argv[0])):
-    # Piezo ON (low active!)
-    GPIO.output(piezoPin, GPIO.LOW)
-    # "wait" (generate a square wave for the piezo)
-    time.sleep(waitTime)
-
+for x in range(0, int(sys.argv[1])):
     # Piezo OFF
     GPIO.output(piezoPin, GPIO.HIGH)
     # wait
+    time.sleep(waitTime)
+
+    # Piezo ON (low active!)
+    GPIO.output(piezoPin, GPIO.LOW)
+    # "wait" (generate a square wave for the piezo)
     time.sleep(waitTime)

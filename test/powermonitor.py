@@ -12,8 +12,17 @@ It also checks a pushbotton state, connected to #17 (pin 11 on Raspberry Pi 3)
 via 10k pull-down resistor. If pushed, it calls the "shutdown now" command.
 """
 
+
+# for battery empty alarm
+batteryEmptyLevel = 50  # below 50% means it is empty
+batteryIsEmpty = False
+
+
 # wait time in seconds between different display information
 waitTime = 2
+# wait time for a piezo beep
+waitTimePiezo = 0.2
+
 
 # for time and sleep
 import time
@@ -74,17 +83,35 @@ GPIO.setmode(GPIO.BCM) # use the GPIO names, _not_ the pin numbers on the board
 # pins	    BCM   BOARD
 switchPin  = 17 # pin 11
 ledPin     = 18 # pin 12
+piezoPin   = 25 # pin
+
 
 # setup
 print('setup...')
 GPIO.setup(switchPin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # waits for LOW
-GPIO.setup(ledPin, GPIO.OUT)
+GPIO.setup(ledPin,    GPIO.OUT)
+GPIO.setup(piezoPin,  GPIO.OUT)
 
 # LED OFF (low active!)
 GPIO.output(ledPin, GPIO.HIGH)
 
 # checker
 buttonPressed = False
+
+
+# piezo beep function
+def beep(numberBeeps):
+    for x in range(0, numberBeeps):
+        # Piezo OFF
+        GPIO.output(piezoPin, GPIO.HIGH)
+        # wait
+        time.sleep(waitTimePiezo)
+
+        # Piezo ON (low active!)
+        GPIO.output(piezoPin, GPIO.LOW)
+        # "wait" (generate a square wave for the piezo)
+        time.sleep(waitTimePiezo)
+
 
 # switch detection by interrupt, falling edge, with debouncing
 def my_callback(answer):
@@ -230,8 +257,13 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait some seconds
-    time.sleep(waitTime)
+    # wait some seconds and/or beep
+    if batteryIsEmpty is True:
+        # print('BATTERY is EMPTY.')
+        # beep n times
+        beep(5)
+    else:
+        time.sleep(waitTime)
 
 
     # --------------------------
@@ -261,6 +293,15 @@ while (1):
     percent = convertedVoltage / (maxVoltage-minVoltage) * 100
     if percent < 0:
         percent = 0
+
+    # --------------------------------------
+    # this is for the battery alarn / piezo
+    # --------------------------------------
+    if percent < batteryEmptyLevel:
+        batteryIsEmpty = True
+    else:
+        batteryIsEmpty = False
+
     # rectangle in battery symbol
     rectLength = round(percent * maxRectLength / 100, 0)
 
@@ -283,8 +324,13 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait some seconds
-    time.sleep(waitTime)
+    # wait some seconds and/or beep
+    if batteryIsEmpty is True:
+        # print('BATTERY is EMPTY.')
+        # beep n times
+        beep(5)
+    else:
+        time.sleep(waitTime)
 
 
     # --------------------------
@@ -312,8 +358,13 @@ while (1):
     disp.image(image)
     disp.display()
 
-    # wait some seconds
-    time.sleep(waitTime)
+    # wait some seconds and/or beep
+    if batteryIsEmpty is True:
+        # print('BATTERY is EMPTY.')
+        # beep n times
+        beep(5)
+    else:
+        time.sleep(waitTime)
 
 
 # wtf?

@@ -9,7 +9,7 @@ from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 # set the speed (from 0 (off) to 255 (max speed))
 startSpeed = 100
-maxSpeed   = 255 # max is 255!
+maxSpeed   = 155 # max is 255!
 
 # create a default motor object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT(addr=0x60)
@@ -70,13 +70,14 @@ print("GO!\n")
 ###### forever - or until ctrl+c  :)
 ######
 while (True):
-    ### drive
-    # drive
+    #
+    # FORWARD
+    #
     print("Forward! ")
     myMotor1.run(Adafruit_MotorHAT.FORWARD)
     myMotor2.run(Adafruit_MotorHAT.BACKWARD)
-    myMotor3.run(Adafruit_MotorHAT.FORWARD)
-    myMotor4.run(Adafruit_MotorHAT.BACKWARD)
+    myMotor3.run(Adafruit_MotorHAT.BACKWARD)
+    myMotor4.run(Adafruit_MotorHAT.FORWARD)
 
     print("\tSpeed up...")
     for i in range(startSpeed, maxSpeed):
@@ -101,11 +102,15 @@ while (True):
     # wait one second
     time.sleep(1)
 
+
+    #
+    # BACKWARDS
+    #
     print("Backward! ")
     myMotor1.run(Adafruit_MotorHAT.BACKWARD)
     myMotor2.run(Adafruit_MotorHAT.FORWARD)
-    myMotor3.run(Adafruit_MotorHAT.BACKWARD)
-    myMotor4.run(Adafruit_MotorHAT.FORWARD)
+    myMotor3.run(Adafruit_MotorHAT.FORWARD)
+    myMotor4.run(Adafruit_MotorHAT.BACKWARD)
 
     print("\tSpeed up...")
     for i in range(startSpeed, maxSpeed):

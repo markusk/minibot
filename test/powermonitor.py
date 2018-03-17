@@ -4,7 +4,8 @@
 
 """
 This code reads the battery voltage via Adafruits ADS1015 AD converter and shows
-the values on an OLED via SSD1306 with a nice graphical battery level symbol.
+the values on an OLED via SSD1306 with a nice graphical battery level symbol. If
+the battery level is lower than 50%, a piezo is beeping (alarm).
 
 It also shows the hostname, the IP and the time and CPU temoerature.
 

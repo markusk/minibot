@@ -8,8 +8,11 @@ import atexit
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 # set the speed (from 0 (off) to 255 (max speed))
-startSpeed = 100
-maxSpeed   = 155 # max is 255!
+startSpeed = 60
+maxSpeed   = 120 # max is 255!
+
+# how long should the motors run before chaning the direction
+fullSpeedDuration = 3 # default 0
 
 # create a default motor object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT(addr=0x60)
@@ -32,9 +35,6 @@ myMotor1.run(Adafruit_MotorHAT.RELEASE);
 myMotor2.run(Adafruit_MotorHAT.RELEASE);
 myMotor3.run(Adafruit_MotorHAT.RELEASE);
 myMotor4.run(Adafruit_MotorHAT.RELEASE);
-
-# test switch
-fullSpeedDuration = 3 # default 0
 
 myMotor1.setSpeed(startSpeed)
 myMotor2.setSpeed(startSpeed)
@@ -119,6 +119,10 @@ while (True):
         myMotor3.setSpeed(i)
         myMotor4.setSpeed(i)
         time.sleep(0.01)
+
+    # full speed for n seconds
+    print("+++ full speed for " + str(fullSpeedDuration) + " seconds +++")
+    time.sleep(fullSpeedDuration)
 
     print("\tSlow down...")
     for i in range(maxSpeed, startSpeed, -1):

@@ -91,13 +91,17 @@ def handle_motor(req):
         if hostname == 'minibot':
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.FORWARD)
-            myMotor2.run(Adafruit_MotorHAT.FORWARD)
+            myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+            myMotor3.run(Adafruit_MotorHAT.BACKWARD)
+            myMotor4.run(Adafruit_MotorHAT.FORWARD)
     elif (req.direction == "BACKWARD"):
         rospy.loginfo("Driving backwards.")
         if hostname == 'minibot':
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
-            myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+            myMotor2.run(Adafruit_MotorHAT.FORWARD)
+            myMotor3.run(Adafruit_MotorHAT.FORWARD)
+            myMotor4.run(Adafruit_MotorHAT.BACKWARD)
     elif (req.direction == "LEFT"):
         rospy.loginfo("Driving left.")
         if hostname == 'minibot':
@@ -115,6 +119,8 @@ def handle_motor(req):
         if hostname == 'minibot':
             myMotor1.run(Adafruit_MotorHAT.RELEASE)
             myMotor2.run(Adafruit_MotorHAT.RELEASE)
+            myMotor3.run(Adafruit_MotorHAT.RELEASE)
+            myMotor4.run(Adafruit_MotorHAT.RELEASE)
         # @todo: also slow down?
     else:
       rospy.logerr("Direction '%s' not implemented.", req.direction)

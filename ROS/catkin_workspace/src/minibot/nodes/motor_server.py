@@ -44,11 +44,15 @@ if hostname == 'minibot':
     # using motor 1 and 2 on RasPi hat
     myMotor1 = mh.getMotor(1)
     myMotor2 = mh.getMotor(2)
+    myMotor3 = mh.getMotor(3)
+    myMotor4 = mh.getMotor(4)
 
     # recommended for auto-disabling motors on shutdown!
     def turnOffMotors():
         myMotor1.run(Adafruit_MotorHAT.RELEASE);
         myMotor2.run(Adafruit_MotorHAT.RELEASE);
+        myMotor3.run(Adafruit_MotorHAT.RELEASE);
+        myMotor4.run(Adafruit_MotorHAT.RELEASE);
 
     # turning off motors NOW
     turnOffMotors();
@@ -57,6 +61,8 @@ if hostname == 'minibot':
     startSpeed = 150
     myMotor1.setSpeed(startSpeed)
     myMotor2.setSpeed(startSpeed)
+    myMotor3.setSpeed(startSpeed)
+    myMotor4.setSpeed(startSpeed)
 else:
     rospy.logwarn("Skipping I2C setup. This is not the robot.")
 
@@ -140,11 +146,15 @@ if __name__ == "__main__":
         for i in range(startSpeed, 255):
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
+            myMotor3.setSpeed(i)
+            myMotor4.setSpeed(i)
             time.sleep(0.01)
 
         rospy.loginfo("Slow down...")
         for i in range(255, startSpeed, -1):
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
+            myMotor3.setSpeed(i)
+            myMotor4.setSpeed(i)
             time.sleep(0.01)
 """

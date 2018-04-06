@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-"""
-This is a service node (server) to control motors an the minibot
+""" This is a service node (server) to control motors an the minibot
 (https://minibot.me). It controls the motors via I2C on a Raspberry Pi.
 I expects the messsages "FORWARD, BACKWARD, LEFT, RIGHT, STOP".
 
-Author:  Markus Knapp, 2017
+Author:  Markus Knapp, 2018
 Website: https://direcs.de
 """
 
+
+# speed of the motors (0-255)
+startSpeed = 75
+turnSpeed = 120
 
 # name of the package(!).srv
 from minibot.srv import *
@@ -58,7 +61,6 @@ if hostname == 'minibot':
     turnOffMotors();
 
     # set the speed (from 0 (off) to 255 (max speed))
-    startSpeed = 150
     myMotor1.setSpeed(startSpeed)
     myMotor2.setSpeed(startSpeed)
     myMotor3.setSpeed(startSpeed)
@@ -89,6 +91,11 @@ def handle_motor(req):
         # drive
         rospy.loginfo("Driving forward.")
         if hostname == 'minibot':
+            # resetting speed to default
+            myMotor1.setSpeed(startSpeed)
+            myMotor2.setSpeed(startSpeed)
+            myMotor3.setSpeed(startSpeed)
+            myMotor4.setSpeed(startSpeed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.FORWARD)
             myMotor2.run(Adafruit_MotorHAT.BACKWARD)
@@ -97,6 +104,11 @@ def handle_motor(req):
     elif (req.direction == "BACKWARD"):
         rospy.loginfo("Driving backwards.")
         if hostname == 'minibot':
+            # resetting speed to default
+            myMotor1.setSpeed(startSpeed)
+            myMotor2.setSpeed(startSpeed)
+            myMotor3.setSpeed(startSpeed)
+            myMotor4.setSpeed(startSpeed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
             myMotor2.run(Adafruit_MotorHAT.FORWARD)
@@ -105,6 +117,11 @@ def handle_motor(req):
     elif (req.direction == "LEFT"):
         rospy.loginfo("Driving left.")
         if hostname == 'minibot':
+            # adding more power when turning
+            myMotor1.setSpeed(turnSpeed)
+            myMotor2.setSpeed(turnSpeed)
+            myMotor3.setSpeed(turnSpeed)
+            myMotor4.setSpeed(turnSpeed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
             myMotor2.run(Adafruit_MotorHAT.FORWARD)
@@ -113,6 +130,11 @@ def handle_motor(req):
     elif (req.direction == "RIGHT"):
         rospy.loginfo("Driving right.")
         if hostname == 'minibot':
+            # adding more power when turning
+            myMotor1.setSpeed(turnSpeed)
+            myMotor2.setSpeed(turnSpeed)
+            myMotor3.setSpeed(turnSpeed)
+            myMotor4.setSpeed(turnSpeed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.FORWARD)
             myMotor2.run(Adafruit_MotorHAT.BACKWARD)

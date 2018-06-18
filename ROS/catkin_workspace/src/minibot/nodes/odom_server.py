@@ -40,6 +40,30 @@ sleepTime = 0.25
 rospy.init_node('odom_node', anonymous=False)
 
 
+# initial position
+x = 0.0;
+y = 0.0;
+th = 0;
+
+# velocity
+vx = 0.4;
+vy = 0.0;
+vth = 0.4;
+current_time = rospy.Time.now()
+last_time = rospy.Time.now()
+broadcaster = tf.TransformBroadcaster()
+degree = M_PI/180;
+
+# message declarations
+# the tf broadcaster
+# "any odometry source must publish information about the coordinate frame that it manages"
+# org: geometry_msgs::TransformStamped odom_trans;
+odom_trans = tf.TransformBroadcaster()
+
+odom_trans.header.frame_id = "odom";
+odom_trans.child_frame_id = "base_footprint";
+
+
 # for getting the hostname of the underlying system
 import socket
 # showing hostname

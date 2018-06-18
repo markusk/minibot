@@ -305,7 +305,10 @@ while not rospy.is_shutdown():
     #x,y,z = bno.read_gravity()
 
 
-    """ ------------------ ROS tf stuff ------------------------------------ """
+    """ ------------------ ROS tf stuff for Odometry ------------------------------------
+
+    D I S A B L E D  !   Now createt in a seperate node with wheel encoders   D I S A B L E D  !
+
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     odom_quat = tf.transformations.quaternion_from_euler(x, y, z) #   z vs. th ?!??
 
@@ -327,7 +330,7 @@ while not rospy.is_shutdown():
                                   )
 
 
-    """ ------------------ ROS odom stuff ---------------------------------- """
+     ------------------ ROS odom stuff ----------------------------------
     # next, we'll publish the odometry message over ROS
     # alt:    odom = nav_msgs.msg.Odometry()
     odom = Odometry()
@@ -355,7 +358,7 @@ while not rospy.is_shutdown():
     # publish the message
     #
     pubOdom.publish(odom);
-
+    """
 
     # Sleep for a second until the next reading.
     rospy.sleep(sleepTime)

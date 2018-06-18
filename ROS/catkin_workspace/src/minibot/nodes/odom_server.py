@@ -59,7 +59,6 @@ degree = M_PI/180;
 # "any odometry source must publish information about the coordinate frame that it manages"
 # org: geometry_msgs::TransformStamped odom_trans;
 odom_trans = tf.TransformBroadcaster()
-
 odom_trans.header.frame_id = "odom";
 odom_trans.child_frame_id = "base_footprint";
 
@@ -71,6 +70,18 @@ hostname = socket.gethostname()
 rospy.loginfo("Running on host %s.", hostname)
 if (hostname != 'minibot') and (hostname != 'minibottest'):
     rospy.logwarn("Test mode only due to other host. Skipping all hardware staff!")
+
+
+# define a clean node exit
+def my_exit():
+  rospy.loginfo("Shutting down odometry service...")
+  # run some parts only on the real robot
+  if hostname == 'minibot':
+      # @# TODO: GPIO stuff here. TO BE DEFINED
+  rospy.loginfo("...shutting down odometrie service complete.")
+
+# call this method on node exit
+rospy.on_shutdown(my_exit)
 
 
 

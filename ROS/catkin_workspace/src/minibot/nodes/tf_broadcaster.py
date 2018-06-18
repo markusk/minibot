@@ -32,12 +32,12 @@ if __name__ == '__main__':
                          "base_link",           # parent node
                          "base_laser")          # child node
 
-        """ odom_link transform (the IMU) """
+        """ imu_link transform (Odometrie?!?) """
         br.sendTransform((0.0, 0.0, 0.0395),    # translation
                          (0.0, 0.0, 0.0, 1.0),  # rotation
                          rospy.Time.now(),      # time
-                         "base_link",           # child node
-                         "odom_link")           # parent node
+                         "base_link",           # parent node
+                         "imu_link")            # child node
 
         # "base_link" is a more common name for a chassis in ROS.
         #

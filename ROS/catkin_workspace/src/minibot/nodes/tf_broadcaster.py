@@ -39,6 +39,14 @@ if __name__ == '__main__':
                          "base_link",           # parent node
                          "imu_link")            # child node
 
+
+        """ camera_link
+        br.sendTransform((0.0, 0.0, 0.0),       # translation
+                         (0.0, 0.0, 0.0, 1.0),  # rotation
+                         rospy.Time.now(),      # time
+                         "base_link",           # parent node
+                         "camera_link")         # child node """
+
         # "base_link" is a more common name for a chassis in ROS.
         #
         # parent > child relation. earth > map > odom > base_link > base_laser

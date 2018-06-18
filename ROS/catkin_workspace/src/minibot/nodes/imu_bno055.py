@@ -71,11 +71,11 @@ if (hostname != 'minibot') and (hostname != 'minibottest'):
     rospy.logwarn("Test mode only due to other host. Skipping all I2C staff!")
 
 
-# the odometry topic
+""" the odometry topic    D I S A B L E D    @sa odom_server.py
 pubOdom = rospy.Publisher('odom', Odometry, queue_size=50)
 # the tf broadcaster
 # "any odometry source must publish information about the coordinate frame that it manages"
-odomBroadcaster = tf.TransformBroadcaster()
+odomBroadcaster = tf.TransformBroadcaster() """
 
 # Euler topics
 pubH = rospy.Publisher('heading', Float32, queue_size=1)

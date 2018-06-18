@@ -113,8 +113,6 @@ w = 0.0
 
 
 # header frame for odometry message
-frame_id = 'odom' #
-child_frame_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
 seq = 0
 
 
@@ -181,7 +179,7 @@ while not rospy.is_shutdown():
     """ IMU message header (for IMU and temperature) """
     h = rospy.Header()
     h.stamp = current_time
-    h.frame_id = frame_id  # "odom"
+    h.frame_id = 'imu_link' # @sa: tf_broadcaster.py
     h.seq = seq
     # increase sequence
     seq = seq + 1
@@ -322,6 +320,7 @@ while not rospy.is_shutdown():
                                     # time
                                     current_time,
                                     # child_frame_id
+                                    # normally the coordinate frame of the mobile base, so base_link.
                                     "base_link",
                                     # frame_id
                                     "odom"
@@ -345,7 +344,7 @@ while not rospy.is_shutdown():
     odom.pose.pose.orientation = (odom_quat)
 
     # set the velocity
-    odom.child_frame_id = "base_link"
+    odom.child_frame_id = "base_link"  # normally the coordinate frame of the mobile base, so base_link.
     # linear acceleration from IMU (Accelerometer)
     odom.twist.twist.linear.x = xa
     odom.twist.twist.linear.y = ya

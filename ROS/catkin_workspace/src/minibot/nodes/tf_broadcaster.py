@@ -25,7 +25,14 @@ if __name__ == '__main__':
     rate = rospy.Rate(10.0)
 
     while not rospy.is_shutdown():
-        """ laser_link transform (the laser rangefinder) """
+        """ base_link transform (base_link connected 1:1 to base_footprint. NEEDED?) """
+        br.sendTransform((0.0, 0.0, 0.0),       # translation (x,y,z) in meters
+                         (0.0, 0.0, 0.0, 1.0),  # rotation
+                         rospy.Time.now(),      # time
+                         "base_footprint",      # parent node
+                         "base_link")           # child node
+
+        """ base_laser transform (the laser rangefinder) """
         br.sendTransform((0.06, 0.0, 0.0615),   # translation (x,y,z) in meters
                          (0.0,  0.0, 0.0, 1.0), # rotation
                          rospy.Time.now(),      # time

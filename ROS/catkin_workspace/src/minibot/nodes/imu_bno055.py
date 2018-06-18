@@ -111,6 +111,11 @@ y = 0.0
 z = 0.0
 w = 0.0
 
+# velocities - where to get?
+vx  = 0.0
+vy  = 0.0
+vth = 0.0
+
 
 # header frame for odometry message
 seq = 0

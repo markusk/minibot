@@ -18,7 +18,7 @@ import rospy
 import math
 
 from std_msgs.msg import Header, Float32
-from sensor_msgs.msg import Imu, Temperature
+from sensor_msgs.msg import Imu
 
 # see also http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom:
 # "The nav_msgs/Odometry message stores an estimate of the position

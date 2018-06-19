@@ -78,25 +78,6 @@ odomCountForeverBackLeft   = 0
 odomCountForeverFrontRight = 0
 odomCountForeverBackRight  = 0
 
-import RPi.GPIO as GPIO
-
-# GPIO init
-GPIO.setmode(GPIO.BCM) # use the BCM-GPIO names, _not_ the pin numbers on the board
-
-# Raspberry Pi GPIO configuration:
-frontLeftEncoderGPIO  = 27 # forward
-rearLeftEncoderGPIO   = 22 # forward
-frontRightEncoderGPIO = 23 # forward
-rearRightEncoderGPIO  = 24 # forward
-
-# setup
-rospy.loginfo("Wheel encoder GPIO setup...")
-GPIO.setup(frontLeftEncoderGPIO,  GPIO.IN)
-GPIO.setup(rearLeftEncoderGPIO,   GPIO.IN)
-GPIO.setup(frontRightEncoderGPIO, GPIO.IN)
-GPIO.setup(rearRightEncoderGPIO,  GPIO.IN)
-
-
 # for getting the hostname of the underlying system
 import socket
 # showing hostname
@@ -104,6 +85,25 @@ hostname = socket.gethostname()
 rospy.loginfo("Running on host %s.", hostname)
 if (hostname != 'minibot') and (hostname != 'minibottest'):
     rospy.logwarn("Test mode only due to other host. Skipping all hardware staff!")
+else:
+    # we are "live" on robot hardware
+    import RPi.GPIO as GPIO
+
+    # GPIO init
+    GPIO.setmode(GPIO.BCM) # use the BCM-GPIO names, _not_ the pin numbers on the board
+
+    # Raspberry Pi GPIO configuration:
+    frontLeftEncoderGPIO  = 27 # forward
+    rearLeftEncoderGPIO   = 22 # forward
+    frontRightEncoderGPIO = 23 # forward
+    rearRightEncoderGPIO  = 24 # forward
+
+    # setup
+    rospy.loginfo("Wheel encoder GPIO setup...")
+    GPIO.setup(frontLeftEncoderGPIO,  GPIO.IN)
+    GPIO.setup(rearLeftEncoderGPIO,   GPIO.IN)
+    GPIO.setup(frontRightEncoderGPIO, GPIO.IN)
+    GPIO.setup(rearRightEncoderGPIO,  GPIO.IN)
 
 
 # define a clean node exit

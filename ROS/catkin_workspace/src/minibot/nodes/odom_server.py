@@ -143,6 +143,10 @@ else:
         GPIO.remove_event_detect(frontRightEncoderGPIO)
         GPIO.remove_event_detect(rearRightEncoderGPIO)
 
+    """ START wheel encoder tracking """
+    enableEncoderTracking()
+
+
 
 # define a clean node exit
 def my_exit():

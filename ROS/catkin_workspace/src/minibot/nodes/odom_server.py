@@ -105,6 +105,44 @@ else:
     GPIO.setup(frontRightEncoderGPIO, GPIO.IN)
     GPIO.setup(rearRightEncoderGPIO,  GPIO.IN)
 
+    # encoder pulse detection by interrupt
+    def fronLeftEncoderCallback(answer):
+        global odomCountForeverFrontLeft
+        odomCountForeverFrontLeft = odomCountForeverFrontLeft +1
+        rospy.loginfo("Front left encoder.")
+
+    def rearLeftEncoderCallback(answer):
+        global odomCountForeverRearLeft
+        odomCountForeverRearLeft = odomCountForeverRearLeft +1
+        rospy.loginfo("Rear left encoder.")
+
+    def frontRightEncoderCallback(answer):
+        global odomCountForeverFrontRight
+        odomCountForeverFrontRight = odomCountForeverFrontRight +1
+        rospy.loginfo("Front right encoder.")
+
+    def rearRightEncoderCallback(answer):
+        global odomCountForeverRearRight
+        odomCountForeverRearRight = odomCountForeverRearRight +1
+        rospy.loginfo("Rear right encoder.")
+
+    # add GPIO event detectors (interrupt service routines)
+    print("registering event handlers...")
+
+    # enabling event handlers (if needed only)
+    def enableEncoderTracking():
+        GPIO.add_event_detect(frontLeftEncoderGPIO,  GPIO.FALLING, callback=fronLeftEncoderCallback)
+        GPIO.add_event_detect(rearLeftEncoderGPIO, GPIO.FALLING, callback=rearLeftEncoderCallback)
+        GPIO.add_event_detect(frontRightEncoderGPIO, GPIO.FALLING, callback=frontRightEncoderCallback)
+        GPIO.add_event_detect(rearRightEncoderGPIO, GPIO.FALLING, callback=rearRightEncoderCallback)
+
+    # disabling event handlers
+    def disableEncoderTracking():
+        GPIO.remove_event_detect(frontLeftEncoderGPIO)
+        GPIO.remove_event_detect(rearLeftEncoderGPIO)
+        GPIO.remove_event_detect(frontRightEncoderGPIO)
+        GPIO.remove_event_detect(rearRightEncoderGPIO)
+
 
 # define a clean node exit
 def my_exit():

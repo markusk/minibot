@@ -148,8 +148,10 @@ else:
 def my_exit():
   rospy.loginfo("Shutting down odometry service...")
   # run some parts only on the real robot
-  if hostname == 'minibot':
-      # @# TODO: GPIO stuff here. TO BE DEFINED
+  if hostname == 'minibot' or hostname == 'minibottest':
+        """ STOP wheel encoder tracking """
+        disableEncoderTracking()
+        GPIO.cleanup()
   rospy.loginfo("...shutting down odometrie service complete.")
 
 # call this method on node exit

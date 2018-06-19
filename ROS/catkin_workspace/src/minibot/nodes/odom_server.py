@@ -74,7 +74,6 @@ import sys
 
 # count the ticks from the wheel encoders "forever"
 odomCountForeverFrontLeft  = 0
-odomCountForeverBackLeft   = 0
 odomCountForeverFrontRight = 0
 odomCountForeverBackRight  = 0
 

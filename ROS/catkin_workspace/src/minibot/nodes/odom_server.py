@@ -74,8 +74,9 @@ import sys
 
 # count the ticks from the wheel encoders "forever"
 odomCountForeverFrontLeft  = 0
+odomCountForeverRearLeft   = 0
 odomCountForeverFrontRight = 0
-odomCountForeverBackRight  = 0
+odomCountForeverRearRight  = 0
 
 # for getting the hostname of the underlying system
 import socket

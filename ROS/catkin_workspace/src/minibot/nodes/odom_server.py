@@ -63,6 +63,31 @@ odom_trans.header.frame_id = "odom";
 odom_trans.child_frame_id = "base_footprint";
 
 
+# --------------------
+# wheel encoder stuff
+# --------------------
+import atexit
+
+# for signal handling
+import signal
+import sys
+
+# count the ticks from the wheel encoders "forever"
+odomCountForeverFrontLeft  = 0
+odomCountForeverBackLeft   = 0
+odomCountForeverFrontRight = 0
+odomCountForeverBackRight  = 0
+
+import RPi.GPIO as GPIO
+
+# GPIO init
+GPIO.setmode(GPIO.BCM) # use the BCM-GPIO names, _not_ the pin numbers on the board
+
+# Raspberry Pi GPIO configuration:
+frontLeftEncoderGPIO  = 27 # forward
+rearLeftEncoderGPIO   = 22 # forward
+frontRightEncoderGPIO = 23 # forward
+rearRightEncoderGPIO  = 24 # forward
 # for getting the hostname of the underlying system
 import socket
 # showing hostname

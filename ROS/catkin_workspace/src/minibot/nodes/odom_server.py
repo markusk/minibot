@@ -127,7 +127,7 @@ else:
         rospy.loginfo("Rear right encoder.")
 
     # add GPIO event detectors (interrupt service routines)
-    print("registering event handlers...")
+    rospy.loginfo("registering event handlers...")
 
     # enabling event handlers (if needed only)
     def enableEncoderTracking():

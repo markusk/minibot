@@ -88,6 +88,15 @@ frontLeftEncoderGPIO  = 27 # forward
 rearLeftEncoderGPIO   = 22 # forward
 frontRightEncoderGPIO = 23 # forward
 rearRightEncoderGPIO  = 24 # forward
+
+# setup
+rospy.loginfo("Wheel encoder GPIO setup...")
+GPIO.setup(frontLeftEncoderGPIO,  GPIO.IN)
+GPIO.setup(rearLeftEncoderGPIO,   GPIO.IN)
+GPIO.setup(frontRightEncoderGPIO, GPIO.IN)
+GPIO.setup(rearRightEncoderGPIO,  GPIO.IN)
+
+
 # for getting the hostname of the underlying system
 import socket
 # showing hostname

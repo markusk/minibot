@@ -41,13 +41,13 @@ rospy.init_node('odom_node', anonymous=False)
 
 
 # initial position
-x = 0.0;
-y = 0.0;
-th = 0;
+x  = 0.0;
+y  = 0.0;
+th = 0.0;
 
 # velocity
-vx = 0.4;
-vy = 0.0;
+vx  = 0.4;
+vy  = 0.0;
 vth = 0.4;
 current_time = rospy.Time.now()
 last_time = rospy.Time.now()

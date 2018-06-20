@@ -54,6 +54,20 @@ last_time = rospy.Time.now()
 broadcaster = tf.TransformBroadcaster()
 degree = M_PI/180;
 
+""" robot parameters
+
+:@# TODO: move these values to ROS parameter server
+f.e.: node.getParam("odom/distancepercount", param_distancepercount);
+
+16 Flankenwechsel pro Umdrehung,
+durch Getriebe:
+544 Flankenwechsel pro Umdrehung für ein 34:1 Getriebe
+
+double DistancePerCount = 50.0/12.0 * 0.6/17.0; """
+distancePerCount       = 0.0  # param_distancepercount   in meters (m)!!
+lengthBetweenTwoWheels = 0.0  # param_widthbetweenwheels
+
+
 # message declarations
 # the tf broadcaster
 # "any odometry source must publish information about the coordinate frame that it manages"

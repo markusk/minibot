@@ -182,6 +182,57 @@ def calculateOdometry():
     # for header time stamps
     current_time = rospy.Time.now()
 
+	double XXX = (0.1 / 50.0);
+
+	double dt = (current_time - odo_last_time).toSec();
+
+	if (dt>=ODOM_PERIOD)
+	{
+		/*
+		 * https://answers.ros.org/question/207392/generating-odom-message-from-encoder-ticks-for-robot_pose_ekf/
+		 * http://www.seattlerobotics.org/encoder/200610/Article3/IMU%20Odometry,%20by%20David%20Anderson.htm
+		 */
+		static double x = 0;
+		static double y = 0;
+		static double th = 0;
+
+
+        # extract the wheel velocities from the tick signals count
+        double deltaLeft = motor_md[MOTOR_L].odom_cnt;
+        double deltaRight = motor_md[MOTOR_R].odom_cnt;
+
+        double v_left = (deltaLeft * distancePerCount) / dt;
+        double v_right = (deltaRight * distancePerCount) / dt;
+
+        #motor_md[MOTOR_L].odom_rate = v_left;
+        #motor_md[MOTOR_R].odom_rate = v_right;
+
+        motor_md[MOTOR_L].odom_rate = (4.0 * motor_md[MOTOR_L].odom_rate + v_left) / 5.0;
+        motor_md[MOTOR_R].odom_rate = (4.0 * motor_md[MOTOR_R].odom_rate + v_right) / 5.0;
+
+        #motor_md[MOTOR_L].odom_rate = (19.0 * motor_md[MOTOR_L].odom_rate + v_left) / 20.0;
+        #motor_md[MOTOR_R].odom_rate = (19.0 * motor_md[MOTOR_R].odom_rate + v_right) / 20.0;
+
+        double vx = ((v_right + v_left) / 2);
+        double vy = 0;
+        double vth = ((v_right - v_left)/lengthBetweenTwoWheels);
+
+        #double dt = (current_time - last_time).toSec();
+        double delta_x = (vx * cos(th)) * dt;
+        double delta_y = (vx * sin(th)) * dt;
+        double delta_th = vth * dt;
+
+        x += delta_x;
+        y += delta_y;
+        th += delta_th;
+
+        # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th);
+        # since all odometry is 6DOF we'll need a quaternion created from yaw
+        odom_quat = tf::createQuaternionMsgFromYaw(th)
+        # oder von imu_bno055:     odom_quat = tf.transformations.quaternion_from_euler(x, y, z) #   z vs. th ?!??
+
+
+
 # "main"
 while not rospy.is_shutdown():
     # measure staff and publish odom

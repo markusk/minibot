@@ -54,6 +54,7 @@ last_time = rospy.Time.now()
 broadcaster = tf.TransformBroadcaster()
 degree = M_PI/180;
 
+
 """ robot parameters
 
 :@# TODO: move these values to ROS parameter server
@@ -176,12 +177,15 @@ def my_exit():
 rospy.on_shutdown(my_exit)
 
 
-
-
-while not rospy.is_shutdown():
+""" this is where the odometry magic happens """
+def calculateOdometry():
     # for header time stamps
     current_time = rospy.Time.now()
 
+# "main"
+while not rospy.is_shutdown():
+    # measure staff and publish odom
+    calculateOdometry()
 
 
     # Sleep for a second until the next reading.

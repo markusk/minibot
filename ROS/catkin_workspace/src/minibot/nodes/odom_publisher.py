@@ -2,9 +2,9 @@
 # coding=utf-8
 
 """
-This node tries to generate odometrie by converting wheel encoder tickts from my
+This node tries to generate odometrie by converting wheel encoder ticks from my
 robot 'minibot'.
-It also publishes odometrie messages into ROS for use in the navigation stack.
+It then publishes odometrie messages into ROS for use in the navigation stack.
 
 Author:  Markus Knapp, 2018
 Website: https://direcs.de

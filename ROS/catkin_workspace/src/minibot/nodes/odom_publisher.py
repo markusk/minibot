@@ -253,6 +253,23 @@ def calculateOdometry():
     odom_quat = tf::createQuaternionMsgFromYaw(th)
     # oder von imu_bno055:     odom_quat = tf.transformations.quaternion_from_euler(x, y, z) #   z vs. th ?!??
 
+
+    """ generate tf broacast message and publish """
+	static tf::TransformBroadcaster tf_broadcaster;
+
+	geometry_msgs::TransformStamped odom_trans;
+	odom_trans.header.stamp = current_time;
+	odom_trans.header.frame_id = "odom";
+	odom_trans.child_frame_id = "base_footprint";
+
+	odom_trans.transform.translation.x = x;
+	odom_trans.transform.translation.y = y;
+	odom_trans.transform.translation.z = 0.0;
+	odom_trans.transform.rotation = odom_quat;
+
+	//send the transform
+	tf_broadcaster.sendTransform(odom_trans);
+
 hier fehlt noch einiges!
 
 

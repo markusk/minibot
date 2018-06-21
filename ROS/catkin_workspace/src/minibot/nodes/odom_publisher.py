@@ -217,26 +217,31 @@ def calculateOdometry():
     deltaFrontRight = odomCountFrontRight;
     deltaRearRight  = odomCountRearRight;
 
-    double v_left = (deltaLeft * distancePerCount) / dt;
-    double v_right = (deltaRight * distancePerCount) / dt;
+    v_FrontLeft  = (deltaFrontLeft  * distancePerCount) / dt;
+    v_RearLeft   = (deltaRearLeft   * distancePerCount) / dt;
+    v_FrontRight = (deltaFrontRight * distancePerCount) / dt;
+    v_RearRight  = (deltaRearRight  * distancePerCount) / dt;
 
     #motor_md[MOTOR_L].odom_rate = v_left;
     #motor_md[MOTOR_R].odom_rate = v_right;
 
-    motor_md[MOTOR_L].odom_rate = (4.0 * motor_md[MOTOR_L].odom_rate + v_left) / 5.0;
-    motor_md[MOTOR_R].odom_rate = (4.0 * motor_md[MOTOR_R].odom_rate + v_right) / 5.0;
+    motor_md[MOTOR_L].odom_rate = (4.0 * motor_md[MOTOR_L].odom_rate + v_FrontLeft) / 5.0;
+    motor_md[MOTOR_R].odom_rate = (4.0 * motor_md[MOTOR_R].odom_rate + v_FrontRight) / 5.0;
 
     #motor_md[MOTOR_L].odom_rate = (19.0 * motor_md[MOTOR_L].odom_rate + v_left) / 20.0;
     #motor_md[MOTOR_R].odom_rate = (19.0 * motor_md[MOTOR_R].odom_rate + v_right) / 20.0;
 
-    double vx = ((v_right + v_left) / 2);
-    double vy = 0;
-    double vth = ((v_right - v_left)/lengthBetweenTwoWheels);
+    # :@TODO what about the rear values?!?
+    vx = ((v_FrontRight + v_FrontLeft) / 2);
+    vy = 0;
+    # :@TODO declare and define lengthBetweenTwoWheels
+    # :@TODO what about the rear values?!?
+    vth = ((v_FrontRight - v_FrontLeft) / lengthBetweenTwoWheels);
 
     #double dt = (current_time - last_time).toSec();
-    double delta_x = (vx * cos(th)) * dt;
-    double delta_y = (vx * sin(th)) * dt;
-    double delta_th = vth * dt;
+    delta_x = (vx * cos(th)) * dt;
+    delta_y = (vx * sin(th)) * dt;
+    delta_th = vth * dt;
 
     x += delta_x;
     y += delta_y;

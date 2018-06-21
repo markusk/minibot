@@ -69,15 +69,6 @@ distancePerCount       = 0.0  # param_distancepercount   in meters (m)!!
 lengthBetweenTwoWheels = 0.0  # param_widthbetweenwheels
 
 
-# message declarations
-# the tf broadcaster
-# "any odometry source must publish information about the coordinate frame that it manages"
-# org: geometry_msgs::TransformStamped odom_trans;
-odom_trans = tf.TransformBroadcaster()
-odom_trans.header.frame_id = "odom"
-odom_trans.child_frame_id = "base_footprint"
-
-
 # --------------------
 # wheel encoder stuff
 # --------------------
@@ -255,7 +246,11 @@ def calculateOdometry():
 
 
     """ generate tf broacast message and publish """
-    odom_trans = Odometry() # Line taken from imu_bno055.py (and disabled there!)
+    # message declarations
+    # the tf broadcaster
+    # "any odometry source must publish information about the coordinate frame that it manages"
+    # org: geometry_msgs::TransformStamped odom_trans;
+    odom_trans = tf.TransformBroadcaster()
 	odom_trans.header.stamp = current_time
 	odom_trans.header.frame_id = "odom"
 	odom_trans.child_frame_id = "base_footprint"
@@ -270,7 +265,7 @@ def calculateOdometry():
 
 
 	""" Odometry message """
-	nav_msgs::Odometry odom;
+	odom = Odometry()
 	odom.header.stamp = current_time;
 	//odom.header.frame_id = "odom";
 

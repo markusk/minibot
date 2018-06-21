@@ -39,6 +39,9 @@ sleepTime = 0.25
 # initialise the ROS node
 rospy.init_node('odom_node', anonymous=False)
 
+# initialize the odom publisher
+odom_pub = rospy.Publisher('odom', Odometry, queue_size=10)
+
 
 # initial position
 x  = 0.0
@@ -348,12 +351,6 @@ def calculateOdometry():
 	motor_md[MOTOR_L].odom_cnt = 0;
 	motor_md[MOTOR_R].odom_cnt = 0;
 
-
-#
-# initialize odom publisher ...
-#
-odo_last_time = ros::Time::now();
-odom_pub = node.advertise<nav_msgs::Odometry>("odom", 10);
 
 
 

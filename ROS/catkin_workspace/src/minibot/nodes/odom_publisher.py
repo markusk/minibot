@@ -41,30 +41,30 @@ rospy.init_node('odom_node', anonymous=False)
 
 
 # initial position
-x  = 0.0;
-y  = 0.0;
-th = 0.0;
+x  = 0.0
+y  = 0.0
+th = 0.0
 
 # velocity
-vx  = 0.4;
-vy  = 0.0;
-vth = 0.4;
+vx  = 0.4
+vy  = 0.0
+vth = 0.4
 current_time = rospy.Time.now()
 last_time = rospy.Time.now()
 tfBroadcaster = tf.TransformBroadcaster()
-degree = M_PI/180;
+degree = M_PI/180
 
 
 """ robot parameters
 
 :@# TODO: move these values to ROS parameter server
-f.e.: node.getParam("odom/distancepercount", param_distancepercount);
+i.e.: node.getParam("odom/distancepercount", param_distancepercount)
 
 16 Flankenwechsel pro Umdrehung,
 durch Getriebe:
 544 Flankenwechsel pro Umdrehung für ein 34:1 Getriebe
 
-double DistancePerCount = 50.0/12.0 * 0.6/17.0; """
+double DistancePerCount = 50.0/12.0 * 0.6/17.0 """
 distancePerCount       = 0.0  # param_distancepercount   in meters (m)!!
 lengthBetweenTwoWheels = 0.0  # param_widthbetweenwheels
 
@@ -74,8 +74,8 @@ lengthBetweenTwoWheels = 0.0  # param_widthbetweenwheels
 # "any odometry source must publish information about the coordinate frame that it manages"
 # org: geometry_msgs::TransformStamped odom_trans;
 odom_trans = tf.TransformBroadcaster()
-odom_trans.header.frame_id = "odom";
-odom_trans.child_frame_id = "base_footprint";
+odom_trans.header.frame_id = "odom"
+odom_trans.child_frame_id = "base_footprint"
 
 
 # --------------------
@@ -99,7 +99,7 @@ odomCountFrontRight = 0
 odomCountRearRight  = 0
 
 # this is one tick from a wheel encoder
-odomStep = 1;
+odomStep = 1
 
 
 # for getting the hostname of the underlying system
@@ -201,10 +201,10 @@ def calculateOdometry():
     # get current time
     current_time = rospy.Time.now()
 
-	XXX = (0.1 / 50.0);
+	XXX = (0.1 / 50.0)
 
     # calculate passed time
-    dt = (current_time - odo_last_time).toSec();
+    dt = (current_time - odo_last_time).toSec()
 
 #	if (dt>=ODOM_PERIOD)
 #	{
@@ -212,41 +212,41 @@ def calculateOdometry():
 	# http://www.seattlerobotics.org/encoder/200610/Article3/IMU%20Odometry,%20by%20David%20Anderson.htm
 
     # extract the wheel velocities from the tick signals count
-    deltaFrontLeft  = odomCountFrontLeft;
-    deltaRearLeft   = odomCountRearLeft;
-    deltaFrontRight = odomCountFrontRight;
-    deltaRearRight  = odomCountRearRight;
+    deltaFrontLeft  = odomCountFrontLeft
+    deltaRearLeft   = odomCountRearLeft
+    deltaFrontRight = odomCountFrontRight
+    deltaRearRight  = odomCountRearRight
 
-    v_FrontLeft  = (deltaFrontLeft  * distancePerCount) / dt;
-    v_RearLeft   = (deltaRearLeft   * distancePerCount) / dt;
-    v_FrontRight = (deltaFrontRight * distancePerCount) / dt;
-    v_RearRight  = (deltaRearRight  * distancePerCount) / dt;
+    v_FrontLeft  = (deltaFrontLeft  * distancePerCount) / dt
+    v_RearLeft   = (deltaRearLeft   * distancePerCount) / dt
+    v_FrontRight = (deltaFrontRight * distancePerCount) / dt
+    v_RearRight  = (deltaRearRight  * distancePerCount) / dt
 
     #motor_md[MOTOR_L].odom_rate = v_left;
     #motor_md[MOTOR_R].odom_rate = v_right;
 
     # :@TODO what about the rear values?!?
-    motor_md[MOTOR_L].odom_rate = (4.0 * motor_md[MOTOR_L].odom_rate + v_FrontLeft) / 5.0;
-    motor_md[MOTOR_R].odom_rate = (4.0 * motor_md[MOTOR_R].odom_rate + v_FrontRight) / 5.0;
+    motor_md[MOTOR_L].odom_rate = (4.0 * motor_md[MOTOR_L].odom_rate + v_FrontLeft) / 5.0
+    motor_md[MOTOR_R].odom_rate = (4.0 * motor_md[MOTOR_R].odom_rate + v_FrontRight) / 5.0
 
     #motor_md[MOTOR_L].odom_rate = (19.0 * motor_md[MOTOR_L].odom_rate + v_left) / 20.0;
     #motor_md[MOTOR_R].odom_rate = (19.0 * motor_md[MOTOR_R].odom_rate + v_right) / 20.0;
 
     # :@TODO what about the rear values?!?
-    vx = ((v_FrontRight + v_FrontLeft) / 2);
-    vy = 0;
+    vx = ((v_FrontRight + v_FrontLeft) / 2)
+    vy = 0
     # :@TODO declare and define lengthBetweenTwoWheels
     # :@TODO what about the rear values?!?
-    vth = ((v_FrontRight - v_FrontLeft) / lengthBetweenTwoWheels);
+    vth = ((v_FrontRight - v_FrontLeft) / lengthBetweenTwoWheels)
 
     #double dt = (current_time - last_time).toSec();
-    delta_x = (vx * cos(th)) * dt;
-    delta_y = (vx * sin(th)) * dt;
-    delta_th = vth * dt;
+    delta_x = (vx * cos(th)) * dt
+    delta_y = (vx * sin(th)) * dt
+    delta_th = vth * dt
 
-    x += delta_x;
-    y += delta_y;
-    th += delta_th;
+    x += delta_x
+    y += delta_y
+    th += delta_th
 
     # org: geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th);
     # since all odometry is 6DOF we'll need a quaternion created from yaw
@@ -255,15 +255,15 @@ def calculateOdometry():
 
 
     """ generate tf broacast message and publish """
-	odom_trans.header.stamp = current_time;
-	odom_trans.header.frame_id = "odom";
-	odom_trans.child_frame_id = "base_footprint";
-
-	odom_trans.transform.translation.x = x;
-	odom_trans.transform.translation.y = y;
-	odom_trans.transform.translation.z = 0.0;
-	odom_trans.transform.rotation = odom_quat;
     odom_trans = Odometry() # Line taken from imu_bno055.py (and disabled there!)
+	odom_trans.header.stamp = current_time
+	odom_trans.header.frame_id = "odom"
+	odom_trans.child_frame_id = "base_footprint"
+
+	odom_trans.transform.translation.x = x
+	odom_trans.transform.translation.y = y
+	odom_trans.transform.translation.z = 0.0
+	odom_trans.transform.rotation = odom_quat
 
 	# send the transform
 	tfBroadcaster.sendTransform(odom_trans)

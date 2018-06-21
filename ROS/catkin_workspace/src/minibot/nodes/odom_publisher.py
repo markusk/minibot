@@ -307,10 +307,10 @@ def calculateOdometry():
 			vy,
 			vth);
 
-	//publish the message
-	odom_pub.publish(odom);
+	# publish the message
+	odom_pub.publish(odom)
 
-	odo_last_time = current_time;
+	odo_last_time = current_time
 
 
 	#

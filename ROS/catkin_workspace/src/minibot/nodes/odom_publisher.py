@@ -314,6 +314,7 @@ def calculateOdometry():
 	# publish the message
 	odom_pub.publish(odom)
 
+    # update last odom time to current
 	odo_last_time = current_time
 
 
@@ -321,7 +322,7 @@ def calculateOdometry():
 	# insert PID mode used/not used stuff here
 	#
 
-
+""" to be ported
 	#
 	# publish diagnostic data
 	#
@@ -346,7 +347,7 @@ def calculateOdometry():
 	motor_pub_odomcnt[MOTOR_L].publish(msg);
 	msg.data = motor_md[MOTOR_R].odom_cnt_forever;
 	motor_pub_odomcnt[MOTOR_R].publish(msg);
-
+"""
 
     # reset odom tick counters
 	motor_md[MOTOR_L].odom_cnt = 0;

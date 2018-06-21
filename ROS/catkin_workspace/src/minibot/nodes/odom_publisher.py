@@ -268,7 +268,90 @@ def calculateOdometry():
 	# send the transform
 	tfBroadcaster.sendTransform(odom_trans)
 
-hier fehlt noch einiges!
+
+	""" Odometry message """
+	nav_msgs::Odometry odom;
+	odom.header.stamp = current_time;
+	//odom.header.frame_id = "odom";
+
+	//set the position
+	odom.pose.pose.position.x = x;
+	odom.pose.pose.position.y = y;
+	odom.pose.pose.position.z = 0.0;
+	odom.pose.pose.orientation = odom_quat;
+	double max = 1000000000000.0;
+	double min = 0.001;
+	odom.pose.covariance = {
+			min,    0.0, 0.0,  0.0,  0.0,  0.0,
+			0.0,    min, 0.0,  0.0,  0.0,  0.0,
+			0.0,    0.0, max,  0.0,  0.0,  0.0,
+			0.0,    0.0, 0.0,  max,  0.0,  0.0,
+			0.0,    0.0, 0.0,  0.0,  max,  0.0,
+			0.0,    0.0, 0.0,  0.0,  0.0,  max };
+
+	//set the velocity
+	//odom.child_frame_id = "base_footprint";
+	odom.twist.twist.linear.x = vx;
+	odom.twist.twist.linear.y = vy;
+	odom.twist.twist.angular.z = vth;
+	odom.twist.covariance = {
+			min,     0.0,  0.0,  0.0,  0.0,  0.0,
+			0.0,     min,  0.0,  0.0,  0.0,  0.0,
+			0.0,     0.0,  max,  0.0,  0.0,  0.0,
+			0.0,     0.0,  0.0,  max,  0.0,  0.0,
+			0.0,     0.0,  0.0,  0.0,  max,  0.0,
+			0.0,     0.0,  0.0,  0.0,  0.0,  max };
+
+	ROS_DEBUG("handleODO() dt=%f encoder=%d,%d,%d,%d position=%f,%f twist=%f,%f,%f ",
+			dt,
+			motor_md[MOTOR_R].odom_cnt,motor_md[MOTOR_R].odom_step,
+			motor_md[MOTOR_L].odom_cnt,motor_md[MOTOR_L].odom_step,
+			x,
+			y,
+			vx,
+			vy,
+			vth);
+
+	//publish the message
+	odom_pub.publish(odom);
+
+	odo_last_time = current_time;
+
+
+	#
+	# insert PID mode used/not used stuff here
+	#
+
+
+	#
+	# publish diagnostic data
+	#
+	std_msgs::Float32 msg;
+
+	msg.data = motor_md[MOTOR_L].setpoint;
+	motor_pub_setpoint[MOTOR_L].publish(msg);
+	msg.data = motor_md[MOTOR_R].setpoint;
+	motor_pub_setpoint[MOTOR_R].publish(msg);
+
+	msg.data = motor_md[MOTOR_L].value;
+	motor_pub_value[MOTOR_L].publish(msg);
+	msg.data = motor_md[MOTOR_R].value;
+	motor_pub_value[MOTOR_R].publish(msg);
+
+	msg.data = motor_md[MOTOR_L].odom_rate/XXX;
+	motor_pub_rate[MOTOR_L].publish(msg);
+	msg.data = motor_md[MOTOR_R].odom_rate/XXX;
+	motor_pub_rate[MOTOR_R].publish(msg);
+
+	msg.data = motor_md[MOTOR_L].odom_cnt_forever;
+	motor_pub_odomcnt[MOTOR_L].publish(msg);
+	msg.data = motor_md[MOTOR_R].odom_cnt_forever;
+	motor_pub_odomcnt[MOTOR_R].publish(msg);
+
+
+    # reset odom tick counters
+	motor_md[MOTOR_L].odom_cnt = 0;
+	motor_md[MOTOR_R].odom_cnt = 0;
 
 
 """ 'main' """

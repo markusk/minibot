@@ -349,6 +349,14 @@ def calculateOdometry():
 	motor_md[MOTOR_R].odom_cnt = 0;
 
 
+#
+# initialize odom publisher ...
+#
+odo_last_time = ros::Time::now();
+odom_pub = node.advertise<nav_msgs::Odometry>("odom", 10);
+
+
+
 """ 'main' """
 while not rospy.is_shutdown():
     # measure staff and publish odom

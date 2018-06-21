@@ -177,6 +177,7 @@ def my_exit():
 rospy.on_shutdown(my_exit)
 
 
+
 """ this is where the odometry magic happens """
 def calculateOdometry():
     # for header time stamps
@@ -233,7 +234,8 @@ def calculateOdometry():
 
 
 
-# "main"
+
+""" 'main' """
 while not rospy.is_shutdown():
     # measure staff and publish odom
     calculateOdometry()

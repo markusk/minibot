@@ -350,8 +350,10 @@ def calculateOdometry():
 """
 
     # reset odom tick counters
-	motor_md[MOTOR_L].odom_cnt = 0;
-	motor_md[MOTOR_R].odom_cnt = 0;
+    odomCountFrontLeft  = 0
+    odomCountRearLeft   = 0
+    odomCountFrontRight = 0
+    odomCountRearRight  = 0
 
 
 

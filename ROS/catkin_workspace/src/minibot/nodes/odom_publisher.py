@@ -270,7 +270,7 @@ def calculateOdometry():
 
 	""" Odometry message """
 	odom = Odometry()
-	odom.header.stamp = current_time;
+	odom.header.stamp = current_time
 	#odom.header.frame_id = "odom";
 
 	# set the position
@@ -328,25 +328,25 @@ def calculateOdometry():
 	#
 	Float32 msg
 
-	msg.data = motor_md[MOTOR_L].setpoint;
-	motor_pub_setpoint[MOTOR_L].publish(msg);
-	msg.data = motor_md[MOTOR_R].setpoint;
-	motor_pub_setpoint[MOTOR_R].publish(msg);
+	msg.data = motor_md[MOTOR_L].setpoint
+	motor_pub_setpoint[MOTOR_L].publish(msg)
+	msg.data = motor_md[MOTOR_R].setpoint
+	motor_pub_setpoint[MOTOR_R].publish(msg)
 
-	msg.data = motor_md[MOTOR_L].value;
-	motor_pub_value[MOTOR_L].publish(msg);
-	msg.data = motor_md[MOTOR_R].value;
-	motor_pub_value[MOTOR_R].publish(msg);
+	msg.data = motor_md[MOTOR_L].value
+	motor_pub_value[MOTOR_L].publish(msg)
+	msg.data = motor_md[MOTOR_R].value
+	motor_pub_value[MOTOR_R].publish(msg)
 
-	msg.data = motor_md[MOTOR_L].odom_rate/XXX;
-	motor_pub_rate[MOTOR_L].publish(msg);
-	msg.data = motor_md[MOTOR_R].odom_rate/XXX;
-	motor_pub_rate[MOTOR_R].publish(msg);
+	msg.data = motor_md[MOTOR_L].odom_rate/XXX
+	motor_pub_rate[MOTOR_L].publish(msg)
+	msg.data = motor_md[MOTOR_R].odom_rate/XXX
+	motor_pub_rate[MOTOR_R].publish(msg)
 
-	msg.data = motor_md[MOTOR_L].odom_cnt_forever;
-	motor_pub_odomcnt[MOTOR_L].publish(msg);
-	msg.data = motor_md[MOTOR_R].odom_cnt_forever;
-	motor_pub_odomcnt[MOTOR_R].publish(msg);
+	msg.data = motor_md[MOTOR_L].odom_cnt_forever
+	motor_pub_odomcnt[MOTOR_L].publish(msg)
+	msg.data = motor_md[MOTOR_R].odom_cnt_forever
+	motor_pub_odomcnt[MOTOR_R].publish(msg)
 """
 
     # reset odom tick counters

@@ -301,15 +301,15 @@ def calculateOdometry():
 			0.0,     0.0,  0.0,  0.0,  max,  0.0,
 			0.0,     0.0,  0.0,  0.0,  0.0,  max }
 
-	ROS_DEBUG("handleODO() dt=%f encoder=%d,%d,%d,%d position=%f,%f twist=%f,%f,%f ",
+	ROS_DEBUG("calculateOdometry() dt=%f encoder=%d,%d,%d,%d position=%f,%f twist=%f,%f,%f ",
 			dt,
-			motor_md[MOTOR_R].odom_cnt,motor_md[MOTOR_R].odom_step,
-			motor_md[MOTOR_L].odom_cnt,motor_md[MOTOR_L].odom_step,
+			odomCountFrontLeft,  odomCountRearLeft,
+			odomCountFrontRight, odomCountRearRight,
 			x,
 			y,
 			vx,
 			vy,
-			vth);
+			vth)
 
 	# publish the message
 	odom_pub.publish(odom)

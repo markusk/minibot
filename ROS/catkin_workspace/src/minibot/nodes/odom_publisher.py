@@ -212,8 +212,8 @@ def calculateOdometry():
 	# http://www.seattlerobotics.org/encoder/200610/Article3/IMU%20Odometry,%20by%20David%20Anderson.htm
 
     # extract the wheel velocities from the tick signals count
-    double deltaLeft = motor_md[MOTOR_L].odom_cnt;
-    double deltaRight = motor_md[MOTOR_R].odom_cnt;
+    deltaLeft = motor_md[MOTOR_L].odom_cnt;
+    deltaRight = motor_md[MOTOR_R].odom_cnt;
 
     double v_left = (deltaLeft * distancePerCount) / dt;
     double v_right = (deltaRight * distancePerCount) / dt;

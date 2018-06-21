@@ -274,10 +274,10 @@ def calculateOdometry():
 	#odom.header.frame_id = "odom";
 
 	# set the position
-	odom.pose.pose.position.x = x;
-	odom.pose.pose.position.y = y;
-	odom.pose.pose.position.z = 0.0;
-	odom.pose.pose.orientation = odom_quat;
+	odom.pose.pose.position.x = x
+	odom.pose.pose.position.y = y
+	odom.pose.pose.position.z = 0.0
+	odom.pose.pose.orientation = odom_quat
 	max = 1000000000000.0
 	min = 0.001
 	odom.pose.covariance = {
@@ -286,20 +286,20 @@ def calculateOdometry():
 			0.0,    0.0, max,  0.0,  0.0,  0.0,
 			0.0,    0.0, 0.0,  max,  0.0,  0.0,
 			0.0,    0.0, 0.0,  0.0,  max,  0.0,
-			0.0,    0.0, 0.0,  0.0,  0.0,  max };
+			0.0,    0.0, 0.0,  0.0,  0.0,  max }
 
 	# set the velocity
 	#odom.child_frame_id = "base_footprint";
-	odom.twist.twist.linear.x = vx;
-	odom.twist.twist.linear.y = vy;
-	odom.twist.twist.angular.z = vth;
+	odom.twist.twist.linear.x = vx
+	odom.twist.twist.linear.y = vy
+	odom.twist.twist.angular.z = vth
 	odom.twist.covariance = {
 			min,     0.0,  0.0,  0.0,  0.0,  0.0,
 			0.0,     min,  0.0,  0.0,  0.0,  0.0,
 			0.0,     0.0,  max,  0.0,  0.0,  0.0,
 			0.0,     0.0,  0.0,  max,  0.0,  0.0,
 			0.0,     0.0,  0.0,  0.0,  max,  0.0,
-			0.0,     0.0,  0.0,  0.0,  0.0,  max };
+			0.0,     0.0,  0.0,  0.0,  0.0,  max }
 
 	ROS_DEBUG("handleODO() dt=%f encoder=%d,%d,%d,%d position=%f,%f twist=%f,%f,%f ",
 			dt,

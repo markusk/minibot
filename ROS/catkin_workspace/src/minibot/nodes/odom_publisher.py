@@ -192,10 +192,10 @@ def calculateOdometry():
     # get current time
     current_time = rospy.Time.now()
 
-	double XXX = (0.1 / 50.0);
+	XXX = (0.1 / 50.0);
 
-	double dt = (current_time - odo_last_time).toSec();
     # calculate passed time
+    dt = (current_time - odo_last_time).toSec();
 
 #	if (dt>=ODOM_PERIOD)
 #	{

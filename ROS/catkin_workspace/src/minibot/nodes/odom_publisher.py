@@ -93,6 +93,15 @@ odomCountForeverRearLeft   = 0
 odomCountForeverFrontRight = 0
 odomCountForeverRearRight  = 0
 
+odomCountFrontLeft  = 0
+odomCountRearLeft   = 0
+odomCountFrontRight = 0
+odomCountRearRight  = 0
+
+# this is one tick from a wheel encoder
+odomStep = 1;
+
+
 # for getting the hostname of the underlying system
 import socket
 # showing hostname
@@ -123,22 +132,22 @@ else:
     # encoder pulse detection by interrupt
     def fronLeftEncoderCallback(answer):
         global odomCountForeverFrontLeft
-        odomCountForeverFrontLeft = odomCountForeverFrontLeft +1
+        odomCountForeverFrontLeft = odomCountForeverFrontLeft + odomStep
         rospy.loginfo("Front left encoder.")
 
     def rearLeftEncoderCallback(answer):
         global odomCountForeverRearLeft
-        odomCountForeverRearLeft = odomCountForeverRearLeft +1
+        odomCountForeverRearLeft = odomCountForeverRearLeft + odomStep
         rospy.loginfo("Rear left encoder.")
 
     def frontRightEncoderCallback(answer):
         global odomCountForeverFrontRight
-        odomCountForeverFrontRight = odomCountForeverFrontRight +1
+        odomCountForeverFrontRight = odomCountForeverFrontRight + odomStep
         rospy.loginfo("Front right encoder.")
 
     def rearRightEncoderCallback(answer):
         global odomCountForeverRearRight
-        odomCountForeverRearRight = odomCountForeverRearRight +1
+        odomCountForeverRearRight = odomCountForeverRearRight + odomStep
         rospy.loginfo("Rear right encoder.")
 
     # add GPIO event detectors (interrupt service routines)
@@ -180,23 +189,18 @@ rospy.on_shutdown(my_exit)
 
 """ this is where the odometry magic happens """
 def calculateOdometry():
-    # for header time stamps
+    # get current time
     current_time = rospy.Time.now()
 
 	double XXX = (0.1 / 50.0);
 
 	double dt = (current_time - odo_last_time).toSec();
+    # calculate passed time
 
 #	if (dt>=ODOM_PERIOD)
 #	{
-	/*
-	 * https://answers.ros.org/question/207392/generating-odom-message-from-encoder-ticks-for-robot_pose_ekf/
-	 * http://www.seattlerobotics.org/encoder/200610/Article3/IMU%20Odometry,%20by%20David%20Anderson.htm
-	 */
-	static double x = 0;
-	static double y = 0;
-	static double th = 0;
-
+	# https://answers.ros.org/question/207392/generating-odom-message-from-encoder-ticks-for-robot_pose_ekf/
+	# http://www.seattlerobotics.org/encoder/200610/Article3/IMU%20Odometry,%20by%20David%20Anderson.htm
 
     # extract the wheel velocities from the tick signals count
     double deltaLeft = motor_md[MOTOR_L].odom_cnt;
@@ -232,7 +236,7 @@ def calculateOdometry():
     odom_quat = tf::createQuaternionMsgFromYaw(th)
     # oder von imu_bno055:     odom_quat = tf.transformations.quaternion_from_euler(x, y, z) #   z vs. th ?!??
 
-
+hier fehlt noch einiges!
 
 
 """ 'main' """

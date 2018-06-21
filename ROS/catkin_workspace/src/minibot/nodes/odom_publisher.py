@@ -51,7 +51,7 @@ vy  = 0.0;
 vth = 0.4;
 current_time = rospy.Time.now()
 last_time = rospy.Time.now()
-broadcaster = tf.TransformBroadcaster()
+tfBroadcaster = tf.TransformBroadcaster()
 degree = M_PI/180;
 
 
@@ -267,8 +267,8 @@ def calculateOdometry():
 	odom_trans.transform.translation.z = 0.0;
 	odom_trans.transform.rotation = odom_quat;
 
-	//send the transform
-	tf_broadcaster.sendTransform(odom_trans);
+	# send the transform
+	tfBroadcaster.sendTransform(odom_trans)
 
 hier fehlt noch einiges!
 

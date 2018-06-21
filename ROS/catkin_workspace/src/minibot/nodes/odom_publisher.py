@@ -131,22 +131,31 @@ else:
 
     # encoder pulse detection by interrupt
     def fronLeftEncoderCallback(answer):
+        global odomCountFrontLeft
         global odomCountForeverFrontLeft
+        # velocity is always positive, so we always increment
+        odomCountFrontLeft        = odomCountFrontLeft        + odomStep
         odomCountForeverFrontLeft = odomCountForeverFrontLeft + odomStep
         rospy.loginfo("Front left encoder.")
 
     def rearLeftEncoderCallback(answer):
+        global odomCountRearLeft
         global odomCountForeverRearLeft
+        odomCountRearLeft        = odomCountRearLeft        + odomStep
         odomCountForeverRearLeft = odomCountForeverRearLeft + odomStep
         rospy.loginfo("Rear left encoder.")
 
     def frontRightEncoderCallback(answer):
+        global odomCountFrontRight
         global odomCountForeverFrontRight
+        odomCountFrontRight        = odomCountFrontRight        + odomStep
         odomCountForeverFrontRight = odomCountForeverFrontRight + odomStep
         rospy.loginfo("Front right encoder.")
 
     def rearRightEncoderCallback(answer):
+        global odomCountRearRight
         global odomCountForeverRearRight
+        odomCountRearRight        = odomCountRearRight        + odomStep
         odomCountForeverRearRight = odomCountForeverRearRight + odomStep
         rospy.loginfo("Rear right encoder.")
 

@@ -255,9 +255,6 @@ def calculateOdometry():
 
 
     """ generate tf broacast message and publish """
-	static tf::TransformBroadcaster tf_broadcaster;
-
-	geometry_msgs::TransformStamped odom_trans;
 	odom_trans.header.stamp = current_time;
 	odom_trans.header.frame_id = "odom";
 	odom_trans.child_frame_id = "base_footprint";
@@ -266,6 +263,7 @@ def calculateOdometry():
 	odom_trans.transform.translation.y = y;
 	odom_trans.transform.translation.z = 0.0;
 	odom_trans.transform.rotation = odom_quat;
+    odom_trans = Odometry() # Line taken from imu_bno055.py (and disabled there!)
 
 	# send the transform
 	tfBroadcaster.sendTransform(odom_trans)

@@ -225,6 +225,7 @@ def calculateOdometry():
     #motor_md[MOTOR_L].odom_rate = v_left;
     #motor_md[MOTOR_R].odom_rate = v_right;
 
+    # :@TODO what about the rear values?!?
     motor_md[MOTOR_L].odom_rate = (4.0 * motor_md[MOTOR_L].odom_rate + v_FrontLeft) / 5.0;
     motor_md[MOTOR_R].odom_rate = (4.0 * motor_md[MOTOR_R].odom_rate + v_FrontRight) / 5.0;
 

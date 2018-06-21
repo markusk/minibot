@@ -267,15 +267,15 @@ def calculateOdometry():
 	""" Odometry message """
 	odom = Odometry()
 	odom.header.stamp = current_time;
-	//odom.header.frame_id = "odom";
+	#odom.header.frame_id = "odom";
 
-	//set the position
+	# set the position
 	odom.pose.pose.position.x = x;
 	odom.pose.pose.position.y = y;
 	odom.pose.pose.position.z = 0.0;
 	odom.pose.pose.orientation = odom_quat;
-	double max = 1000000000000.0;
-	double min = 0.001;
+	max = 1000000000000.0
+	min = 0.001
 	odom.pose.covariance = {
 			min,    0.0, 0.0,  0.0,  0.0,  0.0,
 			0.0,    min, 0.0,  0.0,  0.0,  0.0,
@@ -284,8 +284,8 @@ def calculateOdometry():
 			0.0,    0.0, 0.0,  0.0,  max,  0.0,
 			0.0,    0.0, 0.0,  0.0,  0.0,  max };
 
-	//set the velocity
-	//odom.child_frame_id = "base_footprint";
+	# set the velocity
+	#odom.child_frame_id = "base_footprint";
 	odom.twist.twist.linear.x = vx;
 	odom.twist.twist.linear.y = vy;
 	odom.twist.twist.angular.z = vth;
@@ -321,7 +321,7 @@ def calculateOdometry():
 	#
 	# publish diagnostic data
 	#
-	std_msgs::Float32 msg;
+	Float32 msg
 
 	msg.data = motor_md[MOTOR_L].setpoint;
 	motor_pub_setpoint[MOTOR_L].publish(msg);

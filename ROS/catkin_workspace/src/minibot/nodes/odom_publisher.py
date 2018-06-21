@@ -54,6 +54,7 @@ vy  = 0.0
 vth = 0.4
 current_time = rospy.Time.now()
 last_time = rospy.Time.now()
+odo_last_time = rospy.Time.now()
 tfBroadcaster = tf.TransformBroadcaster()
 degree = M_PI/180
 

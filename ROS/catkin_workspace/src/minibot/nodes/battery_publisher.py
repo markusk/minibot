@@ -90,17 +90,18 @@ while not rospy.is_shutdown():
         # read AD converter (battery voltage)
         # use channel 0 on IC
         value = adc.read_adc(0, gain=GAIN)
-        # 13.435 Volt battery voltage resulted in 3.845(! wtf?) Volt on the ADC channel with my circuit (voltage divider).
-        # This resulted in a ADC 'value' of 1896.
-        # The conversion factor for the battery voltage is then: 1896 / 13.435 = 141.123930033494604
+
+        # 13.44 Volt battery voltage resulted in 2,94 Volt on the ADC channel with my circuit (voltage divider w/ two resistors (39k + 11k)).
+        # This resulted in a ADC 'value' of 1465.
+        # The conversion factor for the battery voltage is then: 1465 / 13.44 = 109.00297619047619
         #
-        voltage = (value / 141.123930033494604)
+        voltage = (value / 109.00297619047619)
     else:
         # simulated value!
         voltage = demoVoltage
 
     # print out pure ADC voltage
-    # rospy.loginfo("Battery: %.1f Volt" % voltage)
+    rospy.loginfo("Battery: %.1f Volt" % voltage)
 
     # completing the ROS message
     """

@@ -67,7 +67,7 @@ if hostname == 'minibot':
 
     """ Gain 1 means, max a value of +4.096 Volt (+4,096 Volt in Europe) on the ADC channel, resulting in a 'value' of +2047. """
     GAIN = 1
-    voltage = 0
+    voltage = 0.0
 
 
 while not rospy.is_shutdown():
@@ -101,38 +101,28 @@ while not rospy.is_shutdown():
         voltage = demoVoltage
 
     # print out pure ADC voltage
-    rospy.loginfo("Battery: %.1f Volt" % voltage)
+    # rospy.loginfo("Battery: %.1f Volt" % voltage)
 
     # completing the ROS message
-    """
-    # Other battery state are not provided:
-    battery_msg.current         = Float32('nan')
-    battery_msg.current         = Float32('nan')
-    battery_msg.charge          = Float32('nan')
-    battery_msg.capacity        = Float32('nan')
-    battery_msg.design_capacity = Float32('nan')
-    battery_msg.percentage      = Float32('nan')
-    battery_msg.current         = Float32('nan')
-    """
-    battery_msg.current         = 0
-    battery_msg.charge          = 0
-    battery_msg.capacity        = 0
-    battery_msg.design_capacity = 0
-    battery_msg.percentage      = 0
-
-    """
-    battery_msg.power_supply_status = POWER_SUPPLY_STATUS_DISCHARGING
-    battery_msg.power_supply_health = POWER_SUPPLY_HEALTH_GOOD
-    battery_msg.power_supply_technology = POWER_SUPPLY_TECHNOLOGY_LIPO
-    """
-    battery_msg.present = True
+    # @SA http://docs.ros.org/jade/api/sensor_msgs/html/msg/BatteryState.html
+    battery_msg.charge          = 0.0
+    battery_msg.capacity        = 0.0
+    battery_msg.design_capacity = 2.2  # 2.2 Ah
+    battery_msg.percentage      = 0.0  # 0 to 1!
+#    battery_msg.power_supply_status = POWER_SUPPLY_STATUS_DISCHARGING
+#    battery_msg.power_supply_health = POWER_SUPPLY_HEALTH_GOOD
+#    battery_msg.power_supply_technology = POWER_SUPPLY_TECHNOLOGY_LIPO
+    battery_msg.power_supply_status     = 2
+    battery_msg.power_supply_health     = 1
+    battery_msg.power_supply_technology = 3
+    battery_msg.present       = True
+    battery_msg.cell_voltage  = [float(0)]
+    battery_msg.location      = "1"  # The location into which the battery is inserted. (slot number or plug)
+    battery_msg.serial_number = "1"
 
     # this is the battery voltage
     # @TODO strange, this assignment as to be exactly here...
-    battery_msg.voltage = voltage
-
-    # print out voltage message
-    # rospy.loginfo("Battery: %.1f Volt" % battery_msg.voltage)
+    battery_msg.voltage = float(voltage)
 
     # publish voltage
     pubBattery.publish(battery_msg)

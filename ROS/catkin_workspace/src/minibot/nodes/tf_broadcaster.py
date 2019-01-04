@@ -19,25 +19,45 @@ if __name__ == '__main__':
     rospy.loginfo("robot_tf_broadcaster started.")
 
     # the broacaster (publisher)
+    #
+    # see also http://wiki.ros.org/tf/Tutorials/Adding%20a%20frame%20%28Python%29
     br = tf.TransformBroadcaster()
     rate = rospy.Rate(10.0)
 
     while not rospy.is_shutdown():
-        """ laser_link transform (the laser rangefinder) """
-        br.sendTransform((0.06, 0.0, 0.0615),   # translation
+        """ base_link transform (base_link connected 1:1 to base_footprint. NEEDED?) """
+        br.sendTransform((0.0, 0.0, 0.0),       # translation (x,y,z) in meters
+                         (0.0, 0.0, 0.0, 1.0),  # rotation
+                         rospy.Time.now(),      # time
+                         "base_footprint",      # parent node
+                         "base_link")           # child node
+
+        """ base_laser transform (the laser rangefinder) """
+        br.sendTransform((0.06, 0.0, 0.0615),   # translation (x,y,z) in meters
                          (0.0,  0.0, 0.0, 1.0), # rotation
                          rospy.Time.now(),      # time
-                         "base_laser",          # child node
-                         "base_link")           # parent node
+                         "base_link",           # parent node
+                         "base_laser")          # child node
 
-        """ odom_link transform (the IMU) """
+        """ imu_link transform (Odometrie?!?) """
         br.sendTransform((0.0, 0.0, 0.0395),    # translation
                          (0.0, 0.0, 0.0, 1.0),  # rotation
                          rospy.Time.now(),      # time
-                         "base_link",           # child node
-                         "odom_link")           # parent node
+                         "base_link",           # parent node
+                         "imu_link")            # child node
 
+
+        """ camera_link
+        br.sendTransform((0.0, 0.0, 0.0),       # translation
+                         (0.0, 0.0, 0.0, 1.0),  # rotation
+                         rospy.Time.now(),      # time
+                         "base_link",           # parent node
+                         "camera_link")         # child node """
+
+        # "base_link" is a more common name for a chassis in ROS.
+        #
         # parent > child relation. earth > map > odom > base_link > base_laser
-        # see also http://www.ros.org/reps/rep-0105.html#relationship-between-frames
+        # see also http://wiki.ros.org/navigation/Tutorials/RobotSetup/TF
+        # and also http://www.ros.org/reps/rep-0105.html#relationship-between-frames
 
         rate.sleep()

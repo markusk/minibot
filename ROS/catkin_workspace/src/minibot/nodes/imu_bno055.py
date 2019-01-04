@@ -71,11 +71,11 @@ if (hostname != 'minibot') and (hostname != 'minibottest'):
     rospy.logwarn("Test mode only due to other host. Skipping all I2C staff!")
 
 
-# the odometry topic
+""" the odometry topic    D I S A B L E D    @sa odom_server.py
 pubOdom = rospy.Publisher('odom', Odometry, queue_size=50)
 # the tf broadcaster
 # "any odometry source must publish information about the coordinate frame that it manages"
-odomBroadcaster = tf.TransformBroadcaster()
+odomBroadcaster = tf.TransformBroadcaster() """
 
 # Euler topics
 pubH = rospy.Publisher('heading', Float32, queue_size=1)
@@ -111,10 +111,13 @@ y = 0.0
 z = 0.0
 w = 0.0
 
+# velocities - where to get?
+vx  = 0.0
+vy  = 0.0
+vth = 0.0
+
 
 # header frame for odometry message
-frame_id = 'odom' #
-child_frame_id = 'base_link' # normally the coordinate frame of the mobile base, so base_link.
 seq = 0
 
 
@@ -181,7 +184,7 @@ while not rospy.is_shutdown():
     """ IMU message header (for IMU and temperature) """
     h = rospy.Header()
     h.stamp = current_time
-    h.frame_id = frame_id  # "odom"
+    h.frame_id = 'imu_link' # @sa: tf_broadcaster.py
     h.seq = seq
     # increase sequence
     seq = seq + 1
@@ -307,7 +310,10 @@ while not rospy.is_shutdown():
     #x,y,z = bno.read_gravity()
 
 
-    """ ------------------ ROS tf stuff ------------------------------------ """
+    """ ------------------ ROS tf stuff for Odometry ------------------------------------
+
+    D I S A B L E D  !   Now createt in a seperate node with wheel encoders   D I S A B L E D  !
+
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     odom_quat = tf.transformations.quaternion_from_euler(x, y, z) #   z vs. th ?!??
 
@@ -322,13 +328,14 @@ while not rospy.is_shutdown():
                                     # time
                                     current_time,
                                     # child_frame_id
+                                    # normally the coordinate frame of the mobile base, so base_link.
                                     "base_link",
                                     # frame_id
                                     "odom"
                                   )
 
 
-    """ ------------------ ROS odom stuff ---------------------------------- """
+     ------------------ ROS odom stuff ----------------------------------
     # next, we'll publish the odometry message over ROS
     # alt:    odom = nav_msgs.msg.Odometry()
     odom = Odometry()
@@ -345,7 +352,7 @@ while not rospy.is_shutdown():
     odom.pose.pose.orientation = (odom_quat)
 
     # set the velocity
-    odom.child_frame_id = "base_link"
+    odom.child_frame_id = "base_link"  # normally the coordinate frame of the mobile base, so base_link.
     # linear acceleration from IMU (Accelerometer)
     odom.twist.twist.linear.x = xa
     odom.twist.twist.linear.y = ya
@@ -356,7 +363,7 @@ while not rospy.is_shutdown():
     # publish the message
     #
     pubOdom.publish(odom);
-
+    """
 
     # Sleep for a second until the next reading.
     rospy.sleep(sleepTime)

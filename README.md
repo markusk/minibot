@@ -33,6 +33,16 @@ sudo python setup.py install
 ```
 
 
+### IMU (BNO055 via I2C)
+```
+cd ~
+sudo apt-get install build-essential python-dev python-smbus
+git clone https://github.com/adafruit/Adafruit_Python_BNO055.git
+cd Adafruit_Python_BNO055
+sudo python setup.py install
+```
+
+
 ## ROS Setup
 - Install ROS on Raspberry Pi
 - Install necessary ROS packages:

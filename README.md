@@ -60,6 +60,7 @@ sudo apt-get install joystick
 
 
 ## Run/Test ROS
+### The main launch file
 On the robot (Raspberry Pi):
 ```
 roslaunch minibot.launch
@@ -69,3 +70,19 @@ On another computer:
 export ROS_MASTER_URI=http://hostname:11311
 roslaunch ground_control.launch
 ```
+
+
+### The different launch files
+#### battery.launch
+Observes the battery voltage. Launch file for demo purposes only.
+:arrow_right: nodes/battery_publisher.py
+
+### camera.launch
+Streams the RasPi camera image. Can be views with the ROS image_view component.
+:arrow_right: src/camera.cpp
+
+### joystick_control.launch
+Listens to a joystick and controlls the robot directly (remote).
+This part has to be started on a different computer than the robot.
+The joystick/gamepad has to be connected to that computer, not the robot.
+:arrow_right: nodes/joy_motor_listener.py

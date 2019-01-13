@@ -83,16 +83,23 @@ roslaunch ground_control.launch
 
 
 ### The different launch files
-#### battery.launch
-Observes the battery voltage. Launch file for demo purposes only.
-:arrow_right: nodes/battery_publisher.py
+#### battery
+Observes the battery voltage. Launch file for demo purposes only. Uses:
+- _nodes/battery_publisher.py_
 
-### camera.launch
-Streams the RasPi camera image. Can be views with the ROS image_view component.
-:arrow_right: src/camera.cpp
+### camera
+Streams the RasPi camera image. Can be views with the ROS image_view component. Uses:
+- _src/camera.cpp_
 
-### joystick_control.launch
-Listens to a joystick and controlls the robot directly (remote).
-This part has to be started on a different computer than the robot.
-The joystick/gamepad has to be connected to that computer, not the robot.
-:arrow_right: nodes/joy_motor_listener.py
+### joystick_control
+Listens to a joystick and controlls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
+- _nodes/joy_motor_listener.py_
+
+### keyboard_control_test
+Listens to a teleop_twist_keyboard node and prints out the data/messages. Uses:
+- _nodes/keyboard_listener.py_
+
+### keyboard_control
+Listens to a keyboard and controls the robot directly (remote). Uses:
+- _nodes/motor_server.py_
+- _nodes/keyboard_listener.py_

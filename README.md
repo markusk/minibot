@@ -61,12 +61,12 @@ ln -s /home/$USERNAME/minibot/ROS/catkin_workspace/src/ src
 catkin_make
 ```
 
+
 ## Other helpful stuff
-- joystick/gamepad driver/test programm
+- joystick/gamepad driver/test program
 ```
 sudo apt-get install joystick
 ```
-
 
 
 ## Run/Test ROS
@@ -84,7 +84,7 @@ roslaunch ground_control.launch
 
 ### The different launch files
 #### battery
-Observes the battery voltage. Launch file for demo purposes only. Uses:
+Observes the battery voltage. For demo/test purpose only. Uses:
 - _nodes/battery_publisher.py_
 
 #### camera
@@ -107,10 +107,10 @@ Listens to a teleop_twist_keyboard node and prints out the data/messages. Uses:
 - _nodes/keyboard_listener.py_
 
 #### laser
-Starts the urg_node for the laser range finder. This launch file is for convenience, to have only one ssh session open; for demo purposes.
+Starts the urg_node for the laser range finder. This launch file is for convenience, to have only one ssh session open. For demo/test purpose only.
 
 #### led_server
-Turns LEDs on the robot ON or OFF. This is the node for the robot; for demo/test purposes. Uses:
+Turns LEDs on the robot ON or OFF. This is the node for the robot. For demo/test purpose only. Uses:
 - _srv/Led.srv_
 
 #### macbook_test
@@ -132,7 +132,7 @@ Turns LEDs on the robot ON or OFF. This is the node for the robot; for demo/test
 - _urg_node_
 
 #### minibot
-Controls the whole robot. Uses:
+Controls the whole robot. To be started on the robot. Uses:
 - _tf_broadcaster.py_
 - _battery_publisher.py_
 - _imu_bno055.py_
@@ -142,5 +142,5 @@ Controls the whole robot. Uses:
 - _urg_node_
 
 #### motor_server
-[ ] (details to be checked). Uses:
+Controls the motors on the robot. Uses:
 - _motor_server.py_

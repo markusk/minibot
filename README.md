@@ -88,20 +88,22 @@ Observes the battery voltage. Launch file for demo purposes only. Uses:
 - _nodes/battery_publisher.py_
 
 #### camera
-Streams the RasPi camera image. Can be views with the ROS image_view component. Uses:
+Streams the RasPi camera image. Can be viewed with the ROS image_view component. Uses:
 - _src/camera.cpp_
 
 #### joystick_control
-Listens to a joystick and controlls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
+Listens to a joystick and controls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/joy_motor_listener.py_
-
-#### keyboard_control_test
-Listens to a teleop_twist_keyboard node and prints out the data/messages. Uses:
-- _nodes/keyboard_listener.py_
 
 #### keyboard_control
 Listens to a keyboard and controls the robot directly (remote). Uses:
 - _nodes/motor_server.py_
+- _teleop_twist_keyboard_
+- _nodes/keyboard_motor_listener.py_
+
+#### keyboard_control_test
+Listens to a teleop_twist_keyboard node and prints out the data/messages. Uses:
+- _teleop_twist_keyboard_
 - _nodes/keyboard_listener.py_
 
 #### laser
@@ -112,8 +114,7 @@ Turns LEDs on the robot ON or OFF. This is the node for the robot; for demo/test
 - _srv/Led.srv_
 
 #### macbook_test
-[ ] (details to be checked)
-Uses:
+[ ] (details to be checked). Uses:
 - _minibot.urdf.xacro_
 - _tf_broadcaster.py_
 - _battery_publisher.py_
@@ -122,8 +123,7 @@ Uses:
 - _base_controller.py_
 
 #### mapping
-[ ] (robot launch file, details to be checked)
-Uses:
+[ ] (robot launch file, details to be checked). Uses:
 - _tf_broadcaster.py_
 - _battery_publisher.py_
 - _imu_bno055.py_
@@ -132,8 +132,7 @@ Uses:
 - _urg_node_
 
 #### minibot
-Controls the whole robot.
-Uses:
+Controls the whole robot. Uses:
 - _tf_broadcaster.py_
 - _battery_publisher.py_
 - _imu_bno055.py_
@@ -143,4 +142,5 @@ Uses:
 - _urg_node_
 
 #### motor_server
+[ ] (details to be checked). Uses:
 - _motor_server.py_

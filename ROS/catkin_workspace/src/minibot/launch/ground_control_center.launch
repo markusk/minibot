@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-Launch file for controlling and observing the robots status remoteloy.
+Launch file for controlling and observing the robots status remote.
 -->
 <launch>
   <!-- Battery surveilance. -->

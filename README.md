@@ -91,12 +91,19 @@ Observes the battery voltage. For demo/test purpose only. Uses:
 Streams the RasPi camera image. Can be viewed with the ROS image_view component. Uses:
 - _src/camera.cpp_
 
+#### ground_control
+Controls and observes the robots status or sensors (remote). This part has to be started on a different computer than the robot. Uses:
+- _rqt_plot_
+- _joystick_control.launch_
+- _image_view_
+- _rviz_
+
 #### joystick_control
 Listens to a joystick and controls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/joy_motor_listener.py_
 
 #### keyboard_control
-Listens to a keyboard and controls the robot directly (remote). Uses:
+Listens to a keyboard and controls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/motor_server.py_
 - _teleop_twist_keyboard_
 - _nodes/keyboard_motor_listener.py_

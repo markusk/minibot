@@ -1,6 +1,10 @@
 # minibot
 My little Raspberry Pi and ROS robot - with some python stuff
 
+[![GitHub issues](https://img.shields.io/github/issues/markusk/minibot)](https://github.com/markusk/minibot/issues)
+[![GitHub stars](https://img.shields.io/github/stars/markusk/minibot)](https://github.com/markusk/minibot/stargazers)
+[![GitHub license](https://img.shields.io/github/license/markusk/minibot)](https://github.com/markusk/minibot/blob/master/LICENSE)
+
 ## Setup
 ### Motor Hat
 ```

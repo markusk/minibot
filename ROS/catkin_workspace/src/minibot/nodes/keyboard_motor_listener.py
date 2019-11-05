@@ -36,11 +36,11 @@ def drive(direction):
         motor_switcher = rospy.ServiceProxy('motor', Motor)
 
          # the handle can be called like a normal function
-        rospy.loginfo("Switching motors to %s @ speed %s.", direction, startSpeed)
+        rospy.loginfo("Switching motors to %s @ speed %s.\n", direction, startSpeed)
         response = motor_switcher(direction, startSpeed)
 
         # show result
-        rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
+        rospy.loginfo(rospy.get_caller_id() + ' says result is %s.\n', response.result)
 
     except rospy.ServiceException, e:
         rospy.logerr("Service call for 'motor' failed: %s", e)

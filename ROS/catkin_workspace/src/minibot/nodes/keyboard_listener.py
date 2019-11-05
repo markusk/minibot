@@ -23,9 +23,9 @@ from geometry_msgs.msg import Twist
 
 def callback(data):
     # print out received message from the teleop_twist_keyboard
-    rospy.loginfo(rospy.get_caller_id() + ' x=%s', data.linear.x)
-    rospy.loginfo(rospy.get_caller_id() + ' y=%s', data.linear.y)
-    rospy.loginfo(rospy.get_caller_id() + ' z=%s', data.angular.z)
+    rospy.loginfo(rospy.get_caller_id() + ' x=%s\n', data.linear.x)
+    rospy.loginfo(rospy.get_caller_id() + ' y=%s\n', data.linear.y)
+    rospy.loginfo(rospy.get_caller_id() + ' z=%s\n', data.angular.z)
 
 
 def listener():

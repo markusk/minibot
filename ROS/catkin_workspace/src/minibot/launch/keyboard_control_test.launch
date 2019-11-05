@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Listening to a teleop_twist_keyboard and printing out the data/messages. -->
+<!-- Listens to a teleop_twist_keyboard node and prints out the data/messages. -->
 <launch>
   <!-- This nodes listens to keyboard input -->
   <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>

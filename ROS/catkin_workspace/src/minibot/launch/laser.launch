@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-This jsut starts the urg_node for the laser range finder.
-It is just for convenience, to have only one ssh session open - for demo
+Starts the urg_node for the laser range finder.
+This lauch file is for convenience, to have only one ssh session open - for demo purposes.
 -->
 <launch>
   <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->

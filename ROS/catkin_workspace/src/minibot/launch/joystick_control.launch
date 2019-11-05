@@ -2,8 +2,8 @@
 
 <!--
 Listening to a joystick and controlling the robot directly (remote).
-This part has to be started on another computer, than the robot.
-The joystick/gamepas has to be connected to this computer, not the robot.
+This part has to be started on a different computer than the robot.
+The joystick/gamepas has to be connected to that computer, not the robot.
 -->
 <launch>
   <!--

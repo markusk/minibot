@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <launch>
-  <!-- Turnin LEDs on or off on the robot. This is the node for the robot. -->
+  <!-- Turns LEDs on the robot ON or OFF. This is the node for the robot; for demo/test purposes. -->
   <node name="led_server" pkg="minibot" type="led_server" output="screen"/>
 </launch>

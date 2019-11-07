@@ -27,7 +27,7 @@ sudo python setup.py install
 ```
 
 
-### AD converter ~~(MCP3008 via SPI)~~ (ADS1015 via I2C)
+### AD converter (ADS1015 via I2C)
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -81,8 +81,8 @@ roslaunch minibot minibot.launch
 ```
 On another computer:
 ```
-export ROS_MASTER_URI=http://hostname:11311
-roslaunch ground_control.launch
+export ROS_MASTER_URI=http://<hostname>:11311
+roslaunch minibot ground_control_center.launch
 ```
 
 

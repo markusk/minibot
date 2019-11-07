@@ -77,7 +77,7 @@ sudo apt-get install joystick
 ### The main launch file
 On the robot (Raspberry Pi):
 ```
-roslaunch minibot.launch
+roslaunch minibot minibot.launch
 ```
 On another computer:
 ```

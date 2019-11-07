@@ -67,9 +67,10 @@ catkin_make
 
 
 ## Other helpful stuff
-- joystick/gamepad driver/test program
+- joystick/gamepad support (OS and ROS)
 ```
 sudo apt-get install joystick
+sudo apt-get install ros-kinetic-joystick-drivers
 ```
 
 
@@ -79,9 +80,10 @@ On the robot (Raspberry Pi):
 ```
 roslaunch minibot minibot.launch
 ```
-On another computer:
+On another computer (the ground control center):
 ```
 export ROS_MASTER_URI=http://<hostname>:11311
+rosparam set joy_node/dev "/dev/input/js1"
 roslaunch minibot ground_control_center.launch
 ```
 

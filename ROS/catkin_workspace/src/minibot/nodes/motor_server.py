@@ -12,7 +12,8 @@ Website: https://direcs.de
 
 # speed of the motors (0-255)
 startSpeed = 75
-turnSpeed = 120
+# the speed when turning the bot can be higher if needed (higher friction)
+turnSpeed = 90
 
 # name of the package(!).srv
 from minibot.srv import *

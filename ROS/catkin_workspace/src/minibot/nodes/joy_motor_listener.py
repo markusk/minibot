@@ -31,6 +31,16 @@ from sensor_msgs.msg import Joy
 from minibot.srv import *
 
 
+# Getting robot parameters
+rospy.loginfo('Getting parameters for robot.')
+# speed of the motors (0-255).
+drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
+rospy.loginfo('+++ Using drivingSpeed %s.', drivingSpeed)
+# the speed when turning the bot can be higher if needed (higher friction)
+turnSpeed = rospy.get_param('/minibot/turnSpeed')
+rospy.loginfo('+++ Using turnSpeed %s.', turnSpeed)
+
+
 #  this will execute the "drive" command
 def drive(direction):
     # Service 'motor' from motor_server.py ready?

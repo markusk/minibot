@@ -18,16 +18,6 @@ import rospy
 rospy.init_node('motor_server', anonymous=False)
 
 
-# Getting robot parameters
-rospy.loginfo('Getting parameters for robot.')
-# speed of the motors (0-255).
-drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
-rospy.loginfo('+++ Using drivingSpeed %s.', drivingSpeed)
-# the speed when turning the bot can be higher if needed (higher friction)
-turnSpeed = rospy.get_param('/minibot/turnSpeed')
-rospy.loginfo('+++ Using turnSpeed %s.', turnSpeed)
-
-
 # for getting the hostname of the underlying system
 import socket
 # showing hostname
@@ -90,54 +80,52 @@ def handle_motor(req):
     # switch xxx to HIGH, if '1' was sent
     if (req.direction == "FORWARD"): # and speed. returns result.
         # drive
-        rospy.loginfo("Driving forward @ speed %s.", drivingSpeed)
+        rospy.loginfo("Driving %s @ speed %s.", req.direction, req.speed)
         if hostname == 'minibot':
             # setting speed
-            myMotor1.setSpeed(drivingSpeed)
-            myMotor2.setSpeed(drivingSpeed)
-            myMotor3.setSpeed(drivingSpeed)
-            myMotor4.setSpeed(drivingSpeed)
+            myMotor1.setSpeed(req.speed)
+            myMotor2.setSpeed(req.speed)
+            myMotor3.setSpeed(req.speed)
+            myMotor4.setSpeed(req.speed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.FORWARD)
             myMotor2.run(Adafruit_MotorHAT.BACKWARD)
             myMotor3.run(Adafruit_MotorHAT.BACKWARD)
             myMotor4.run(Adafruit_MotorHAT.FORWARD)
     elif (req.direction == "BACKWARD"):
-        rospy.loginfo("Driving backwards @ speed %s.", drivingSpeed)
+        rospy.loginfo("Driving %s @ speed %s.", req.direction, req.speed)
         if hostname == 'minibot':
             # setting speed
-            myMotor1.setSpeed(drivingSpeed)
-            myMotor2.setSpeed(drivingSpeed)
-            myMotor3.setSpeed(drivingSpeed)
-            myMotor4.setSpeed(drivingSpeed)
+            myMotor1.setSpeed(req.speed)
+            myMotor2.setSpeed(req.speed)
+            myMotor3.setSpeed(req.speed)
+            myMotor4.setSpeed(req.speed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
             myMotor2.run(Adafruit_MotorHAT.FORWARD)
             myMotor3.run(Adafruit_MotorHAT.FORWARD)
             myMotor4.run(Adafruit_MotorHAT.BACKWARD)
     elif (req.direction == "LEFT"):
-        rospy.loginfo("Turning left @ speed %s.", turnSpeed)
+        rospy.loginfo("Turning %s @ speed %s.", req.direction, req.speed)
         if hostname == 'minibot':
-            # seeting speed
-            # adding more power when turning
-            myMotor1.setSpeed(turnSpeed)
-            myMotor2.setSpeed(turnSpeed)
-            myMotor3.setSpeed(turnSpeed)
-            myMotor4.setSpeed(turnSpeed)
+            # setting speed
+            myMotor1.setSpeed(req.speed)
+            myMotor2.setSpeed(req.speed)
+            myMotor3.setSpeed(req.speed)
+            myMotor4.setSpeed(req.speed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
             myMotor2.run(Adafruit_MotorHAT.FORWARD)
             myMotor3.run(Adafruit_MotorHAT.BACKWARD)
             myMotor4.run(Adafruit_MotorHAT.FORWARD)
     elif (req.direction == "RIGHT"):
-        rospy.loginfo("Turning right @ speed %s.", turnSpeed)
+        rospy.loginfo("Turning %s @ speed %s.", req.direction, req.speed)
         if hostname == 'minibot':
-            # seeting speed
-            # adding more power when turning
-            myMotor1.setSpeed(turnSpeed)
-            myMotor2.setSpeed(turnSpeed)
-            myMotor3.setSpeed(turnSpeed)
-            myMotor4.setSpeed(turnSpeed)
+            # setting speed
+            myMotor1.setSpeed(req.speed)
+            myMotor2.setSpeed(req.speed)
+            myMotor3.setSpeed(req.speed)
+            myMotor4.setSpeed(req.speed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.FORWARD)
             myMotor2.run(Adafruit_MotorHAT.BACKWARD)
@@ -156,7 +144,7 @@ def handle_motor(req):
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
     # We return the speed as "okay"
-    return MotorResponse(drivingSpeed) # @# TODO: add turnSpeed when relevant
+    return MotorResponse(req.speed)
 
 
 def motor_server():
@@ -178,7 +166,7 @@ if __name__ == "__main__":
 """ motor spped increase to be implemented...
 
         rospy.loginfo("Speed up...")
-        for i in range(drivingSpeed, 255):
+        for i in range(req.speed, 255):
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
             myMotor3.setSpeed(i)
@@ -186,7 +174,7 @@ if __name__ == "__main__":
             time.sleep(0.01)
 
         rospy.loginfo("Slow down...")
-        for i in range(255, drivingSpeed, -1):
+        for i in range(255, req.speed, -1):
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
             myMotor3.setSpeed(i)

@@ -61,11 +61,6 @@ if hostname == 'minibot':
     # turning off motors NOW - you never know...
     turnOffMotors();
 
-    # set the speed (from 0 (off) to 255 (max speed))
-    myMotor1.setSpeed(startSpeed)
-    myMotor2.setSpeed(startSpeed)
-    myMotor3.setSpeed(startSpeed)
-    myMotor4.setSpeed(startSpeed)
 else:
     rospy.logwarn("Skipping I2C setup. This is not the robot.")
 
@@ -87,15 +82,16 @@ rospy.on_shutdown(my_exit)
 def handle_motor(req):
     """ In this function all the work is done :) """
 
-    // set speed for motors from arguments
+    # set speed for motors from arguments
     startSpeed = req.speed
+    turnSpeed = req.speed
 
     # switch xxx to HIGH, if '1' was sent
     if (req.direction == "FORWARD"): # and speed. returns result.
         # drive
         rospy.loginfo("Driving forward.")
         if hostname == 'minibot':
-            # resetting speed to default
+            # setting speed
             myMotor1.setSpeed(startSpeed)
             myMotor2.setSpeed(startSpeed)
             myMotor3.setSpeed(startSpeed)
@@ -108,7 +104,7 @@ def handle_motor(req):
     elif (req.direction == "BACKWARD"):
         rospy.loginfo("Driving backwards.")
         if hostname == 'minibot':
-            # resetting speed to default
+            # setting speed
             myMotor1.setSpeed(startSpeed)
             myMotor2.setSpeed(startSpeed)
             myMotor3.setSpeed(startSpeed)
@@ -121,6 +117,7 @@ def handle_motor(req):
     elif (req.direction == "LEFT"):
         rospy.loginfo("Driving left.")
         if hostname == 'minibot':
+            # seeting speed
             # adding more power when turning
             myMotor1.setSpeed(turnSpeed)
             myMotor2.setSpeed(turnSpeed)
@@ -134,6 +131,7 @@ def handle_motor(req):
     elif (req.direction == "RIGHT"):
         rospy.loginfo("Driving right.")
         if hostname == 'minibot':
+            # seeting speed
             # adding more power when turning
             myMotor1.setSpeed(turnSpeed)
             myMotor2.setSpeed(turnSpeed)
@@ -156,7 +154,7 @@ def handle_motor(req):
       rospy.logerr("Direction '%s' not implemented.", req.direction)
 
     # The name of the 'xyzResponse' comes directly from the Xyz.srv filename!
-    # we return the speed as "okay"
+    # We return the speed as "okay"
     return MotorResponse(req.speed)
 
 

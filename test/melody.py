@@ -7,8 +7,8 @@ Testing a piezo buzzer.
 
 # wait time in seconds
 waitTime1 = 0.2
-waitTime2 = 0.4
-waitTime2 = 0.8
+waitTime2 = 0.1
+waitTime3 = 0.05
 
 
 # for GPIO pin usage
@@ -56,7 +56,8 @@ signal.signal(signal.SIGTERM, sig_handler)
 ###### forever - or until ctrl+c  :)
 ######
 print('Beeping...')
-while (True):
+
+for i in range(1, 3):
     # LED ON (low active!)
     GPIO.output(ledPin, GPIO.LOW)
     # Piezo ON (low active!)
@@ -72,39 +73,3 @@ while (True):
 
     # wait
     time.sleep(waitTime1)
-
-    # - - - -
-
-    # LED ON (low active!)
-    GPIO.output(ledPin, GPIO.LOW)
-    # Piezo ON (low active!)
-    GPIO.output(piezoPin, GPIO.LOW)
-
-    # "wait" (generate a square wave for the piezo)
-    time.sleep(waitTime2)
-
-    # LED OFF
-    GPIO.output(ledPin, GPIO.HIGH)
-    # Piezo OFF
-    GPIO.output(piezoPin, GPIO.HIGH)
-
-    # wait
-    time.sleep(waitTime2)
-
-    # - - - -
-
-    # LED ON (low active!)
-    GPIO.output(ledPin, GPIO.LOW)
-    # Piezo ON (low active!)
-    GPIO.output(piezoPin, GPIO.LOW)
-
-    # "wait" (generate a square wave for the piezo)
-    time.sleep(waitTime3)
-
-    # LED OFF
-    GPIO.output(ledPin, GPIO.HIGH)
-    # Piezo OFF
-    GPIO.output(piezoPin, GPIO.HIGH)
-
-    # wait
-    time.sleep(waitTime3)

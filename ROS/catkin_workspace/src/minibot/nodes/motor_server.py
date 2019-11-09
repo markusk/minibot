@@ -86,6 +86,10 @@ def handle_motor(req):
     drivingSpeed = req.speed
     turnSpeed = req.speed
 
+    value = rospy.get_param('/minibot/drivingSpeed')
+    rospy.loginfo('+++ Using drivingSpeed %s.', value)
+
+
     # switch xxx to HIGH, if '1' was sent
     if (req.direction == "FORWARD"): # and speed. returns result.
         # drive

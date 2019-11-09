@@ -87,6 +87,9 @@ rospy.on_shutdown(my_exit)
 def handle_motor(req):
     """ In this function all the work is done :) """
 
+    // set speed for motors from arguments
+    startSpeed = req.speed
+
     # switch xxx to HIGH, if '1' was sent
     if (req.direction == "FORWARD"): # and speed. returns result.
         # drive

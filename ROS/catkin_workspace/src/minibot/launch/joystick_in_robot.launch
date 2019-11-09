@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
+-->
+<launch>
+  <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
+  <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>
+
+  <!-- Publishing the battery voltage as Float32. -->
+  <node name="battery_publisher" pkg="minibot" type="battery_publisher.py" output="screen"/>
+
+  <!-- Publishing "odom" nav_msgs/Odometry for the local planner (navigation stack). -->
+  <node name="imu_bno055" pkg="minibot" type="imu_bno055.py" output="screen"/>
+
+  <!-- Controlling the motor on a hardware level (I2C) -->
+  <node name="motor_server" pkg="minibot" type="motor_server.py" output="screen"/>
+
+  <!-- Base controller listens to "cmd_vel" geometry_msgs/Twist messages and publishes motor control messages (for the I2C control node). -->
+  <node name="base_controller" pkg="minibot" type="base_controller.py" output="screen"/>
+
+  <!-- Camera support -->
+  <node pkg="minibot" type="camera" name="minibot_camera" output="screen"/>
+
+  <!--
+  This is the needed device path for the following joystick node.
+  -->
+  <param name="joy_node/dev" type="str" value="/dev/input/js2" />
+
+  <!--
+  This nodes listens to joystick/gamepad input.
+  Use the D-Pad buttons on the joystick/gamepad to control the motors.
+  -->
+  <node name="joy_node" pkg="joy" type="joy_node" output="screen"/>
+
+  <!--
+  This nodes takes the joystick input and sends out motor control messages.
+  The motor control on a hardware level is started by 'roslaunch minibot motor_server' on the robot.
+  -->
+  <node name="joy_motor_listener" pkg="minibot" type="joy_motor_listener.py" output="screen"/>
+
+  <!-- We do not start the laser rangefinder node. The robot is under manual control. -->
+</launch>

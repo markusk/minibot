@@ -58,7 +58,7 @@ if hostname == 'minibot':
         myMotor3.run(Adafruit_MotorHAT.RELEASE);
         myMotor4.run(Adafruit_MotorHAT.RELEASE);
 
-    # turning off motors NOW
+    # turning off motors NOW - you never know...
     turnOffMotors();
 
     # set the speed (from 0 (off) to 255 (max speed))
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
 
 
-""" motor stuff to be implemented here:
+""" motor spped increase to be implemented...
 
         rospy.loginfo("Speed up...")
         for i in range(startSpeed, 255):

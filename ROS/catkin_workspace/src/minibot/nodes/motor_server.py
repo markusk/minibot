@@ -10,20 +10,22 @@ Website: https://direcs.de
 """
 
 
-# speed of the motors (0-255).
-drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
-rospy.loginfo('+++ Using drivingSpeed %s.', drivingSpeed)
-# the speed when turning the bot can be higher if needed (higher friction)
-turnSpeed = rospy.get_param('/minibot/turnSpeed')
-rospy.loginfo('+++ Using turnSpeed %s.', turnSpeed)
-
-
 # name of the package(!).srv
 from minibot.srv import *
 import rospy
 
 # Service nodes have to be initialised
 rospy.init_node('motor_server', anonymous=False)
+
+
+# Getting robot parameters
+rospy.loginfo('Getting parameters for robot.')
+# speed of the motors (0-255).
+drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
+rospy.loginfo('+++ Using drivingSpeed %s.', drivingSpeed)
+# the speed when turning the bot can be higher if needed (higher friction)
+turnSpeed = rospy.get_param('/minibot/turnSpeed')
+rospy.loginfo('+++ Using turnSpeed %s.', turnSpeed)
 
 
 # for getting the hostname of the underlying system

@@ -23,9 +23,10 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   <node pkg="minibot" type="camera" name="minibot_camera" output="screen"/>
 
   <!--
-  This is the needed device path for the following joystick node.
+  This is the device path for the following joystick node. Not really necessary, since default is js0.
+  But this line is for conveniance to change it easyliy here if needed.
   -->
-  <param name="joy_node/dev" type="str" value="/dev/input/js2" />
+  <param name="joy_node/dev" type="str" value="/dev/input/js0" />
 
   <!--
   This nodes listens to joystick/gamepad input.

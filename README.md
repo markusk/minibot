@@ -1,6 +1,10 @@
 # minibot
 My little Raspberry Pi and ROS robot - with some python stuff
 
+[![GitHub issues](https://img.shields.io/github/issues/markusk/minibot)](https://github.com/markusk/minibot/issues)
+[![GitHub stars](https://img.shields.io/github/stars/markusk/minibot)](https://github.com/markusk/minibot/stargazers)
+[![GitHub license](https://img.shields.io/github/license/markusk/minibot)](https://github.com/markusk/minibot/blob/master/LICENSE)
+
 ## Setup
 ### Motor Hat
 ```
@@ -23,7 +27,7 @@ sudo python setup.py install
 ```
 
 
-### AD converter ~~(MCP3008 via SPI)~~ (ADS1015 via I2C)
+### AD converter (ADS1015 via I2C)
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -63,9 +67,10 @@ catkin_make
 
 
 ## Other helpful stuff
-- joystick/gamepad driver/test program
+- joystick/gamepad support (OS and ROS)
 ```
 sudo apt-get install joystick
+sudo apt-get install ros-kinetic-joystick-drivers
 ```
 
 
@@ -73,12 +78,13 @@ sudo apt-get install joystick
 ### The main launch file
 On the robot (Raspberry Pi):
 ```
-roslaunch minibot.launch
+roslaunch minibot minibot.launch
 ```
-On another computer:
+On another computer (the ground control center):
 ```
-export ROS_MASTER_URI=http://hostname:11311
-roslaunch ground_control.launch
+export ROS_MASTER_URI=http://<hostname>:11311
+rosparam set joy_node/dev "/dev/input/js1"
+roslaunch minibot ground_control_center.launch
 ```
 
 

@@ -10,10 +10,10 @@ Website: https://direcs.de
 """
 
 
-# speed of the motors (0-255)
-drivingSpeed = 75
+# speed of the motors (0-255).
+drivingSpeed = 0
 # the speed when turning the bot can be higher if needed (higher friction)
-turnSpeed = 90
+turnSpeed = 0
 
 # name of the package(!).srv
 from minibot.srv import *

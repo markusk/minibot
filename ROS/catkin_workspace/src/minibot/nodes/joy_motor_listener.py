@@ -35,14 +35,14 @@ from minibot.srv import *
 rospy.loginfo('Getting parameters for robot.')
 # speed of the motors (0-255).
 drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
-rospy.loginfo('+++ Using drivingSpeed %s.', drivingSpeed)
+rospy.loginfo('Using drivingSpeed %s.', drivingSpeed)
 # the speed when turning the bot can be higher if needed (higher friction)
 turnSpeed = rospy.get_param('/minibot/turnSpeed')
-rospy.loginfo('+++ Using turnSpeed %s.', turnSpeed)
+rospy.loginfo('Using turnSpeed %s.', turnSpeed)
 
 
 #  this will execute the "drive" command
-def drive(direction):
+def drive(direction, speed):
     # Service 'motor' from motor_server.py ready?
     rospy.wait_for_service('motor')
 
@@ -53,8 +53,8 @@ def drive(direction):
         motor_switcher = rospy.ServiceProxy('motor', Motor)
 
          # the handle can be called like a normal function
-        rospy.loginfo("Switching motors to %s.", direction)
-        response = motor_switcher(direction, drivingSpeed)
+        rospy.loginfo("Switching motors to %s @ %s.", direction, speed)
+        response = motor_switcher(direction, speed)
 
         # show result
         rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
@@ -79,23 +79,23 @@ def callback(joy):
     # D-Pad, vertikal up
     if   (joy.axes[5] == 1.0):
       rospy.loginfo("FORWARD button pressed.")
-      drive("FORWARD")
+      drive("FORWARD", drivingSpeed)
     # D-Pad, vertikal down
     elif (joy.axes[5] == -1.0):
       rospy.loginfo("BACKWARD button pressed.")
-      drive("BACKWARD")
+      drive("BACKWARD", drivingSpeed)
     # D-Pad, horizontal left
     elif (joy.axes[4] ==  1.0):
       rospy.loginfo("LEFT button pressed.")
-      drive("LEFT")
+      drive("LEFT", turnSpeed)
     # D-Pad, horizontal right
     elif (joy.axes[4] == -1.0):
       rospy.loginfo("RIGHT button pressed.")
-      drive("RIGHT")
+      drive("RIGHT", turnSpeed)
     # red button on my gamepad
     elif (joy.buttons[10] == 1.0):
       rospy.loginfo("RED button pressed.")
-      drive("STOP")
+      drive("STOP", 0)
 
 
 def listener():

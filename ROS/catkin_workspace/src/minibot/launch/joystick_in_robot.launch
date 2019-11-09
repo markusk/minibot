@@ -4,12 +4,11 @@
 Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
 -->
 <launch>
-    <!--
-    Setting the diffent speeds for the robot.
-    -->
-    <param name="minibot/drivingSpeed" type="int" value="75" />
-    <param name="minibot/turnSpeed"    type="int" value="90" />
-
+  <!--
+  Setting the diffent speeds for the robot.
+  -->
+  <param name="minibot/drivingSpeed" type="int" value="75" />
+  <param name="minibot/turnSpeed"    type="int" value="90" />
 
   <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
   <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>

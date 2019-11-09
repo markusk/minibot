@@ -31,12 +31,6 @@ from sensor_msgs.msg import Joy
 from minibot.srv import *
 
 
-# speed of the motors (0-255)
-drivingSpeed = 75
-# the speed when turning the bot can be higher if needed (higher friction)
-turnSpeed = 90
-
-
 #  this will execute the "drive" command
 def drive(direction):
     # Service 'motor' from motor_server.py ready?
@@ -49,7 +43,7 @@ def drive(direction):
         motor_switcher = rospy.ServiceProxy('motor', Motor)
 
          # the handle can be called like a normal function
-        rospy.loginfo("Switching motors to %s @ speed %s.", direction, drivingSpeed)
+        rospy.loginfo("Switching motors to %s.", direction)
         response = motor_switcher(direction, drivingSpeed)
 
         # show result

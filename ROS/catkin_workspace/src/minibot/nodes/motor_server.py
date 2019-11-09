@@ -11,7 +11,7 @@ Website: https://direcs.de
 
 
 # speed of the motors (0-255)
-startSpeed = 75
+drivingSpeed = 75
 # the speed when turning the bot can be higher if needed (higher friction)
 turnSpeed = 90
 
@@ -83,7 +83,7 @@ def handle_motor(req):
     """ In this function all the work is done :) """
 
     # set speed for motors from arguments
-    startSpeed = req.speed
+    drivingSpeed = req.speed
     turnSpeed = req.speed
 
     # switch xxx to HIGH, if '1' was sent
@@ -92,10 +92,10 @@ def handle_motor(req):
         rospy.loginfo("Driving forward.")
         if hostname == 'minibot':
             # setting speed
-            myMotor1.setSpeed(startSpeed)
-            myMotor2.setSpeed(startSpeed)
-            myMotor3.setSpeed(startSpeed)
-            myMotor4.setSpeed(startSpeed)
+            myMotor1.setSpeed(drivingSpeed)
+            myMotor2.setSpeed(drivingSpeed)
+            myMotor3.setSpeed(drivingSpeed)
+            myMotor4.setSpeed(drivingSpeed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.FORWARD)
             myMotor2.run(Adafruit_MotorHAT.BACKWARD)
@@ -105,10 +105,10 @@ def handle_motor(req):
         rospy.loginfo("Driving backwards.")
         if hostname == 'minibot':
             # setting speed
-            myMotor1.setSpeed(startSpeed)
-            myMotor2.setSpeed(startSpeed)
-            myMotor3.setSpeed(startSpeed)
-            myMotor4.setSpeed(startSpeed)
+            myMotor1.setSpeed(drivingSpeed)
+            myMotor2.setSpeed(drivingSpeed)
+            myMotor3.setSpeed(drivingSpeed)
+            myMotor4.setSpeed(drivingSpeed)
             # @todo: increase speed?
             myMotor1.run(Adafruit_MotorHAT.BACKWARD)
             myMotor2.run(Adafruit_MotorHAT.FORWARD)
@@ -177,7 +177,7 @@ if __name__ == "__main__":
 """ motor spped increase to be implemented...
 
         rospy.loginfo("Speed up...")
-        for i in range(startSpeed, 255):
+        for i in range(drivingSpeed, 255):
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
             myMotor3.setSpeed(i)
@@ -185,7 +185,7 @@ if __name__ == "__main__":
             time.sleep(0.01)
 
         rospy.loginfo("Slow down...")
-        for i in range(255, startSpeed, -1):
+        for i in range(255, drivingSpeed, -1):
             myMotor1.setSpeed(i)
             myMotor2.setSpeed(i)
             myMotor3.setSpeed(i)

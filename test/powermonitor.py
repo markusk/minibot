@@ -35,6 +35,10 @@ import Adafruit_ADS1x15
 import Adafruit_SSD1306
 from PIL import Image, ImageDraw, ImageFont
 
+# for joystick is connected check (path/file exists)
+import os.path
+
+
 # Raspberry Pi pin configuration:
 RST = 24
 
@@ -209,6 +213,8 @@ import os
 timeSymbol = unichr(0xf017) # fa-clock-o
 # the temperature symbol
 tempSymbol = unichr(0xf21e) # fa-heartbeat  0xf2db
+# the joystick symbol
+joySymbol = unichr(0xf11b) # fa-gamepad
 
 def getCpuTemperature():
     tempFile = open("/sys/class/thermal/thermal_zone0/temp")
@@ -334,9 +340,9 @@ while (1):
         time.sleep(waitTime)
 
 
-    # --------------------------
-    # Time and CPU temp display
-    # -------------------------
+    # ---------------------------------------
+    # Time and CPU temp and joystick display
+    # ---------------------------------------
 
     # clear OLED
     # Draw a black filled box to clear the image.
@@ -345,11 +351,15 @@ while (1):
     # get time
     timeString = time.strftime("%H:%M", time.localtime(time.time()) )
 
-    # Write lines of text to display
-    # line 1, time symbol
-    draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
+    # line 1, joystick symbol if connected or clock symbol
+    if os.path.exists("/dev/input/js0"):
+        draw.text((0, 0), joySymbol, font=fontSymbol, fill=255)
+    else:
+        draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
+
     # line 1, text after symbol
     draw.text((symbolWidth, 0), timeString, font=fontText, fill=255)
+
     # line 2, temp symbol
     draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)
     # line 2, text after symbol

@@ -116,8 +116,8 @@ def beep(note, duration):
     # This is the semiperiod of each note.
     beepDelay = (1000000/note)
     # This is how much time we need to spend on the note.
-    time = ((duration*1000)/(beepDelay*2)) / 1000
-    for i in range (0, time):
+    mytime = (duration / (beepDelay*2))
+    for i in range (0, mytime):
         # 1st semiperiod
         # Piezo ON (low active!)
         GPIO.output(piezoPin, GPIO.LOW)

@@ -351,21 +351,14 @@ while (1):
     # get time
     timeString = time.strftime("%H:%M", time.localtime(time.time()) )
 
-    # Write lines of text to display
-    # line 1, time symbol
-    draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
+    # line 1, joystick symbol if connected or clock symbol
+    if os.path.exists("/dev/input/js0"):
+        draw.text((0, 0), joySymbol, font=fontSymbol, fill=255)
+    else:
+        draw.text((0, 0), timeSymbol, font=fontSymbol, fill=255)
 
     # line 1, text after symbol
     draw.text((symbolWidth, 0), timeString, font=fontText, fill=255)
-
-    # line 1, joystick symbol
-    if os.path.exists("/dev/input/js0"):
-        # LED ON (low active!)
-        GPIO.output(ledPin, GPIO.LOW)
-        #draw.text((150, 0), joySymbol, font=fontSymbol, fill=255)
-    else:
-        GPIO.output(ledPin, GPIO.HIGH)
-
 
     # line 2, temp symbol
     draw.text((0, size), tempSymbol, font=fontSymbol, fill=255)

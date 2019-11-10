@@ -76,24 +76,24 @@ def callback(joy):
     """
 
     # which button was pressed?
-    # D-Pad, vertikal up
-    if   (joy.axes[5] == 1.0):
+    # D-Pad, vertikal up  or  XBOX controller cross up
+    if (joy.axes[5] == 1.0) or (joy.axes[7] == 1.0):
       rospy.loginfo("FORWARD button pressed.")
       drive("FORWARD", drivingSpeed)
     # D-Pad, vertikal down
-    elif (joy.axes[5] == -1.0):
+    elif (joy.axes[5] == -1.0) or (joy.axes[7] == -1.0):
       rospy.loginfo("BACKWARD button pressed.")
       drive("BACKWARD", drivingSpeed)
-    # D-Pad, horizontal left
-    elif (joy.axes[4] ==  1.0):
+    # D-Pad, horizontal left  or  XBOX controller cross left
+    elif (joy.axes[4] ==  1.0) or (joy.axes[6] ==  1.0):
       rospy.loginfo("LEFT button pressed.")
       drive("LEFT", turnSpeed)
-    # D-Pad, horizontal right
-    elif (joy.axes[4] == -1.0):
+    # D-Pad, horizontal right  or  XBOX controller cross right
+    elif (joy.axes[4] ==  -1.0) or (joy.axes[6] ==  -1.0):
       rospy.loginfo("RIGHT button pressed.")
       drive("RIGHT", turnSpeed)
-    # red button on my gamepad
-    elif (joy.buttons[10] == 1.0):
+    # red button on my gamepad  or  XBOX controller red button B
+    elif (joy.buttons[10] == 1.0) or (joy.buttons[1] == 1.0):
       rospy.loginfo("RED button pressed.")
       drive("STOP", 0)
 

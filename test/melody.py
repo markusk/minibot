@@ -116,21 +116,21 @@ def beep(note, duration):
     # This is the semiperiod of each note.
     beepDelay = (1000000/note)
     # This is how much time we need to spend on the note.
-    time = ((duration*1000)/(beepDelay*2))
+    time = ((duration*1000)/(beepDelay*2)) / 1000
     for i in range (0, time):
         # 1st semiperiod
         # Piezo ON (low active!)
         GPIO.output(piezoPin, GPIO.LOW)
-        time.sleep(beepDelay/1000)
+        time.sleep(beepDelay)
         # 2nd semiperiod
         # Piezo OFF
         GPIO.output(piezoPin, GPIO.HIGH)
-        time.sleep(beepDelay/1000)
+        time.sleep(beepDelay)
 
     # Add a little delay to separate the single notes
     # Piezo OFF
     GPIO.output(piezoPin, GPIO.HIGH)
-    time.sleep(20/1000)
+    time.sleep(0.02)
 
 
 

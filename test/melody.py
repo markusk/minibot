@@ -71,32 +71,6 @@ aHS = 910
 bH = 933
 
 
-# This function generates the square wave
-# that makes the piezo speaker sound at a determinated frequency.
-def beep(note, duration):
-    # This is the semiperiod of each note.
-    beepDelay = (1000000/note)
-    # This is how much time we need to spend on the note.
-    time = ((duration*1000)/(beepDelay*2))
-    for i in range (0, time):
-        # 1st semiperiod
-        # Piezo ON (low active!)
-        GPIO.output(piezoPin, GPIO.LOW)
-        time.sleep(beepDelay/1000)
-        # 2nd semiperiod
-        # Piezo OFF
-        GPIO.output(piezoPin, GPIO.HIGH)
-        time.sleep(beepDelay/1000)
-
-    # Add a little delay to separate the single notes
-    # Piezo OFF
-    GPIO.output(piezoPin, GPIO.HIGH)
-    time.sleep(20/1000)
-
-
-
-
-
 # for GPIO pin usage
 try:
     import RPi.GPIO as GPIO
@@ -134,6 +108,31 @@ def sig_handler(_signo, _stack_frame):
 signal.signal(signal.SIGINT,  sig_handler)
 signal.signal(signal.SIGHUP,  sig_handler)
 signal.signal(signal.SIGTERM, sig_handler)
+
+
+# This function generates the square wave
+# that makes the piezo speaker sound at a determinated frequency.
+def beep(note, duration):
+    # This is the semiperiod of each note.
+    beepDelay = (1000000/note)
+    # This is how much time we need to spend on the note.
+    time = ((duration*1000)/(beepDelay*2))
+    for i in range (0, time):
+        # 1st semiperiod
+        # Piezo ON (low active!)
+        GPIO.output(piezoPin, GPIO.LOW)
+        time.sleep(beepDelay/1000)
+        # 2nd semiperiod
+        # Piezo OFF
+        GPIO.output(piezoPin, GPIO.HIGH)
+        time.sleep(beepDelay/1000)
+
+    # Add a little delay to separate the single notes
+    # Piezo OFF
+    GPIO.output(piezoPin, GPIO.HIGH)
+    time.sleep(20/1000)
+
+
 
 
 ######

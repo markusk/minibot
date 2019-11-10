@@ -72,6 +72,8 @@ catkin_make
 sudo apt-get install joystick
 sudo apt-get install ros-kinetic-joystick-drivers
 ```
+- Microsoft XBOX Wireless Controller
+Supported by the Kernel - if used with the USB connector.
 
 
 ## Run/Test ROS

@@ -9,14 +9,28 @@ secondaries=
 [wifi]
 mac-address-blacklist=
 mac-address-randomization=0
+mode=infrastructure
 seen-bssids=
-ssid=Robotiklabor
+ssid=markus
+
+[wifi-security]
+group=
+key-mgmt=wpa-psk
+pairwise=
+proto=
+psk=ENTER-WIFI-KEY-HERE_IN-CLEARTEXT
 
 [ipv4]
+method=manual
+dns=192.168.1.1;
+addresses1=192.168.1.143;24;192.168.1.1;
+ignore-auto-routes=false
+ignore-auto-dns=false
+dhcp-send-hostname=true
+never-default=false
 dns-search=
-method=auto
 
 [ipv6]
 addr-gen-mode=stable-privacy
 dns-search=
-method=auto
+method=ignore

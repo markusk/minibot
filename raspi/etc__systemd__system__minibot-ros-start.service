@@ -1,0 +1,13 @@
+[Unit]
+Description=Starts ROS for my robot
+After=remote-fs.target
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/raspi/minibot-ros-start.sh
+User=pi
+WorkingDirectory=/home/pi/catkin_ws
+
+[Install]
+WantedBy=multi-user.target

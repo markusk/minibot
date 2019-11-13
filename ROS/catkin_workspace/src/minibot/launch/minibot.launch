@@ -30,4 +30,23 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
 
   <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->
   <node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaser" output="screen"/>
+
+  <!--
+  This is the device path for the following joystick node. Not really necessary, since default is js0.
+  But this line is for conveniance to change it easyliy here if needed.
+  -->
+  <param name="joy_node/dev" type="str" value="/dev/input/js0" />
+
+  <!--
+  This nodes listens to joystick/gamepad input.
+  Use the D-Pad buttons on the joystick/gamepad to control the motors.
+  -->
+  <node name="joy_node" pkg="joy" type="joy_node" output="screen"/>
+
+  <!--
+  This nodes takes the joystick input and sends out motor control messages.
+  The motor control on a hardware level is started by 'roslaunch minibot motor_server' on the robot.
+  -->
+  <node name="joy_motor_listener" pkg="minibot" type="joy_motor_listener.py" output="screen"/>
+
 </launch>

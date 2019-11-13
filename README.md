@@ -90,6 +90,16 @@ roslaunch minibot ground_control_center.launch
 ```
 
 
+## Setting up ROS for autostart (systemd under Ubuntu)
+```
+sudo cp raspi/etc__systemd__system__minibot-ros-start.service /etc/systemd/system/minibot-ros-start.service
+sudo systemctl daemon-reload
+sudo systemctl start minibot-ros-start.service
+sudo systemctl enable minibot-ros-start.service
+```
+
+
+
 ### The different launch files
 #### battery
 Observes the battery voltage. For demo/test purpose only. Uses:

@@ -9,6 +9,13 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   -->
   <param name="minibot/drivingSpeed" type="int" value="75" />
   <param name="minibot/turnSpeed"    type="int" value="90" />
+  
+  <!--
+    For the Adafruit motor hat the motor speed is 0-255.
+    s.a. https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/library-reference
+  -->
+  <param name="minibot/minDriveSpeed" type="int" value="0"   />
+  <param name="minibot/maxDriveSpeed" type="int" value="255" />
 
   <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
   <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>

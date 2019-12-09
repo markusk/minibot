@@ -4,7 +4,7 @@
 """
 This is the ROS node for the minibot (https://minibot.me).
 
-I expects "cmd_vel" geometry_msgs/Twist messages to control the robots motors.
+It expects "cmd_vel" geometry_msgs/Twist messages to control the robots motors.
 It will then publish messages like "FORWARD, BACKWARD, LEFT, RIGHT, STOP",
 which will be received by a "motor_server" node. The latter is responsible for
 controlling the motors with lowlevel I2C commands on a Raspberry Pi.

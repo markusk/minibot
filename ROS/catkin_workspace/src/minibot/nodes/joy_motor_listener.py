@@ -4,7 +4,7 @@
 
 """
 This is my listener for the joy_node. It listens on the topic 'joy' and prints out some information.
-I then switches on motors on my Raspberry when the D-Pad is used on the joystick/gamepad.
+It then switches on motors on my Raspberry when the D-Pad is used on the gamepad.
 This needs the motor_server to be run on the Raspberry Pi. Like this:
 
 Usage
@@ -20,7 +20,7 @@ Another Ubuntu machine:
 3. roslaunch minibot joystick_control.launch
 
 
-Author:  Markus Knapp, 2017
+Author:  Markus Knapp, 2019
 Website: https://direcs.de
 """
 

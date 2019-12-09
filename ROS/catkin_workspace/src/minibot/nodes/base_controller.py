@@ -15,7 +15,7 @@ teleop_twist_keyboard node.
 Usage:
 roslaunch minibot keyboard_motor_control.launch
 
-Author:  Markus Knapp, 2017
+Author:  Markus Knapp, 2019
 Website: https://direcs.de
 """
 

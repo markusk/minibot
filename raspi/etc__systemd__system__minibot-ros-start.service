@@ -1,5 +1,5 @@
 [Unit]
-Description=Starts ROS for my robot
+Description=ROS for my robot
 After=remote-fs.target
 After=syslog.target
 

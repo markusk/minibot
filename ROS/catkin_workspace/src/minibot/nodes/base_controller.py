@@ -26,9 +26,6 @@ from geometry_msgs.msg import Twist
 # The minibot package has the motor server, which listens to messages from here
 from minibot.srv import *
 
-# set the motor speed (from 0 (off) to 255 (max speed))
-startSpeed = 100
-
 
 # node init
 rospy.init_node('keyboard_listener', anonymous=False)
@@ -49,7 +46,10 @@ rospy.loginfo("Waiting for service 'motor'")
 rospy.wait_for_service('motor')
 
 #  this will execute the "drive" command
-def drive(direction):
+def drive(direction, speed):
+    # Service 'motor' from motor_server.py ready?
+    rospy.wait_for_service('motor')
+
     # Send driving direction to motor
     try:
         # Create the handle 'motor_switcher' with the service type 'Motor'.
@@ -57,8 +57,8 @@ def drive(direction):
         motor_switcher = rospy.ServiceProxy('motor', Motor)
 
          # the handle can be called like a normal function
-        rospy.loginfo("Switching motors to %s @ speed %s.", direction, startSpeed)
-        response = motor_switcher(direction, startSpeed)
+        rospy.loginfo("Switching motors to %s @ speed %s.", direction, speed)
+        response = motor_switcher(direction, speed)
 
         # show result
         rospy.loginfo(rospy.get_caller_id() + ' says result is %s.', response.result)
@@ -75,23 +75,23 @@ def callback(data):
     # which command was received/key was pressed?
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("FORWARD command.")
-      drive("FORWARD")
+      drive("FORWARD", drivingSpeed)
     # k key
     elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("STOP command.")
-      drive("STOP")
+      drive("STOP", 0)
     # , key
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("BACKWARD command.")
-      drive("BACKWARD")
+      drive("BACKWARD", drivingSpeed)
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
       rospy.loginfo("LEFT command.")
-      drive("LEFT")
+      drive("LEFT", turnSpeed)
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
       rospy.loginfo("BACKWARD command.")
-      drive("RIGHT")
+      drive("RIGHT", turnSpeed)
 
 
 def listener():

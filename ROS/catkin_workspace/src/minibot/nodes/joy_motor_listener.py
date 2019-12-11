@@ -40,12 +40,13 @@ rospy.loginfo('Using drivingSpeed %s.', drivingSpeed)
 turnSpeed = rospy.get_param('/minibot/turnSpeed')
 rospy.loginfo('Using turnSpeed %s.', turnSpeed)
 
+# Service 'motor' from motor_server.py ready?
+rospy.loginfo("Waiting for service 'motor'")
+rospy.wait_for_service('motor')
+
 
 #  this will execute the "drive" command
 def drive(direction, speed):
-    # Service 'motor' from motor_server.py ready?
-    rospy.wait_for_service('motor')
-
     # Send driving direction to motor
     try:
         # Create the handle 'motor_switcher' with the service type 'Motor'.

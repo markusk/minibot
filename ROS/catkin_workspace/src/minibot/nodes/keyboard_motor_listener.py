@@ -9,7 +9,7 @@ of the teleop_twist_keyboard node
 Usage:
 roslaunch minibot keyboard_motor_control.launch
 
-Author:  Markus Knapp, 2017
+Author:  Markus Knapp, 2019
 Website: https://direcs.de
 """
 
@@ -32,6 +32,7 @@ rospy.loginfo('Using turnSpeed %s.', turnSpeed)
 # Service 'motor' from motor_server.py ready?
 rospy.loginfo("Waiting for service 'motor'")
 rospy.wait_for_service('motor')
+
 
 #  this will execute the "drive" command
 def drive(direction, speed):

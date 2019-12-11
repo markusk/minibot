@@ -76,10 +76,6 @@ def callback(data):
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("FORWARD command.")
       drive("FORWARD", drivingSpeed)
-    # k key
-    elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("STOP command.")
-      drive("STOP", 0)
     # , key
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("BACKWARD command.")
@@ -92,6 +88,10 @@ def callback(data):
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
       rospy.loginfo("BACKWARD command.")
       drive("RIGHT", turnSpeed)
+    # k key
+    elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
+      rospy.loginfo("STOP command.")
+      drive("STOP", 0)
 
 
 def listener():

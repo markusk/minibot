@@ -66,6 +66,9 @@ def drive(direction, speed):
 def callback(joy):
     """
     # debug messages
+    rospy.loginfo("+++ Found Axes: %s joystick axes+++", len(joy.axes))
+    rospy.loginfo("+++ Found %s joystick buttons +++", len(joy.buttons))
+
     rospy.loginfo("axis 0: %s", joy.axes[0])
     rospy.loginfo("axis 1: %s", joy.axes[1])
     rospy.loginfo("axis 2: %s", joy.axes[2])
@@ -77,25 +80,31 @@ def callback(joy):
 
     # which button was pressed?
     # D-Pad, vertikal up  or  XBOX controller cross up
-    if (joy.axes[5] == 1.0) or (joy.axes[7] == 1.0):
-      rospy.loginfo("FORWARD button pressed.")
-      drive("FORWARD", drivingSpeed)
-    # D-Pad, vertikal down
-    elif (joy.axes[5] == -1.0) or (joy.axes[7] == -1.0):
-      rospy.loginfo("BACKWARD button pressed.")
-      drive("BACKWARD", drivingSpeed)
-    # D-Pad, horizontal left  or  XBOX controller cross left
-    elif (joy.axes[4] ==  1.0) or (joy.axes[6] ==  1.0):
-      rospy.loginfo("LEFT button pressed.")
-      drive("LEFT", turnSpeed)
-    # D-Pad, horizontal right  or  XBOX controller cross right
-    elif (joy.axes[4] ==  -1.0) or (joy.axes[6] ==  -1.0):
-      rospy.loginfo("RIGHT button pressed.")
-      drive("RIGHT", turnSpeed)
-    # red button on my gamepad  or  XBOX controller red button B
-    elif (joy.buttons[10] == 1.0) or (joy.buttons[1] == 1.0):
-      rospy.loginfo("RED button pressed.")
-      drive("STOP", 0)
+
+    # check if we really using my xbox controller with >10 axes
+    # otherwise get an exception accessing the array out of bound
+    if (len(joy.axes) > 10):
+      if (joy.axes[5] == 1.0) or (joy.axes[7] == 1.0):
+        rospy.loginfo("FORWARD button pressed.")
+        drive("FORWARD", drivingSpeed)
+      # D-Pad, vertikal down
+      elif (joy.axes[5] == -1.0) or (joy.axes[7] == -1.0):
+        rospy.loginfo("BACKWARD button pressed.")
+        drive("BACKWARD", drivingSpeed)
+      # D-Pad, horizontal left  or  XBOX controller cross left
+      elif (joy.axes[4] ==  1.0) or (joy.axes[6] ==  1.0):
+        rospy.loginfo("LEFT button pressed.")
+        drive("LEFT", turnSpeed)
+      # D-Pad, horizontal right  or  XBOX controller cross right
+      elif (joy.axes[4] ==  -1.0) or (joy.axes[6] ==  -1.0):
+        rospy.loginfo("RIGHT button pressed.")
+        drive("RIGHT", turnSpeed)
+      # red button on my gamepad  or  XBOX controller red button B
+      elif (joy.buttons[10] == 1.0) or (joy.buttons[1] == 1.0):
+        rospy.loginfo("RED button pressed.")
+        drive("STOP", 0)
+    else:
+      rospy.logwarn("Wrong joystick/gamepad: not enough axes!")
 
 
 def listener():

@@ -41,16 +41,6 @@ rospy.loginfo('Using maxMotorSpeed %s.', maxMotorSpeed)
 rospy.init_node('keyboard_listener', anonymous=False)
 
 
-# Getting robot parameters
-rospy.loginfo('Getting parameters for robot.')
-# speed of the motors (0-255).
-drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
-rospy.loginfo('Using drivingSpeed %s.', drivingSpeed)
-# the speed when turning the bot can be higher if needed (higher friction)
-turnSpeed = rospy.get_param('/minibot/turnSpeed')
-rospy.loginfo('Using turnSpeed %s.', turnSpeed)
-
-
 # Service 'motor' from motor_server.py ready?
 rospy.loginfo("Waiting for service 'motor'")
 rospy.wait_for_service('motor')

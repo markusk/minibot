@@ -99,17 +99,17 @@ def callback(data):
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
       speed = data.linear.x/factor * -1
       rospy.loginfo("BACKWARD.")
-      drive("BACKWARD", drivingSpeed)
+      drive("BACKWARD", speed)
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
       speed = data.linear.z/factor
       rospy.loginfo("LEFT .")
-      drive("LEFT", turnSpeed)
+      drive("LEFT", speed)
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
       speed = data.linear.z/factor * -1
       rospy.loginfo("BACKWARD.")
-      drive("RIGHT", turnSpeed)
+      drive("RIGHT", speed)
     # k key
     elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("STOP.")

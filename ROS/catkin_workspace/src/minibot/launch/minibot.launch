@@ -43,7 +43,10 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
     <param name="autorepeat_rate" value="20" />
   </node>
 
-  <!-- This node takes the joystick input, and converts it to Twist message cmd_vel. -->
+  <!--
+    This node takes the joystick input, and converts it to Twist message cmd_vel.
+    The cmd_vel will be used by node base_controller which communicates with the motor node.
+  -->
   <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
     <rosparam command="load" file="$(arg config_filepath)" />
     <param name="scale_linear" value="0.8" />

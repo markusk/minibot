@@ -56,6 +56,7 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   -->
   <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
     <rosparam command="load" file="$(arg config_filepath)" />
-    <param name="scale_linear" value="0.8" />
+    <param name="scale_linear"  value="0.8" />
+    <param name="scale_angular" value="0.8" />
   </node>
 </launch>

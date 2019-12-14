@@ -77,7 +77,6 @@ def callback(data):
     #scaleLinear = rospy.get_param('/joy_node/scaleLinear')
     scaleLinear = 0.8
     factor = scaleLinear/maxMotorSpeed
-    #rospy.loginfo("x: %s.", data.linear.x)
 
     # which command was received/key was pressed?
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):  # @todo: implement curve travel with the help of angular.z
@@ -91,12 +90,12 @@ def callback(data):
       drive("BACKWARD", speed)
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
-      speed = int(data.linear.z/factor)
+      speed = int(data.angular.z/factor)
       rospy.loginfo("LEFT .")
       drive("LEFT", speed)
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
-      speed = int(data.linear.z/factor) * -1
+      speed = int(data.angular.z/factor) * -1
       rospy.loginfo("BACKWARD.")
       drive("RIGHT", speed)
     # k key

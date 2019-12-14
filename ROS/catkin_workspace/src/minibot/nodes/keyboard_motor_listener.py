@@ -9,7 +9,7 @@ of the teleop_twist_keyboard node
 Usage:
 roslaunch minibot keyboard_motor_control.launch
 
-Author:  Markus Knapp, 2017
+Author:  Markus Knapp, 2019
 Website: https://direcs.de
 """
 
@@ -20,15 +20,22 @@ from geometry_msgs.msg import Twist
 # The minibot package has the motor server, which listens to messages from here
 from minibot.srv import *
 
-# set the motor speed (from 0 (off) to 255 (max speed))
-startSpeed = 100
+# Getting robot parameters
+rospy.loginfo('Getting parameters for robot.')
+# speed of the motors (0-255).
+drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
+rospy.loginfo('Using drivingSpeed %s.', drivingSpeed)
+# the speed when turning the bot can be higher if needed (higher friction)
+turnSpeed = rospy.get_param('/minibot/turnSpeed')
+rospy.loginfo('Using turnSpeed %s.', turnSpeed)
 
 # Service 'motor' from motor_server.py ready?
 rospy.loginfo("Waiting for service 'motor'")
 rospy.wait_for_service('motor')
 
+
 #  this will execute the "drive" command
-def drive(direction):
+def drive(direction, speed):
     # Send driving direction to motor
     try:
         # Create the handle 'motor_switcher' with the service type 'Motor'.
@@ -36,8 +43,8 @@ def drive(direction):
         motor_switcher = rospy.ServiceProxy('motor', Motor)
 
          # the handle can be called like a normal function
-        rospy.loginfo("Switching motors to %s @ speed %s.\n", direction, startSpeed)
-        response = motor_switcher(direction, startSpeed)
+        rospy.loginfo("Switching motors to %s @ speed %s.\n", direction, speed)
+        response = motor_switcher(direction, speed)
 
         # show result
         rospy.loginfo(rospy.get_caller_id() + ' says result is %s.\n', response.result)
@@ -55,23 +62,23 @@ def callback(data):
     # i key
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("FORWARD key pressed.")
-      drive("FORWARD")
-    # k key
-    elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("STOP key pressed.")
-      drive("STOP")
+      drive("FORWARD", drivingSpeed)
     # , key
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
       rospy.loginfo("BACKWARD key pressed.")
-      drive("BACKWARD")
+      drive("BACKWARD", drivingSpeed)
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
       rospy.loginfo("LEFT key pressed.")
-      drive("LEFT")
+      drive("LEFT", turnSpeed)
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
       rospy.loginfo("BACKWARD key pressed.")
-      drive("RIGHT")
+      drive("RIGHT", turnSpeed)
+    # k key
+    elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
+      rospy.loginfo("STOP key pressed.")
+      drive("STOP", 0)
 
 
 def listener():

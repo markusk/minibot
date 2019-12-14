@@ -34,7 +34,7 @@ minSpeed = rospy.get_param('/minibot/minMotorSpeed')
 rospy.loginfo('Using minMotorSpeed %s.', minMotorSpeed)
 # max speed of the motors (i.e. 0-255 for adafruit motor shield).
 maxSpeed = rospy.get_param('/minibot/maxMotorSpeed')
-rospy.loginfo('Using minMotorSpeed %s.', maxMotorSpeed)
+rospy.loginfo('Using maxMotorSpeed %s.', maxMotorSpeed)
 
 
 # node init

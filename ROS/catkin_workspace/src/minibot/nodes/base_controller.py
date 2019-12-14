@@ -30,10 +30,10 @@ from minibot.srv import *
 # Getting robot parameters
 rospy.loginfo('Getting parameters for robot.')
 # min speed of the motors (i.e. 0-255 for adafruit motor shield).
-minSpeed = rospy.get_param('/minibot/minMotorSpeed')
+minMotorSpeed = rospy.get_param('/minibot/minMotorSpeed')
 rospy.loginfo('Using minMotorSpeed %s.', minMotorSpeed)
 # max speed of the motors (i.e. 0-255 for adafruit motor shield).
-maxSpeed = rospy.get_param('/minibot/maxMotorSpeed')
+maxMotorSpeed = rospy.get_param('/minibot/maxMotorSpeed')
 rospy.loginfo('Using maxMotorSpeed %s.', maxMotorSpeed)
 
 
@@ -82,9 +82,12 @@ def callback(data):
     # rospy.loginfo(rospy.get_caller_id() + ' received x=%s', data.linear.x)
     # rospy.loginfo(rospy.get_caller_id() + ' received z=%s', data.angular.z)
 
-    scaleLinear = rospy.get_param('teleop_twist_joy/scaleLinear')
-    factor = scaleLinear/maxSpeed
-    speed = data.linear.x/factor
+    # @todo: check how to read this value from the launch file
+    #scaleLinear = rospy.get_param('/joy_node/scaleLinear')
+    scaleLinear = 0.8
+    factor = scaleLinear/maxMotorSpeed
+    speed = int(data.linear.x/factor)
+    #rospy.loginfo("x: %s.", data.linear.x)
 
     # which command was received/key was pressed?
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):  # @todo: implement curve travel with the help of angular.z

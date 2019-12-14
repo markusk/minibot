@@ -82,29 +82,33 @@ def callback(data):
     # rospy.loginfo(rospy.get_caller_id() + ' received x=%s', data.linear.x)
     # rospy.loginfo(rospy.get_caller_id() + ' received z=%s', data.angular.z)
 
+    # map joystick value to motor speed (i.e. 0.7 to 255)
     scaleLinear = rospy.get_param('teleop_twist_joy/scaleLinear')
     factor = scaleLinear/maxSpeed
-    speed = data.linear.x/factor
 
     # which command was received/key was pressed?
     if  (data.linear.x > 0.0) and (data.angular.z == 0.0):  # @todo: implement curve travel with the help of angular.z
-      rospy.loginfo("FORWARD @ %s.", speed)
+      speed = data.linear.x/factor
+      rospy.loginfo("FORWARD.")
       drive("FORWARD", speed)
     # , key
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("BACKWARD command.")
+      speed = data.linear.x/factor * -1
+      rospy.loginfo("BACKWARD.")
       drive("BACKWARD", drivingSpeed)
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
-      rospy.loginfo("LEFT command.")
+      speed = data.linear.z/factor
+      rospy.loginfo("LEFT .")
       drive("LEFT", turnSpeed)
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
-      rospy.loginfo("BACKWARD command.")
+      speed = data.linear.z/factor * -1
+      rospy.loginfo("BACKWARD.")
       drive("RIGHT", turnSpeed)
     # k key
     elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("STOP command.")
+      rospy.loginfo("STOP.")
       drive("STOP", 0)
 
 

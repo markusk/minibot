@@ -27,6 +27,16 @@ from geometry_msgs.msg import Twist
 from minibot.srv import *
 
 
+# Getting robot parameters
+rospy.loginfo('Getting parameters for robot.')
+# min speed of the motors (i.e. 0-255 for adafruit motor shield).
+minSpeed = rospy.get_param('/minibot/minMotorSpeed')
+rospy.loginfo('Using minMotorSpeed %s.', minMotorSpeed)
+# max speed of the motors (i.e. 0-255 for adafruit motor shield).
+maxSpeed = rospy.get_param('/minibot/maxMotorSpeed')
+rospy.loginfo('Using minMotorSpeed %s.', maxMotorSpeed)
+
+
 # node init
 rospy.init_node('keyboard_listener', anonymous=False)
 

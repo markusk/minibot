@@ -8,7 +8,7 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   Setting the diffent speeds for the robot.
   -->
   <param name="minibot/drivingSpeed" type="int" value="75" />
-  <param name="minibot/turnSpeed"    type="int" value="90" />
+  <param name="minibot/turnSpeed"    type="int" value="75" />
   
   <!--
     For the Adafruit motor hat the motor speed is 0-255.

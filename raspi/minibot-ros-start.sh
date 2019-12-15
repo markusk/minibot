@@ -10,4 +10,4 @@ source /home/pi/catkin_ws/devel/setup.bash
 cd /home/pi/catkin_ws
 
 # start ROS
-roslaunch minibot minibot.launch
+roslaunch minibot joystick_in_robot.launch

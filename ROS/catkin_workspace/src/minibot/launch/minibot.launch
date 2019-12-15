@@ -41,7 +41,7 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   <!-- Joystick/gamepad support -->
   <arg name="joy_config" default="xbox" />
   <!-- Device path for the joystick -->
-  <arg name="joy_dev" default="/dev/input/js1" />
+  <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="config_filepath" default="$(find teleop_twist_joy)/config/$(arg joy_config).config.yaml" />
 
   <node pkg="joy" type="joy_node" name="joy_node">

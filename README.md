@@ -70,7 +70,7 @@ catkin_make
 - joystick/gamepad support (OS and ROS)
 ```
 sudo apt-get install joystick
-sudo apt-get install ros-kinetic-joystick-drivers ros-kinetic-teleop_twist_joy
+sudo apt-get install ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
 ```
 - Microsoft XBOX Wireless Controller
 Supported by the Kernel - if used with the USB connector.

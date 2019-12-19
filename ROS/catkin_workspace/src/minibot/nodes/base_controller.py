@@ -5,15 +5,18 @@
 This is the ROS node for the minibot (https://minibot.me).
 
 It expects "cmd_vel" geometry_msgs/Twist messages to control the robots motors.
-It will then publish messages like "FORWARD, BACKWARD, LEFT, RIGHT, STOP",
+It will then publish messages like "FORWARD, BACKWARD, LEFT, RIGHT, STOP" with the speed,
 which will be received by a "motor_server" node. The latter is responsible for
 controlling the motors with lowlevel I2C commands on a Raspberry Pi.
 
 This node can (also) be controlled via keyboard with the
-teleop_twist_keyboard node.
+teleop_twist_keyboard or teleop_twist_joy node.
 
 Usage:
 roslaunch minibot keyboard_motor_control.launch
+or
+roslaunch minibot teleop_joy.launch
+
 
 Author:  Markus Knapp, 2019
 Website: https://direcs.de
@@ -109,7 +112,7 @@ def listener():
     rospy.Subscriber('cmd_vel', Twist, callback)
 
     # Ready
-    rospy.loginfo("Ready. Control me via navigation stack/keyboard now.")
+    rospy.loginfo("Ready. Control me via navigation stack/joystick/keyboard now (cmd_vel).")
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

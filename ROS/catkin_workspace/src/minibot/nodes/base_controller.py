@@ -5,15 +5,18 @@
 This is the ROS node for the minibot (https://minibot.me).
 
 It expects "cmd_vel" geometry_msgs/Twist messages to control the robots motors.
-It will then publish messages like "FORWARD, BACKWARD, LEFT, RIGHT, STOP",
+It will then publish messages like "FORWARD, BACKWARD, LEFT, RIGHT, STOP" with the speed,
 which will be received by a "motor_server" node. The latter is responsible for
 controlling the motors with lowlevel I2C commands on a Raspberry Pi.
 
 This node can (also) be controlled via keyboard with the
-teleop_twist_keyboard node.
+teleop_twist_keyboard or teleop_twist_joy node.
 
 Usage:
 roslaunch minibot keyboard_motor_control.launch
+or
+roslaunch minibot teleop_joy.launch
+
 
 Author:  Markus Knapp, 2019
 Website: https://direcs.de
@@ -39,16 +42,6 @@ rospy.loginfo('Using maxMotorSpeed %s.', maxMotorSpeed)
 
 # node init
 rospy.init_node('keyboard_listener', anonymous=False)
-
-
-# Getting robot parameters
-rospy.loginfo('Getting parameters for robot.')
-# speed of the motors (0-255).
-drivingSpeed = rospy.get_param('/minibot/drivingSpeed')
-rospy.loginfo('Using drivingSpeed %s.', drivingSpeed)
-# the speed when turning the bot can be higher if needed (higher friction)
-turnSpeed = rospy.get_param('/minibot/turnSpeed')
-rospy.loginfo('Using turnSpeed %s.', turnSpeed)
 
 
 # Service 'motor' from motor_server.py ready?
@@ -82,25 +75,35 @@ def callback(data):
     # rospy.loginfo(rospy.get_caller_id() + ' received x=%s', data.linear.x)
     # rospy.loginfo(rospy.get_caller_id() + ' received z=%s', data.angular.z)
 
+    # map joystick value to motor speed (i.e. 0.7 to 255)
+    # @todo: check how to read this value from the launch file
+    #scaleLinear = rospy.get_param('/joy_node/scaleLinear')
+    scaleLinear = 0.8
+    factor = scaleLinear/maxMotorSpeed
+
     # which command was received/key was pressed?
-    if  (data.linear.x > 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("FORWARD command.")
-      drive("FORWARD", drivingSpeed)
+    if  (data.linear.x > 0.0) and (data.angular.z == 0.0):  # @todo: implement curve travel with the help of angular.z
+      speed = int(data.linear.x/factor)
+      rospy.loginfo("FORWARD.")
+      drive("FORWARD", speed)
     # , key
     elif  (data.linear.x < 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("BACKWARD command.")
-      drive("BACKWARD", drivingSpeed)
+      speed = int(data.linear.x/factor) * -1
+      rospy.loginfo("BACKWARD.")
+      drive("BACKWARD", speed)
     # j key
     elif  (data.linear.x == 0.0) and (data.angular.z > 0.0):
-      rospy.loginfo("LEFT command.")
-      drive("LEFT", turnSpeed)
+      speed = int(data.angular.z/factor)
+      rospy.loginfo("LEFT .")
+      drive("LEFT", speed)
     # l key
     elif  (data.linear.x == 0.0) and (data.angular.z < 0.0):
-      rospy.loginfo("BACKWARD command.")
-      drive("RIGHT", turnSpeed)
+      speed = int(data.angular.z/factor) * -1
+      rospy.loginfo("BACKWARD.")
+      drive("RIGHT", speed)
     # k key
     elif  (data.linear.x == 0.0) and (data.angular.z == 0.0):
-      rospy.loginfo("STOP command.")
+      rospy.loginfo("STOP.")
       drive("STOP", 0)
 
 
@@ -109,7 +112,7 @@ def listener():
     rospy.Subscriber('cmd_vel', Twist, callback)
 
     # Ready
-    rospy.loginfo("Ready. Control me via navigation stack/keyboard now.")
+    rospy.loginfo("Ready. Control me via navigation stack/joystick/keyboard now (cmd_vel).")
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

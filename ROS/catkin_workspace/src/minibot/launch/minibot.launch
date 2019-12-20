@@ -9,6 +9,13 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   -->
   <param name="minibot/drivingSpeed" type="int" value="75" />
   <param name="minibot/turnSpeed"    type="int" value="90" />
+  
+  <!--
+    For the Adafruit motor hat the motor speed is 0-255.
+    s.a. https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/library-reference
+  -->
+  <param name="minibot/minMotorSpeed" type="int" value="0"   />
+  <param name="minibot/maxMotorSpeed" type="int" value="255" />
 
   <!-- Publishing "/tf" tf/tfMessages for the transformation tree. -->
   <node name="tf_broadcaster" pkg="minibot" type="tf_broadcaster.py" output="screen"/>
@@ -31,22 +38,26 @@ Controls the whole robot and has to run on the "minibot" (Raspberry Pi).
   <!-- This is for the laser Hokuyo URG04lx laser rangefinder. -->
   <node name="laser" pkg="urg_node" type="urg_node" args="/dev/ttyLaser" output="screen"/>
 
-  <!--
-  This is the device path for the following joystick node. Not really necessary, since default is js0.
-  But this line is for conveniance to change it easyliy here if needed.
-  -->
-  <param name="joy_node/dev" type="str" value="/dev/input/js0" />
+  <!-- Joystick/gamepad support -->
+  <arg name="joy_config" default="xbox" />
+  <!-- Device path for the joystick -->
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="config_filepath" default="$(find teleop_twist_joy)/config/$(arg joy_config).config.yaml" />
+
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="dev" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0.3" />
+    <param name="autorepeat_rate" value="4" />
+    <param name="coalesce_interval" value="0.5" />
+  </node>
 
   <!--
-  This nodes listens to joystick/gamepad input.
-  Use the D-Pad buttons on the joystick/gamepad to control the motors.
+    This node takes the joystick input, and converts it to Twist message cmd_vel.
+    The cmd_vel will be used by node base_controller which communicates with the motor node.
   -->
-  <node name="joy_node" pkg="joy" type="joy_node" output="screen"/>
-
-  <!--
-  This nodes takes the joystick input and sends out motor control messages.
-  The motor control on a hardware level is started by 'roslaunch minibot motor_server' on the robot.
-  -->
-  <node name="joy_motor_listener" pkg="minibot" type="joy_motor_listener.py" output="screen"/>
-
+  <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
+    <rosparam command="load" file="$(arg config_filepath)" />
+    <param name="scale_linear"  value="0.8" />
+    <param name="scale_angular" value="0.8" />
+  </node>
 </launch>

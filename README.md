@@ -67,7 +67,7 @@ catkin_make
 
 
 ## Other helpful stuff
-- joystick/gamepad support (OS and ROS)
+- General joystick/gamepad support (OS and ROS)
 ```
 sudo apt-get install joystick
 sudo apt-get install ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
@@ -116,8 +116,14 @@ Controls and observes the robots status or sensors (remote). This part has to be
 - _image_view_
 - _rviz_
 
-#### joystick_control
-Listens to a joystick and controls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
+#### teleop_joy (in robot)
+Listens to a joystick and controls the robot directly. This part can to be started on the robot. The joystick/gamepad has to be connected to the robot. Uses:
+- _base_controller.py_
+- _ROS joy_node_
+- _ROS teleop_twist_joy_
+
+#### joystick_control (Remote)
+Listens to a joystick and controls the robot remotely. This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/joy_motor_listener.py_
 
 #### keyboard_control

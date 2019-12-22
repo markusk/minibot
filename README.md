@@ -1,5 +1,6 @@
 # minibot
-My little Raspberry Pi and ROS robot "minibot" - with some python stuff
+My little Raspberry Pi and ROS robot "minibot" - with some python stuff.
+This code is currently tested and working with [ROS Kinetic] (http://wiki.ros.org/kinetic) and [Ubuntu Mate] (https://ubuntu-mate.org/raspberry-pi/) on the Raspberry Pi or [Ubuntu 16.04 LTS] (http://releases.ubuntu.com/16.04/) on a virtual machine (Parallels).
 
 [![GitHub issues](https://img.shields.io/github/issues/markusk/minibot)](https://github.com/markusk/minibot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/markusk/minibot)](https://github.com/markusk/minibot/stargazers)
@@ -9,7 +10,7 @@ My little Raspberry Pi and ROS robot "minibot" - with some python stuff
 ### Adafruit Motor Hat
 ```
 cd ~
-git clone  https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git
+git clone https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git
 cd Adafruit-Motor-HAT-Python-Library
 sudo apt-get install python-dev
 sudo python setup.py install
@@ -67,12 +68,12 @@ catkin_make
 
 
 ## Other helpful stuff
-- General joystick/gamepad support (OS and ROS)
+### General joystick/gamepad support (OS and ROS)
 ```
 sudo apt-get install joystick
 sudo apt-get install ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
 ```
-- Microsoft XBOX Wireless Controller
+### Microsoft XBOX Wireless Controller
 Supported by the Kernel - if used with the USB connector.
 
 

@@ -1,12 +1,12 @@
 # minibot
-My little Raspberry Pi and ROS robot - with some python stuff
+My little Raspberry Pi and ROS robot "minibot" - with some python stuff
 
 [![GitHub issues](https://img.shields.io/github/issues/markusk/minibot)](https://github.com/markusk/minibot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/markusk/minibot)](https://github.com/markusk/minibot/stargazers)
 [![GitHub license](https://img.shields.io/github/license/markusk/minibot)](https://github.com/markusk/minibot/blob/master/LICENSE)
 
 ## Setup
-### Motor Hat
+### Adafruit Motor Hat
 ```
 cd ~
 git clone  https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git
@@ -15,7 +15,7 @@ sudo apt-get install python-dev
 sudo python setup.py install
 ```
 
-### OLED LCD (I2C)
+### OLED LCD (SSD1306 with I^2^C)
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-pip
@@ -27,7 +27,7 @@ sudo python setup.py install
 ```
 
 
-### AD converter (ADS1015 via I2C)
+### AD converter (ADS1015 via I^2^C)
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -37,7 +37,7 @@ sudo python setup.py install
 ```
 
 
-### IMU (BNO055 via I2C)
+### IMU (BNO055 via I^2^C)
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -122,7 +122,7 @@ Listens to a joystick and controls the robot directly. This part can to be start
 - _ROS joy_node_
 - _ROS teleop_twist_joy_
 
-#### joystick_control (Remote)
+#### joystick_control (remote)
 Listens to a joystick and controls the robot remotely. This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/joy_motor_listener.py_
 

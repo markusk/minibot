@@ -56,10 +56,10 @@ sudo apt-get install ros-kinetic-urg-node ros-kinetic-teleop-twist-keyboard
 ```
 - create a catkin workspace without 'src' folder:
 ```
-mkdir catkin_ws<br>
+mkdir catkin_ws
 cd ~/catkin_ws
 ```
-- create symbolic link with the name 'src' point to the 'src' folder in the ROS directory in this repository:
+- create symbolic link with the name 'src', pointing to the 'src' folder in the ROS directory from this repository:
 ```
 ln -s /home/$USERNAME/minibot/ROS/catkin_workspace/src/ src
 catkin_make
@@ -76,7 +76,7 @@ sudo apt-get install ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
 Supported by the Kernel - if used with the USB connector.
 
 
-## Run/Test ROS
+## Run ROS
 ### The main launch file
 On the robot (Raspberry Pi):
 ```
@@ -101,14 +101,18 @@ sudo systemctl enable minibot-ros-start.service
 
 
 ### The different launch files
+
+### B
 #### battery
 Observes the battery voltage. For demo/test purpose only. Uses:
 - _nodes/battery_publisher.py_
 
+### C
 #### camera
 Streams the RasPi camera image. Can be viewed with the ROS image_view component. Uses:
 - _src/camera.cpp_
 
+### G
 #### ground_control
 Controls and observes the robots status or sensors (remote). This part has to be started on a different computer than the robot. Uses:
 - _rqt_plot_
@@ -116,16 +120,12 @@ Controls and observes the robots status or sensors (remote). This part has to be
 - _image_view_
 - _rviz_
 
-#### teleop_joy (in robot)
-Listens to a joystick and controls the robot directly. This part can to be started on the robot. The joystick/gamepad has to be connected to the robot. Uses:
-- _base_controller.py_
-- _ROS joy_node_
-- _ROS teleop_twist_joy_
-
+### J
 #### joystick_control (remote)
 Listens to a joystick and controls the robot remotely. This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/joy_motor_listener.py_
 
+### K
 #### keyboard_control
 Listens to a keyboard and controls the robot directly (remote). This part has to be started on a different computer than the robot. The joystick/gamepad has to be connected to that computer, not the robot. Uses:
 - _nodes/motor_server.py_
@@ -137,6 +137,7 @@ Listens to a teleop_twist_keyboard node and prints out the data/messages. Uses:
 - _teleop_twist_keyboard_
 - _nodes/keyboard_listener.py_
 
+### L
 #### laser
 Starts the urg_node for the laser range finder. This launch file is for convenience, to have only one ssh session open. For demo/test purpose only.
 
@@ -144,8 +145,9 @@ Starts the urg_node for the laser range finder. This launch file is for convenie
 Turns LEDs on the robot ON or OFF. This is the node for the robot. For demo/test purpose only. Uses:
 - _srv/Led.srv_
 
+### M
 #### macbook_test
-[ ] (details to be checked). Uses:
+ [ ] ***(details to be checked)*** Uses:
 - _minibot.urdf.xacro_
 - _tf_broadcaster.py_
 - _battery_publisher.py_
@@ -154,7 +156,7 @@ Turns LEDs on the robot ON or OFF. This is the node for the robot. For demo/test
 - _base_controller.py_
 
 #### mapping
-[ ] (robot launch file, details to be checked). Uses:
+ [ ] ***(robot launch file, details to be defined/checked)*** Uses:
 - _tf_broadcaster.py_
 - _battery_publisher.py_
 - _imu_bno055.py_
@@ -175,3 +177,10 @@ Controls the whole robot. To be started on the robot. Uses:
 #### motor_server
 Controls the motors on the robot. Uses:
 - _motor_server.py_
+
+### T
+#### teleop_joy (in robot)
+Listens to a joystick and controls the robot directly. This part can to be started on the robot. The joystick/gamepad has to be connected to the robot. Uses:
+- _base_controller.py_
+- _ROS joy_node_
+- _ROS teleop_twist_joy_

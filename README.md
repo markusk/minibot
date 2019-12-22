@@ -1,12 +1,15 @@
 # minibot
-My little Raspberry Pi and ROS robot "minibot" - with some python stuff.
-This code is currently tested and working with [ROS Kinetic] (http://wiki.ros.org/kinetic) and [Ubuntu Mate] (https://ubuntu-mate.org/raspberry-pi/) on the Raspberry Pi or [Ubuntu 16.04 LTS] (http://releases.ubuntu.com/16.04/) on a virtual machine (Parallels).
+My little Raspberry Pi and ROS robot "minibot" - with some Python stuff.
 
 [![GitHub issues](https://img.shields.io/github/issues/markusk/minibot)](https://github.com/markusk/minibot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/markusk/minibot)](https://github.com/markusk/minibot/stargazers)
 [![GitHub license](https://img.shields.io/github/license/markusk/minibot)](https://github.com/markusk/minibot/blob/master/LICENSE)
 
-## Setup
+This code is currently tested and working with [ROS Kinetic](http://wiki.ros.org/kinetic/) and [Ubuntu Mate](https://ubuntu-mate.org/raspberry-pi/) on the Raspberry Pi (or [Ubuntu 16.04 LTS](http://releases.ubuntu.com/16.04/) on a virtual machine like _Parallels_).
+
+---
+
+## 1. Setup
 ### Adafruit Motor Hat
 ```
 cd ~
@@ -16,7 +19,8 @@ sudo apt-get install python-dev
 sudo python setup.py install
 ```
 
-### OLED LCD (SSD1306 with I^2^C)
+### OLED LCD
+####SSD1306 with I^2^C
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-pip
@@ -28,7 +32,8 @@ sudo python setup.py install
 ```
 
 
-### AD converter (ADS1015 via I^2^C)
+### AD converter
+####ADS1015 via I^2^C
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -38,7 +43,8 @@ sudo python setup.py install
 ```
 
 
-### IMU (BNO055 via I^2^C)
+### IMU
+####BNO055 via I^2^C
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -46,9 +52,9 @@ git clone https://github.com/adafruit/Adafruit_Python_BNO055.git
 cd Adafruit_Python_BNO055
 sudo python setup.py install
 ```
+---
 
-
-## ROS Setup
+## 2. ROS Setup
 - Install ROS on Raspberry Pi
 - Install necessary ROS packages:
 
@@ -76,8 +82,9 @@ sudo apt-get install ros-kinetic-joystick-drivers ros-kinetic-teleop-twist-joy
 ### Microsoft XBOX Wireless Controller
 Supported by the Kernel - if used with the USB connector.
 
+---
 
-## Run ROS
+## 3. Run ROS
 ### The main launch file
 On the robot (Raspberry Pi):
 ```
@@ -89,9 +96,10 @@ export ROS_MASTER_URI=http://<hostname>:11311
 rosparam set joy_node/dev "/dev/input/js1"
 roslaunch minibot ground_control_center.launch
 ```
+---
 
-
-## Setting up ROS for autostart (systemd under Ubuntu)
+## 4. Setting up ROS for autostart
+### systemd under Ubuntu
 ```
 sudo cp raspi/etc__systemd__system__minibot-ros-start.service /etc/systemd/system/minibot-ros-start.service
 sudo systemctl daemon-reload
@@ -99,9 +107,9 @@ sudo systemctl start minibot-ros-start.service
 sudo systemctl enable minibot-ros-start.service
 ```
 
+---
 
-
-### The different launch files
+## The different launch files
 
 ### B
 #### battery

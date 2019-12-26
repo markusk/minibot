@@ -20,7 +20,7 @@ sudo python setup.py install
 ```
 
 ### OLED LCD
-####SSD1306 with I^2^C
+#### SSD1306 with I^2^C
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-pip
@@ -33,7 +33,7 @@ sudo python setup.py install
 
 
 ### AD converter
-####ADS1015 via I^2^C
+#### ADS1015 via I^2^C
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
@@ -44,7 +44,7 @@ sudo python setup.py install
 
 
 ### IMU
-####BNO055 via I^2^C
+#### BNO055 via I^2^C
 ```
 cd ~
 sudo apt-get install build-essential python-dev python-smbus
